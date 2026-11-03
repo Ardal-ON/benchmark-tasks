@@ -1,4 +1,4 @@
-"""Checks scoring outcomes independently of the simulator."""
+"""Scoring tests independent of the simulator."""
 import importlib.util
 from pathlib import Path
 from types import SimpleNamespace
@@ -15,8 +15,8 @@ def block(x, y, bottom, resting=True):
                            high=np.array([x + 0.02, y + 0.02, bottom + 0.04]), resting=lambda: resting)
 
 
-def test_empty_and_placed():
-    states = {name: block(0.34, y, task.BELT_TOP) for name, y in task.STARTS}
+def test_placements_and_wrong_bin():
+    states = {name: block(1.5, 0, 0.01) for name, _ in task.STARTS}
     assert task.score(states) == 0
     for name, _ in task.STARTS:
         states[name] = block(*task.BINS[name.split("_")[0]], task.TOP + 0.01)
@@ -27,12 +27,13 @@ def test_empty_and_placed():
     assert abs(task.score(states) - 0.8) < 1e-9
 
 
-def test_lifting_and_progress_vary_continuously():
-    states = {name: block(0.34, y, task.BELT_TOP) for name, y in task.STARTS}
-    states["red_1"] = block(0.34, 0.24, task.BELT_TOP + 0.02)
-    lifted = task.score(states)
-    states["red_1"] = block(0.25, 0.22, task.BELT_TOP + 0.02)
-    nearer = task.score(states)
-    states["red_1"] = block(0.25, 0.22, task.BELT_TOP + 0.04)
-    higher = task.score(states)
-    assert 0 < lifted < nearer < higher < 0.2
+def test_pile_does_not_score_but_grasped_lift_does():
+    states = {name: block(1.5, 0, 0.01) for name, _ in task.STARTS}
+    states["red_1"] = block(0.34, 0.58, task.BELT_TOP + 0.04)
+    assert task.score(states) == 0
+    assert task.score(states, [(states["red_1"].pos, False)]) == 0
+    states["red_1"] = block(0.34, 0.1, task.BELT_TOP + 0.02)
+    lifted = task.score(states, [(states["red_1"].pos, True)])
+    states["red_1"] = block(0.25, 0.2, task.BELT_TOP + 0.04)
+    nearer = task.score(states, [(states["red_1"].pos, True)])
+    assert 0 < lifted < nearer < 0.2

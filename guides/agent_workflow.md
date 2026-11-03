@@ -15,7 +15,8 @@ Keep the guide worktree on `dev`. In that checkout, first inspect `git status -s
 
 ```sh
 git fetch upstream main
-git worktree add -b task/<task-name> ../task-<task-name> upstream/main
+TASK_SLUG=example-task
+git worktree add -b "task/$TASK_SLUG" "../task-$TASK_SLUG" upstream/main
 ```
 
 Make the new task under `tasks/<task-name>/` in the new worktree, and use the guide worktree for reference. Before committing and opening a PR, run `git diff --name-status upstream/main...HEAD` and inspect uncommitted changes. Only the intended new task folder should differ; never copy `guides/`, the guide branch's `AGENTS.md` changes, old submissions, credentials or generated media into the PR. An upstream `main` may contain tasks already accepted by the maintainers: keep those baseline files. A task branch and PR target upstream `main`; do not submit the guide branch itself.

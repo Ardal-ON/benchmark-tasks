@@ -1,5 +1,14 @@
 # Robocurve workspace guide
 
+To start from a fresh clone of this fork's guide branch:
+
+```sh
+git clone --branch dev https://github.com/Ardal-ON/benchmark-tasks.git
+cd benchmark-tasks
+```
+
+A normal clone follows the fork's default branch, so explicitly select `dev` to see these guides. Keep `dev` as the guide worktree; create each submission in a separate worktree from the latest upstream `main` using [the clean task-branch instructions](agent_workflow.md#create-a-clean-task-branch).
+
 This branch contains reusable guidance for task development. The YAM Arena package and robot assets are not vendored here; obtain them from their source repository or the configured Brev environment. For a new task, begin with [Agent workflow](agent_workflow.md). It covers obtaining the benchmark fork, designing and validating a task, running the Brev simulation, preparing media, and submitting when authorized.
 
 | Resource | Purpose |

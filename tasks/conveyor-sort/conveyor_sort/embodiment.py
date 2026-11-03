@@ -17,7 +17,10 @@ def spawn_belt(prim_path, cfg, **kwargs):
 
 
 class ConveyorEmbodiment(YamArenaEmbodiment):
-    def __init__(self, **kwargs):
+    def __init__(self, view="raised", **kwargs):
+        if view not in ("raised", "original"):
+            raise ValueError("view must be 'raised' or 'original'")
+        self.view = view
         kwargs.setdefault("device", "cpu")
         if kwargs["device"] != "cpu":
             raise ValueError("Use CPU PhysX: GPU physics did not maintain conveyor contacts in validation")
@@ -74,11 +77,12 @@ class ConveyorEmbodiment(YamArenaEmbodiment):
         self._discarded = set()
         # A higher overhead view reveals the entire loading shelf and belt.
         # Wrist cameras and the physical station remain unchanged.
-        camera = self._base.scene["top_cam"]
-        camera.set_world_poses_from_view([[0.15, 0, 2.20]], [[0.36, 0, 0.75]])
-        for _ in range(8):
-            self._base.sim.render()
-            camera.update(0.05, force_recompute=True)
+        if self.view == "raised":
+            camera = self._base.scene["top_cam"]
+            camera.set_world_poses_from_view([[0.15, 0, 2.20]], [[0.36, 0, 0.75]])
+            for _ in range(8):
+                self._base.sim.render()
+                camera.update(0.05, force_recompute=True)
         return self._observation()
 
     def _feed_due(self):

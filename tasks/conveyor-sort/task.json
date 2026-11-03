@@ -14,5 +14,5 @@
   "run_limit": "2,400 steps (120 seconds at 20 Hz)",
   "reset_notes": "All blocks begin on the loading shelf. Loading begins at fixed 16-second intervals. A missed block beyond y=0.60 m is removed from play to prevent accumulation. Reset restores the blocks and arms; object jitter is disabled.",
   "fidelity": "PhysX surface velocity drives the kinematic belt at 0.025 m/s, and ten visual-only stripes move at that rate. Shelf transfers are kinematic approximations and a missed block is removed at the far end; physical feeder and reject mechanisms, rollers and belt deformation are omitted. CPU PhysX maintains conveyor contacts; an RTX GPU renders the cameras. The overhead view is raised to show the shelf and differs from Dream’s calibrated station view; camera frames are 480 x 270.",
-  "scores": "Dream-1 run: 0.0; scripted demo: 1.0"
+  "scores": "Raised view: Dream-1 0.0, scripted demo 1.0; original view: Dream-1 0.2, scripted demo 1.0. Select matching videos before upload."
 }

@@ -27,7 +27,9 @@ inspect-robots run --embodiment yam_conveyor --policy yam_scripted \
 for log in dream/*.json demo/*.json; do inspect-robots video "$log"; done
 ```
 
-The loading schedule is fixed and independent of the seed; `object_jitter=0` disables reset jitter. The 2,400-step limit is 120 seconds of simulated time at 20 Hz. The scripted demo scored 1.0 after 2,011 steps and took about 216 seconds wall-clock on the L40S VM. The Dream-1 trial scored 0.0 at 2,400 steps and took about 285 seconds wall-clock. Runtime varies with hardware and policy latency.
+The default view is raised. Add `-E view=original` to either run command to use the original calibrated station camera; the right arm partially obscures the loading shelf from that angle. These are separate simulation runs, and Dream may act differently when it sees a different view.
+
+The loading schedule is fixed and independent of the seed; `object_jitter=0` disables reset jitter. The 2,400-step limit is 120 seconds of simulated time at 20 Hz. With the default raised view, the scripted demo scored 1.0 after 2,011 steps and took about 216 seconds wall-clock on the L40S VM; Dream-1 scored 0.0 at 2,400 steps and took about 285 seconds. With `view=original`, a separate scripted run scored 1.0 after 2,011 steps and took about 234 seconds, and a separate Dream-1 run scored 0.2 at 2,400 steps and took about 280 seconds. Runtime varies with hardware and policy latency.
 
 ## Score
 

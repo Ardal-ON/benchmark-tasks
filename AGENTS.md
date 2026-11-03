@@ -109,3 +109,9 @@ Reviewers accept a task when it meets all five criteria. Check each before submi
 
 **Blind review:** the task's text, screenshot and videos must not identify the team (names, institutions,
 logos, usernames, file paths or a recognizable lab).
+
+## Fork development branch
+
+This fork's `dev` branch stores reusable task-development guides. Start at `guides/START_HERE.md` and follow `guides/agent_workflow.md`. Never submit `dev` itself or include its guides in a task PR.
+
+For each task, fetch the latest `robocurve/benchmark-tasks` `main` and create a new branch or worktree from that upstream base, not from `dev` or a prior task branch. The upstream base may already contain accepted tasks; retain them and add only the new task folder. Before opening the PR, compare against upstream `main` and verify that the PR contains only the intended task. Preserve user instructions about demo and media review, uploads, pushes and PRs. Do not commit credentials.

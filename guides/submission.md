@@ -1,0 +1,12 @@
+# Submit a Robocurve task
+
+Start with [START_HERE.md](START_HERE.md) and [agent_workflow.md](agent_workflow.md). The current `AGENTS.md` in the benchmark checkout and the task board's current rules are the authoritative submission instructions.
+
+1. Check the task board for substantially similar work. Fork or reuse the team's fork of [robocurve/benchmark-tasks](https://github.com/robocurve/benchmark-tasks), read its `AGENTS.md`, and create a separate branch from an appropriate current base. Use a GitHub account registered with the team.
+2. Put one task in `tasks/<task-name>/`: `task.json`, a README with exact commands, scoring, runtime and seeds, and all scene, scoring and extension code. Document the setup, physical approximations and numeric scoring. Demonstrate full score with Dream-1 or a scripted/teleoperated demo and save the reported scores.
+3. Inspect the Dream video, full-score demo and setup screenshot, following the user's review preferences. The supplied guide specifies H.264 MP4 videos up to 50 MB each and a screenshot up to 10 MB; check current limits. Blind review means the task text and media must not identify the team.
+4. Once authorized, use `tools/upload_media.py` from the benchmark checkout with the team's credentials in environment variables. It uploads the media and writes the media ID into `task.json`. Never commit the token. If an HTTP 403 has plain-text `error code: 1010`, see the user-agent troubleshooting in [agent_workflow.md](agent_workflow.md); a 403 does not by itself prove that the credentials are wrong.
+5. Check the current board field limits. On 2026-11-03, a fidelity note over 500 characters failed validation. Commit only the task folder; when authorized, push the branch and open a PR to `robocurve/benchmark-tasks:main`.
+6. Read the PR comments. A validator error means the task has **not** yet been received: fix the stated issue and follow its instructions. A receipt comment supplies a task ID and says it is waiting for review. Once received, follow the repository's current rules about changes while review is pending. Do not merge the PR yourself.
+
+The supplied rules state one task per PR and up to 20 submissions per team in 24 hours. Accepted tasks are merged; for a task not accepted, use the existing PR for revisions as instructed. The supplied rules also describe a pending/48-hour ownership hold; check the current board for its exact conditions before relying on it.

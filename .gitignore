@@ -1,0 +1,8 @@
+# Local credentials and generated output must never enter the guide branch.
+.env
+.env.*
+*.env
+.DS_Store
+__pycache__/
+*.py[cod]
+media/

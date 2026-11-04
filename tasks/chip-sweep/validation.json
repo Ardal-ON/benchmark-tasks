@@ -1,0 +1,41 @@
+{
+  "demo": {
+    "trial": "chip-sweep-02",
+    "score": 1.0,
+    "termination_reason": "success",
+    "steps": 755,
+    "simulated_seconds": 37.75,
+    "wall_seconds": 85.03662743326277,
+    "seed": 0,
+    "max_steps": 1800,
+    "control_hz": 20,
+    "resolution": [
+      640,
+      360
+    ],
+    "top_cam": "demo",
+    "visual_review": "Top sequence and final frame inspected. All five chips in collection bay, brush returned; three videos downloaded."
+  },
+  "runtime_sources": {
+    "yam_arena": "0059d02a1a91bc6834c1d0846022891df0c78730",
+    "isaaclab_arena": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
+    "inspect_robots": "0.60.0",
+    "isaac_sim": "6.1.0.0",
+    "hardware": "NVIDIA L40S"
+  },
+  "input_sha256": {
+    "task.py": "1f37a5a4718dbc014e20d14b3ed76d6a39004feb036d25f2549239926036979b",
+    "chip_sweep/embodiment.py": "0e139f602479b3972c6c899b509bd355908d3322d0f3bcd15b5e88feb2c0d333",
+    "chip_sweep/policy.py": "399e7fadc1a38b2b5db1eb17eea00e2abc015cedbb0f67479c1f9f9d028aa8d9",
+    "chip_sweep/scoring.py": "5c6423cca8565717ae8064f618356540f820f25b22fd71c4f147571c9acb8c91",
+    "assets/brush.usdc": "3b1ec7bbd668ae0f968a4170fe717bcd158f0f659ce2542a67ede0de5ca15ad6",
+    "assets/chip_tray.usdc": "c7194b65a80000298d9a864f374a2a544b6af1c1568f456c1d3e9c01a518527c",
+    "build_assets.py": "0d5aeccb7550238ab1402f1b17398a71a6d29fac97ea1df248d3c49bd27838e6",
+    "pyproject.toml": "94acf16a91d3ce529a88cae20551d1b607aa8bb2811ab5835bb1542dc8acc586"
+  },
+  "pending": [
+    "Dream-1 model trial",
+    "Authenticated novelty check",
+    "Media upload and media ID"
+  ]
+}

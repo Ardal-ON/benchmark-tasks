@@ -1,0 +1,18 @@
+{
+  "title": "Sweep machining chips into a collection bay with a brush",
+  "category": "Impact on jobs",
+  "keywords": [
+    "manufacturing",
+    "tool use",
+    "chip cleanup",
+    "contact"
+  ],
+  "instruction": "Use the brush to sweep all five metal chips into the green collection bay. Return the brush to its supports and open both grippers.",
+  "context": "Cleaning an unpowered machining fixture without using fingers to handle loose sharp chips is a manufacturing housekeeping task. This simulation uses blunt rigid chip surrogates.",
+  "setup": "YAM station, tabletop z=0.7475 m. Five 12 x 8 x 6 mm, 6 g chip surrogates at the fixed poses in task.py. A 350 x 190 mm metal tray at (0.35,0) m has a 12 mm floor, rails, rear wall and front lip. Green collection bay x=(0.185,0.305), y=(-0.085,0.085) m. An 80 g handled brush starts at root (0.24,0.27,0.7955) m on two fixed supports. The 115 mm brush head spans the chip lane. Mesh geometry is specified by build_assets.py.",
+  "scoring": "Final score: 0.16 for each chip that has measured brush contact and rests fully within x=(0.185,0.305), y=(-0.085,0.085) m with bottom within 3 mm of tray floor z=0.7595 m. Add 0.20 only when all five qualify, the brush is flat and resting on its supports, and both grippers are at least 75% open with TCPs over 90 mm from the brush reference center. Full score held 1 second succeeds. Direct robot-chip contact, drops below tabletop minus 20 mm, nonfinite poses or leaving the workspace invalidate the trial. All other outcomes score zero.",
+  "run_limit": "1800 control steps (90 seconds at 20 Hz)",
+  "reset_notes": "Fixed seed 0; zero jitter; restore all chips, brush and arms, clear history and settle. Nothing consumed.",
+  "fidelity": "Rigid blunt blocks stand in for loose chips. The brush has visible bristle tufts with one solid rubber contact envelope; bristles do not flex. No machining, sharp edges or compliance are simulated. Tool motion comes from joint commands and contact only. Contacts use PhysX reports; friction and mass are uncalibrated.",
+  "scores": "Scripted physics demo: 1.0, 755 steps, success. Dream-1: not run."
+}

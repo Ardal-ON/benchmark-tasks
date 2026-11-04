@@ -2,7 +2,7 @@
 
 Use a spatula to draw a loose blue part out through a low front opening, put the part in the green tray, and return the spatula to its supports. This represents recovering a dropped component from beneath unpowered bench equipment. The part is inaccessible to a direct top-down grasp; it is not clamped or modelled as an interference-fit jam.
 
-The recess has fixed sides and a closed back. A 20 mm roof slit permits observation of the 25 mm wide part but does not admit a grasp around it. The opening is 28 mm tall. The tool can pass beside the part, shift behind it, and draw it out through the same front opening. This differs from pushing an object through a channel with an open opposite end. Basic tool-use retrieval has precedents; novelty is not established merely by using this spatula.
+The recess has fixed sides and a closed back. A 20 mm roof slit permits observation of the 25 mm wide part but does not admit a grasp around it. The opening is 28 mm tall. The tool can pass beside the part, shift behind it, and draw it out through the same front opening.
 
 ## Installation and reproduction
 
@@ -73,7 +73,7 @@ The runtime is Python 3.12.12, Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0,
 YAM Arena 0.1.0 and Inspect Robots 0.60.0. Source pins: YAM
 `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`. `validation.json` records source hashes.
-The completed model trial uses this refined revision. Authenticated novelty review and media upload will be handled by the owner during submission.
+The completed model trial uses this refined revision. Media upload remains pending final video review.
 
 For a configured cluster, activate the configured container environment with
 `$SIM_ROOT/cluster/run-arena.sh`, install this folder with `uv pip install -e . --no-deps`,
@@ -93,4 +93,4 @@ The reviewed sequence shows grasp attempts around the spatula while the blue par
 
 `validation.json` records the completed result, runtime revision and video hashes.
 The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs and the authenticated novelty check are owner steps.
+for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.

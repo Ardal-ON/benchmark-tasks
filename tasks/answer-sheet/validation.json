@@ -1,0 +1,103 @@
+{
+  "runtime_environment_revision": "1e0fd0de3ba0784f68c0adf416cae3d59d1daa02d79a90a05cbc123507421dc1",
+  "runtime_input_sha256": {
+    "pyproject.toml": "d47849901c2aa6a1da5aca01576be2a895ffd80d3860d3f1553396fc4416690f",
+    "build_assets.py": "3bc980a94f624f8dceac53fb3c3c744ac8cb51fbf465d063fbd64be344536025",
+    "task.py": "d37edc51ad1060d0dc1b1cc68ef0b5636846ced85657dd63837f05fc2d576a0a",
+    "test_ink.py": "219d767c8339fe9d94363de50acc57949164c339b62bec5dad0f249083084536",
+    "assets/form.png": "329851be4e32f7b4bd9e281ff2c94987a7f25ea53c1e65e2632251d5b990a03c",
+    "assets/marker.usdc": "78565a856a14c8f673979b682ab146d501e3931617b5f82f2eb3c3bcfef82bcb",
+    "answer_sheet/policy.py": "24a49ecd8babaf91977d646d5872e63185393a4fc9c02bf8043c10caaf669308",
+    "answer_sheet/scoring.py": "df19da1981a2ce2b50988d82270b0d93e15fed6fa3f17b5f3bf7dbf89b828d70",
+    "answer_sheet/__init__.py": "a5ef7176c15ccd3a6020f320036ca65e16e1095275bc3f991ad0e6db6002ff55",
+    "answer_sheet/layout.py": "9e1d028808be40b562f9de0f0ea8fc3e681a75300abc464c815535f82187c73a",
+    "answer_sheet/embodiment.py": "7a87f0da86995573c6fc36bacc0efc3839ad91592e67827ac207d0735e9c1d77"
+  },
+  "scorer_checks": {
+    "passed": 7,
+    "command": "pytest -q test_ink.py"
+  },
+  "runtime_physics_and_reset_audit": {
+    "scope": "actual physics attributes and synthetic-ink graphics reset only; not a scored demonstration",
+    "mass_kg": 0.02500000037252903,
+    "aabb_dimensions_m": [
+      0.12000004947185516,
+      0.01944100856781006,
+      0.019441306591033936
+    ],
+    "colliders": [
+      {
+        "path": "/World/envs/env_0/marker/BarrelCollision",
+        "shape": "Cylinder",
+        "radius_m": 0.0097,
+        "height_m": 0.1,
+        "axis": "X",
+        "contact_offset_m": 0.0003000000142492354,
+        "rest_offset_m": 0.0,
+        "static_friction": 1.2000000476837158,
+        "dynamic_friction": 1.0
+      },
+      {
+        "path": "/World/envs/env_0/marker/Shoulder",
+        "shape": "Cylinder",
+        "radius_m": 0.007,
+        "height_m": 0.012,
+        "axis": "X",
+        "contact_offset_m": 0.0003000000142492354,
+        "rest_offset_m": 0.0,
+        "static_friction": 1.2000000476837158,
+        "dynamic_friction": 1.0
+      },
+      {
+        "path": "/World/envs/env_0/marker/End",
+        "shape": "Cylinder",
+        "radius_m": 0.0097,
+        "height_m": 0.006,
+        "axis": "X",
+        "contact_offset_m": 0.0003000000142492354,
+        "rest_offset_m": 0.0,
+        "static_friction": 1.2000000476837158,
+        "dynamic_friction": 1.0
+      },
+      {
+        "path": "/World/envs/env_0/marker/Tip",
+        "shape": "Sphere",
+        "radius_m": 0.002,
+        "contact_offset_m": 0.0003000000142492354,
+        "rest_offset_m": 0.0,
+        "static_friction": 1.2000000476837158,
+        "dynamic_friction": 1.0
+      }
+    ],
+    "joints": [],
+    "reset": {
+      "passed": true,
+      "test_pixels": 20,
+      "dirty_rgb_delta": 72.93333333333334,
+      "returned_observation_rgb_delta": 1.6666666666666667,
+      "scorer_empty": true,
+      "visual_mesh_empty": true
+    },
+    "environment_revision": "1e0fd0de3ba0784f68c0adf416cae3d59d1daa02d79a90a05cbc123507421dc1"
+  },
+  "demo": {
+    "trial": "next-answer-full-03",
+    "score": 1.0,
+    "steps": 1401,
+    "video_seconds": 70.1,
+    "wall_seconds": 162.6027294555679,
+    "visual_review": "Marker picked and retained; nib contact creates four simple checks in row1 A, row2 C, row3 D, row4 B. No marks during hover/carry. Sheet stays fixed. Marker moves aside, showing all four checks. Right wrist is useful for grasp/retention and clearly shows printed labels and completed rows. Left wrist mostly empty table; keep raw, omit from selected review media."
+  },
+  "dream": {
+    "trial": "next-answer-dream-01",
+    "score": 0.0,
+    "steps": 2400,
+    "video_seconds": 120.05,
+    "wall_seconds": 257.0665327562019,
+    "mean_inference_latency_s": 0.5569666111655533,
+    "visual_review": "The robot grasps and lifts the marker, carries it over the form while nearly horizontal, then releases it across the sheet. Only a tiny incidental nib contact is recorded; no requested row has a qualifying stroke. The run reaches the full action limit."
+  },
+  "same_runtime_inputs_for_both_trials": true,
+  "media_uploaded": false,
+  "owner_video_review_pending": true
+}

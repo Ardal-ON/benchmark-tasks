@@ -14,5 +14,5 @@
   "run_limit": "2400 control steps (120 seconds at 20 Hz)",
   "reset_notes": "Fixed seed 0; zero jitter; restore all chips, brush and arms, clear history and settle. Nothing consumed.",
   "fidelity": "Rigid 20 mm T-foot and 6 mm neck pass through an undercut fixture with 32 mm chambers and 14 mm top openings. Blunt rigid blocks approximate loose chips; no cutting or chip deformation. Contact offsets are 0.5 mm and solver iterations 32/4 for loose objects. Materials and friction are uncalibrated. Motion uses robot joints and contact only; direct robot-chip contact invalidates.",
-  "scores": "Scripted physics demo: 1.0, 2032 steps, success. Dream-1: not run."
+  "scores": "Dream-1 beta: 0 after 2400 steps (max_steps); scripted demo: 1.0 after 2032 steps (success)."
 }

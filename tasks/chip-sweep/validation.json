@@ -1,41 +1,42 @@
 {
   "demo": {
-    "trial": "chip-sweep-02",
+    "trial": "chip-sweep-06",
     "score": 1.0,
     "termination_reason": "success",
-    "steps": 755,
-    "simulated_seconds": 37.75,
-    "wall_seconds": 85.03662743326277,
+    "steps": 2032,
+    "simulated_seconds": 101.6,
+    "wall_seconds": 204.82395502598956,
     "seed": 0,
-    "max_steps": 1800,
+    "object_jitter": 0,
+    "max_steps": 2400,
     "control_hz": 20,
     "resolution": [
       640,
       360
     ],
     "top_cam": "demo",
-    "visual_review": "Top sequence and final frame inspected. All five chips in collection bay, brush returned; three videos downloaded."
+    "visual_review": "All three videos local. Top sequence, final bay, left-wrist channel interaction and return inspected. Five chips collected, rake parked, hands clear."
   },
   "runtime_sources": {
     "yam_arena": "0059d02a1a91bc6834c1d0846022891df0c78730",
     "isaaclab_arena": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
     "inspect_robots": "0.60.0",
-    "isaac_sim": "6.1.0.0",
+    "isaacsim": "6.1.0.0",
     "hardware": "NVIDIA L40S"
   },
   "input_sha256": {
-    "task.py": "1f37a5a4718dbc014e20d14b3ed76d6a39004feb036d25f2549239926036979b",
-    "chip_sweep/embodiment.py": "0e139f602479b3972c6c899b509bd355908d3322d0f3bcd15b5e88feb2c0d333",
-    "chip_sweep/policy.py": "399e7fadc1a38b2b5db1eb17eea00e2abc015cedbb0f67479c1f9f9d028aa8d9",
-    "chip_sweep/scoring.py": "5c6423cca8565717ae8064f618356540f820f25b22fd71c4f147571c9acb8c91",
-    "assets/brush.usdc": "3b1ec7bbd668ae0f968a4170fe717bcd158f0f659ce2542a67ede0de5ca15ad6",
-    "assets/chip_tray.usdc": "c7194b65a80000298d9a864f374a2a544b6af1c1568f456c1d3e9c01a518527c",
-    "build_assets.py": "0d5aeccb7550238ab1402f1b17398a71a6d29fac97ea1df248d3c49bd27838e6",
-    "pyproject.toml": "94acf16a91d3ce529a88cae20551d1b607aa8bb2811ab5835bb1542dc8acc586"
+    "task.py": "45097d1157b669d2cfc8b16394e17b016863c75c903e7c18df01c954f7fe0afc",
+    "chip_sweep/embodiment.py": "65a9b44d07bd1acd999632cc975ed69006467c14d4470cea50f6aa51b4504e8e",
+    "chip_sweep/policy.py": "2458ee2ae0448d49316539671a6997b590f6fdde7beec9585e76eb3a0bb9cece",
+    "chip_sweep/scoring.py": "1ff16118fc384341f7e1a7c776a2163e8182358ad825f36749fc56f5e38348e4",
+    "build_assets.py": "96f3dfc6ce209627563163a9549c79fea57c13739291d1e41db3b674866df893",
+    "pyproject.toml": "94acf16a91d3ce529a88cae20551d1b607aa8bb2811ab5835bb1542dc8acc586",
+    "assets/rake.usdc": "e1aab57ab116cb8991bdfdb002d2e9b7e7541c186b0438648c5e407b39a0f978",
+    "assets/chip_tray.usdc": "da01a013c5e9a904417ab21e9bba1a60033fd1c3d4ccf57b4f83a9b4a28a63f6"
   },
   "pending": [
     "Dream-1 model trial",
-    "Authenticated novelty check",
+    "Authenticated task-board novelty check",
     "Media upload and media ID"
   ]
 }

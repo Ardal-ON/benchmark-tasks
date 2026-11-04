@@ -1,88 +1,100 @@
-# Sweep machining chips into a collection bay
+# Clear undercut machining-fixture T-slots with a rake
 
-Use a handled brush to clear five loose chip surrogates from an unpowered machining
-tray into its green collection bay. Return the brush and withdraw with open grippers.
-This tests gathering several small loose objects with a broad tool, including an edge
-pass to recover a chip that slips around the head. There is no active machining.
+Use a T-slot rake to draw five chip surrogates through three undercut fixture channels
+into a green collection bay. Return the tool and open both grippers. The 20 mm T-foot
+fits inside each 32 mm chamber, while its 6 mm neck passes through a 14 mm top opening.
+The foot must enter through an open end, then travel beneath the overhanging ledges.
 
-The scripted physics demonstration scored **1.0** in **755 control steps** (37.75 simulated
-seconds), with **success** termination and **85.04 seconds wall time** on an L40S. All three
-complete camera videos were downloaded. The top sequence and final frame were visually
-reviewed: all five chips are in the bay and the brush is parked. Six scoring checks pass.
-Dream-1, authenticated novelty review and media upload remain pending.
+The scripted physics demonstration scored **1.0** in **2,032 steps** (101.6 simulated
+seconds), terminated with **success**, and took **204.82 seconds wall time** on the L40S.
+All three complete 101.65-second H.264 camera videos were downloaded. The top sequence,
+final collection bay, channel interaction and tool return were visually inspected.
+All five chips are collected, the rake is parked, and both grippers are open and clear.
+Ten offline scorer/geometry checks pass. Dream-1, authenticated task-board novelty review
+and media upload remain pending.
 
 ## Reproduce
 
-Use the configured YAM Arena RTX environment. Install this folder as an editable package
-and keep its assets alongside the Python package:
+In the configured YAM Arena RTX environment, from this folder:
 
 ```bash
 uv pip install -e . --no-deps
-python -m unittest discover -s . -p test_score.py
+python -m unittest discover -s . -p 'test_*.py'
 inspect-robots run --embodiment yam_chip_sweep --policy chip_sweep_scripted \
   -E task="$PWD/task.py" -E object_jitter=0 -E device=cpu -E top_cam=demo \
   -E control_hz=20 -E cam_width=640 -E cam_height=360 \
-  --instruction 'Use the brush to sweep all five metal chips into the green collection bay. Return the brush to its supports and open both grippers.' \
-  --scorer task_score --max-steps 1800 --seed 0 --store-frames \
-  --log-dir /path/outside/repository/chip-demo
+  --instruction 'Use the T-slot rake to clear all five metal chips from the three undercut channels into the green collection bay. Return the rake to its supports and open both grippers.' \
+  --scorer task_score --max-steps 2400 --seed 0 --store-frames \
+  --log-dir /path/outside/repository/tslot-demo
 ```
 
-On CARC, run this inside the L40S allocation using the installed
-`$SIM_ROOT/cluster/run-arena.sh` environment wrapper. Render the completed JSON with
-`inspect-robots video <run.json>`. For the model trial, use the same embodiment, scene,
-seed and limit with `--policy dream -P model=dreamlabs/dream-1-beta`.
+Use `$SIM_ROOT/cluster/run-arena.sh` inside the configured L40S allocation. Render the
+terminal JSON with `inspect-robots video <run.json>`. For Dream-1 use the same embodiment,
+scene, seed and limit with `--policy dream -P model=dreamlabs/dream-1-beta`.
+The historical package/entry-point names `chip_sweep` are retained by this task.
 
 ## Fixed setup
 
-World x points forward, y left and z up. The tabletop is at z=0.7475 m. `task.py` lists
-all fixed poses. `build_assets.py` regenerates the self-contained USD assets with usd-core.
+World x points forward, y left and z up. Tabletop z=0.7475 m. `task.py` and `build_assets.py`
+are the complete specification; the generator uses usd-core to regenerate self-contained
+USD assets. Lengths below are mm unless stated otherwise.
 
-- The metal tray is centered at (0.35,0), with a 350 × 190 × 12 mm floor, side rails,
-  back wall, front lip, fasteners and reference marks. The green visual bay is coplanar
-  with the floor, whose top is z=0.7595 m; no step blocks the sweep.
-- Five rigid, blunt 12 × 8 × 6 mm blocks approximate small chips. Each is 6 g. Their
-  centers start at xy=(0.405,-0.036), (0.428,0.030), (0.455,-0.012), (0.475,0.035),
-  and (0.485,-0.038) m, at z=0.7625 m, with yaw 0, 0.3, -0.4, 0.6 and -0.2 rad.
-- An 80 g rigid brush starts at root (0.24,0.27,0.7955) m. Its wooden handle, rubber
-  grip sleeve and steel ferrule are visible. Its head spans 115 mm along world y;
-  a 25 × 115 × 15 mm contact envelope represents the bristles. Two fixed supports at
-  x=0.18 and 0.34, y=0.27 have heights 56 and 38 mm.
+- A fixed 350 × 190 × 12 floor is centered at (0.35,0.13) m. Its 200 mm long undercut
+  channels span world x=0.325 to 0.525 m, centered at y=0.075, 0.130 and 0.185 m.
+  Each lower chamber is 32 wide, its top slot 14 wide; ledge undersides are 24 above
+  the table and tops 34 above. Both ends are open. Side rails, front lip, fasteners
+  and visual reference marks complete the fixture.
+- The green collection bay covers x=(0.185,0.305), y=(0.045,0.215) m on the same floor,
+  whose upper surface is z=0.7595 m. There is no floor step at the channel exits.
+- Five rigid blunt chips are 12 × 8 × 6, each 6 g. Initial xy positions are
+  (0.405,0.075), (0.455,0.075), (0.435,0.130), (0.405,0.185), (0.475,0.185) m,
+  all centered at z=0.7625 m; yaw is 0, 0.15, −0.2, 0.2 and −0.15 rad.
+- The 80 g rigid rake has a wooden handle, raised 25 × 20 × 50 grip, 6 × 6 neck,
+  and a steel 12 × 20 × 3 T-foot. The foot bottom is 20 below the root. The raised
+  grip keeps robot fingers above the fixture. Tool root starts at
+  (0.24,0.27,0.7955) m, on fixed supports at x=0.18 and 0.34, y=0.27 with heights
+  56 and 28. Its local-bounds reference center is offset (−11.25,0,27.5) from its root.
 
-Reset restores all objects and both arms, clears contact/failure history, and settles
-physics. Seed 0 and zero object jitter define the demonstrated layout. Nothing is consumed.
+Reset restores tool, chips and both arms, clears contact/failure history and settles.
+Seed 0 and zero jitter define this fixed layout. Nothing is consumed. The scene depicts
+an unpowered workholding fixture and blunt training chips, with no cutting process.
 
-## Scoring
+## Numeric scoring
 
-Use the final score. Each chip earns 0.16 only after a measured brush–chip contact and
-when its entire world AABB is inside x=(0.185,0.305), y=(-0.085,0.085) m, bottom within
-3 mm of z=0.7595 m, linear speed below 10 mm/s and angular speed below 0.5 rad/s.
+Use the final score. Each chip earns 0.16 only after measured rake–chip contact or a measured chip-contact chain from a rake-contacted chip and when
+its full world AABB lies inside x=(0.185,0.305), y=(0.045,0.215) m, bottom within 3 mm of
+z=0.7595 m, linear speed below 10 mm/s and angular speed below 0.5 rad/s.
 
-Add 0.20 only when all five qualify and the brush is parked, resting, with both grippers
-at least 75% open and both TCPs farther than 90 mm from its reference center. Parking
-requires the Arena local-bounds reference center within 25 mm of (0.22875,0.27) m,
-bottom within 6 mm of z=0.7855 m and vertical extent below 45 mm. Holding 1.0 for one
-second triggers success. `scoring.py` is the numerical specification.
+Add 0.20 only when all five qualify, the rake is returned and resting, both grippers are
+at least 75% open and both TCPs are farther than 90 mm from its reference center.
+Parking means reference xy within 25 mm of (0.22875,0.27) m, bottom within 6 mm of
+z=0.7755 m, vertical extent under 105 mm and rest. Holding 1.0 for one second succeeds.
 
-Any direct robot–chip contact permanently invalidates the trial. So does a brush/chip
-bottom below tabletop minus 20 mm, nonfinite position, center outside x=(-0.1,0.95) m,
-or |y|>0.62 m. Invalid trials score zero. Unqualified chips earn zero; no intermediate
-maximum is retained. Tool contact is required for every credited chip.
+Direct robot–chip contact permanently invalidates the trial, including actual
+`LeftArm`/`RightArm` actor paths. So does a chip/tool bottom below tabletop minus 20 mm,
+nonfinite position, center outside x=(−0.1,0.95) m or |y|>0.62 m. Invalid trials score
+zero. Unqualified chips earn zero; no intermediate score maximum is retained.
 
-## Physics and limitations
+## Physics, demonstration and review status
 
-PhysX runs at 240 Hz with 20 Hz joint actions. Loose objects use the station's approximate
-1.2/1.0 static/dynamic friction, 5 mm contact offset and zero rest offset. The brush's
-visible bristle tufts share one solid contact envelope; they do not bend. Chips do not
-curl, deform or cut. Materials and mass distribution are stylized and uncalibrated.
-No adhesion, attachments, object-pose writes or scripted object motion are used.
+PhysX runs at 240 Hz, control at 20 Hz. Loose objects use 32/4 solver iterations,
+0.5 mm contact offset, zero rest offset and approximate station 1.2/1.0 friction.
+Tool and chips are rigid, with no compliance, fracture, adhesion or attachments. No
+object poses are written during trials. Masses and material looks are uncalibrated.
 
-The demonstration reads privileged object poses and FK to correct brush placement and
-orientation. It sends only robot joint targets. Dream receives the ordinary camera and
-joint observations through the same contact-tracking embodiment. Contact processing is
-explicitly enabled; measured reports provide tool-use provenance and reject direct
-handling. A real-world check could use video and a ruler with blunt training surrogates.
+The demonstration reads privileged object poses and robot FK and sends joint targets
+only. Bounded integral pose correction and measured alignment holds keep the T-foot and
+neck aligned during entry and travel. All nominal pickup, hover and working poses were
+checked with FK below 0.1 mm residual. The model uses ordinary images/joint state through
+the same contact-enabled embodiment. Contact reports verify tool-driven contact provenance for each chip, including chip clusters. A contact edge between chips propagates provenance through the measured episode contact graph; isolated chips do not qualify.
 
-Tested sources: YAM Arena `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
+Public related-task review found that ordinary open-surface block sweeping overlaps
+[RoboDojo Sweep Blocks](https://robodojo-benchmark.com/doc/sim-tasks/sweep-blocks/).
+The undercut profile and mandatory end entry are the substantive added manipulation
+constraints here. This comparison does not establish task-board ownership or acceptance;
+the board requires authenticated access and that check remains pending.
+
+Tested framework pins: YAM `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`; Python 3.12.12, Isaac Sim 6.1.0.0,
 Isaac Lab 17.0.2, Arena 0.3.0, Inspect Robots 0.60.0, NumPy 2.3.1 and Torch 2.11.0+cu128.
-Runtime hashes and pending submission preparation are in `validation.json`.
+Runtime hashes and media review are recorded in `validation.json`.

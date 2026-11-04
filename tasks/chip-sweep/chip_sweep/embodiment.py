@@ -19,13 +19,16 @@ class ChipEmbodiment(YamArenaEmbodiment):
   import isaaclab.sim as sim
   original=scene.task_object
   def make_object(spec):
-   if spec.name in ('brush','chip_tray'):
-    addon={'physics_material':scene._grippy(),'collision_props':scene._contact_props()}
-    if spec.name=='brush':addon.update(mass_props={'':[sim.MassCfg(mass=.08)]},mass_props_create_if_missing=True)
+   if spec.name in ('rake','chip_tray'):
+    addon={'physics_material':scene._grippy(),'collision_props':sim.CollisionPropertiesCfg(contact_offset=.0005,rest_offset=0.)}
+    if spec.name=='rake':addon.update(rigid_props=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=32,solver_velocity_iteration_count=4),mass_props={'':[sim.MassCfg(mass=.08)]},mass_props_create_if_missing=True)
     return Object(name=spec.name,usd_path=str(Path(__file__).resolve().parent.parent/'assets'/(spec.name+'.usdc')),object_type=ObjectType.RIGID if spec.free else ObjectType.BASE,initial_pose=Pose(position_xyz=tuple(spec.pos)),spawn_cfg_addon=addon)
    obj=original(spec)
    if spec.name.startswith('chip_'):
-    obj.spawner_cfg.activate_contact_sensors=True;obj.object_cfg=obj._init_object_cfg()
+    obj.spawner_cfg.activate_contact_sensors=True
+    obj.spawner_cfg.collision_props=sim.CollisionPropertiesCfg(contact_offset=.0005,rest_offset=0.)
+    obj.spawner_cfg.rigid_props=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=32,solver_velocity_iteration_count=4)
+    obj.object_cfg=obj._init_object_cfg()
    return obj
   scene.task_object=make_object
   try:super()._ensure_sim(goal)
@@ -54,10 +57,10 @@ class ChipEmbodiment(YamArenaEmbodiment):
   for side,key in (('left','left_robot'),('right','right_robot')):
    arm_ids,finger_ids=self._ids[key];q=self._base.scene[key].data.joint_pos.torch[0]
    tcp,_=ik.tcp_pose(q[arm_ids].cpu().numpy(),station.BASES[side])
-   clear &= q[finger_ids].mean().item()/FINGER_OPEN>.75 and np.linalg.norm(tcp-states['brush'].pos)>.09
+   clear &= q[finger_ids].mean().item()/FINGER_OPEN>.75 and np.linalg.norm(tcp-states['rake'].pos)>.09
   h.open_clear=bool(clear);result=super()._task_step()
   if round(self._t*self.info.control_hz)%20==0:
-   print('CHIP_STATE',round(self._t,2),{k:np.round(s.pos,4).tolist() for k,s in states.items() if k=='brush' or k.startswith('chip_') and k!='chip_tray'},'history',str(vars(h)),'score',result.info.get('score'),flush=True)
+   print('CHIP_STATE',round(self._t,2),{k:np.round(s.pos,4).tolist() for k,s in states.items() if k=='rake' or k.startswith('chip_') and k!='chip_tray'},'history',str(vars(h)),'score',result.info.get('score'),flush=True)
   return result
 
 def make_embodiment(**kwargs):return ChipEmbodiment(**kwargs)

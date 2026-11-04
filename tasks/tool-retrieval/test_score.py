@@ -72,5 +72,13 @@ class ScorerTests(unittest.TestCase):
         self.assertEqual(evaluate(o,h,TOP),.75)
 
 
+class ActualRobotPrimPaths(unittest.TestCase):
+    def test_physx_robot_prim_paths_are_rejected(self):
+        for arm in ('LeftArm', 'RightArm'):
+            history = History()
+            history.contact('/World/envs/env_0/part', f'/World/envs/env_0/{arm}/link_6')
+            self.assertTrue(history.invalid, arm)
+
+
 if __name__ == '__main__':
     unittest.main()

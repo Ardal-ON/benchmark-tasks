@@ -18,7 +18,7 @@ class History:
         if any("/spatula/" in p or p.endswith("/spatula") for p in names):
             self.tool_contact = True
             self.contact_events += 1
-        if not self.extracted and any("left_robot" in p or "right_robot" in p for p in names):
+        if not self.extracted and any(any(robot in p for robot in ("left_robot", "right_robot", "leftarm", "rightarm")) for p in names):
             self.invalid = True
 
     def update(self, objects, top):

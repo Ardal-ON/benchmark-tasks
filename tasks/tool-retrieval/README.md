@@ -61,13 +61,13 @@ The part represents a lightweight training component, the guard rigid plastic, t
 ## Validation and review state
 
 The refined mesh-housing demo scored **1.0** in **823 steps**, terminated with
-**success**, and took **105.59 seconds wall time** on the CARC L40S. Seed 0,
+**success**, and took **92.56 seconds wall time** on the CARC L40S. Seed 0,
 zero jitter, 20 Hz control, 640 × 360 calibrated cameras and a 2,400-step limit
 were used. The complete 41.20-second H.264 videos from all three cameras were
 downloaded. The top sequence, setup, final tray and right-wrist closeup were
 visually inspected: tool extraction, returned spatula and seated part are visible.
 Contact history records tool contact, extraction, no invalid contact/drop, and
-both grippers open and clear. Ten scorer tests pass.
+both grippers open and clear. Eleven scorer tests pass, including actual PhysX LeftArm/RightArm actor paths.
 
 The runtime is Python 3.12.12, Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0,
 YAM Arena 0.1.0 and Inspect Robots 0.60.0. Source pins: YAM

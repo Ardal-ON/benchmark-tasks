@@ -91,6 +91,13 @@
         "sha256": "fe153cba5f37c80058575835ab0ec7023f7509d93b562a4451514cad31b11157",
         "bytes": 4218396
       }
-    ]
+    ],
+    "video_hash_scope": "The videos array hashes the original source-camera recordings; submission_video hashes the faststart stream-copy used in the handoff.",
+    "submission_video": {
+      "file": "model.mp4",
+      "sha256": "f218fb820b57805ddfef6448a9362eb5585ae6c86019cd74070c8d1ec5d8bd38",
+      "bytes": 3616478,
+      "encoding": "H.264/yuv420p, stream-copy remux with faststart; frames unchanged"
+    }
   }
 }

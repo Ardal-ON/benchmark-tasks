@@ -9,7 +9,7 @@ completed **3,507 control steps** (175.35 simulated seconds) within the 3,600-st
 Wall time including initialization was **600.35 seconds** on an NVIDIA L40S. The complete
 640 × 360, 20 Hz top-camera video is **175.40 seconds**; all three camera videos were downloaded
 and inspected, including the final interlocks in the right wrist view. `validation.json`
-records the result and runtime source hashes. The completed model trial is recorded below. Authenticated novelty review and media upload will be handled by the owner during submission.
+records the result and runtime source hashes. The completed model trial is recorded below. Media upload remains pending final video review.
 
 ## Reproduce
 
@@ -119,4 +119,4 @@ The reviewed sequence shows the right arm attempting to grasp and reposition the
 
 `validation.json` records the completed result, runtime revision and video hashes.
 The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs and the authenticated novelty check are owner steps.
+for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.

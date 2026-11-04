@@ -9,9 +9,7 @@ completed **3,507 control steps** (175.35 simulated seconds) within the 3,600-st
 Wall time including initialization was **600.35 seconds** on an NVIDIA L40S. The complete
 640 × 360, 20 Hz top-camera video is **175.40 seconds**; all three camera videos were downloaded
 and inspected, including the final interlocks in the right wrist view. `validation.json`
-records the result and runtime source hashes. Dream-1 has not been run for this task, and
-media have not been uploaded. A full model trial and the task board's authenticated novelty
-check remain submission preparation work.
+records the result and runtime source hashes. The completed model trial is recorded below. Authenticated novelty review and media upload will be handled by the owner during submission.
 
 ## Reproduce
 
@@ -107,3 +105,18 @@ Eight offline checks cover profile dimensions/clearance, uniqueness on a 1 mm gr
 right-angle piece permutations, scoring, calibration independence, frame geometry, fingertip
 contact regions, nominal timing, and the final-corner fit. The uniqueness check is limited to
 its stated planar enumeration; it is not a proof over arbitrary 3-D configurations.
+
+## Dream-1 evaluation
+
+`dreamlabs/dream-1-beta` completed with a final score of **0** in **3,600 steps**,
+terminating with `max_steps`. Wall time including initialization and inference
+was **364.40 seconds**. The run used seed 0, zero jitter, 20 Hz control, 640 × 360
+saved camera frames, the `demo` top-camera configuration and the same runtime source
+hashes and physics as the expert demonstration. The model received ordinary camera images
+and joint state. All three complete camera videos were downloaded and visually reviewed.
+
+The reviewed sequence shows the right arm attempting to grasp and reposition the purple component. The parts remain separated at the end, and no square assembly is completed. The top sequence, final frame and a right-wrist interaction view were inspected.
+
+`validation.json` records the completed result, runtime revision and video hashes.
+The expert and model videos, matching setup image and source package are supplied separately
+for the owner's submission. Media IDs and the authenticated novelty check are owner steps.

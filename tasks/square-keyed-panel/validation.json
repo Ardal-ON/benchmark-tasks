@@ -37,9 +37,8 @@
     "pyproject.toml": "a339d7dd8ba34987d926105070a6e2e5cfab530786ff20aa1b15d6a7a132938d"
   },
   "pending": [
-    "Dream-1 model trial",
-    "Authenticated task-board novelty check",
-    "Media upload and media ID"
+    "Owner: authenticated task-board novelty check",
+    "Owner: media upload and media ID"
   ],
   "runtime_packages": {
     "python": "3.12.12",
@@ -50,5 +49,48 @@
     "inspect-robots": "0.60.0",
     "numpy": "2.3.1",
     "torch": "2.11.0+cu128"
+  },
+  "dream": {
+    "trial": "square-keyed-panel-dream-01",
+    "checkpoint": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "steps": 3600,
+    "max_steps": 3600,
+    "control_hz": 20,
+    "simulated_seconds": 180.0,
+    "wall_seconds": 364.40468794014305,
+    "mean_inference_latency_seconds": 0.5759908687074979,
+    "seed": 0,
+    "object_jitter": 0,
+    "resolution": [
+      640,
+      360
+    ],
+    "top_cam": "demo",
+    "environment_revision": "c846ccba648d",
+    "visual_review": "The reviewed sequence shows the right arm attempting to grasp and reposition the purple component. The parts remain separated at the end, and no square assembly is completed. The top sequence, final frame and a right-wrist interaction view were inspected.",
+    "videos": [
+      {
+        "camera": "top",
+        "duration": 180.05,
+        "sha256": "a1149397bad7e5f687df6465fae03b71d59225821eb84f2048b7cef73b39b140",
+        "bytes": 3616478
+      },
+      {
+        "camera": "left",
+        "duration": 180.05,
+        "sha256": "1c9849867d80d265205a79fdbfa767b85b8510647e1374879dea6a372f92b0e6",
+        "bytes": 2592501
+      },
+      {
+        "camera": "right",
+        "duration": 180.05,
+        "sha256": "fe153cba5f37c80058575835ab0ec7023f7509d93b562a4451514cad31b11157",
+        "bytes": 4218396
+      }
+    ]
   }
 }

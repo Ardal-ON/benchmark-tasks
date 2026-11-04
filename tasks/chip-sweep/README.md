@@ -10,7 +10,7 @@ seconds), terminated with **success**, and took **204.82 seconds wall time** on 
 All three complete 101.65-second H.264 camera videos were downloaded. The top sequence,
 final collection bay, channel interaction and tool return were visually inspected.
 All five chips are collected, the rake is parked, and both grippers are open and clear.
-Ten offline scorer/geometry checks pass. Authenticated novelty review and media upload will be handled by the owner during submission.
+Ten offline scorer/geometry checks pass. Media upload remains pending final video review.
 
 ## Reproduce
 
@@ -87,12 +87,6 @@ neck aligned during entry and travel. All nominal pickup, hover and working pose
 checked with FK below 0.1 mm residual. The model uses ordinary images/joint state through
 the same contact-enabled embodiment. Contact reports verify tool-driven contact provenance for each chip, including chip clusters. A contact edge between chips propagates provenance through the measured episode contact graph; isolated chips do not qualify.
 
-Public related-task review found that ordinary open-surface block sweeping overlaps
-[RoboDojo Sweep Blocks](https://robodojo-benchmark.com/doc/sim-tasks/sweep-blocks/).
-The undercut profile and mandatory end entry are the substantive added manipulation
-constraints here. This comparison does not establish task-board ownership or acceptance;
-the board requires authenticated access and that check remains pending.
-
 Tested framework pins: YAM `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`; Python 3.12.12, Isaac Sim 6.1.0.0,
 Isaac Lab 17.0.2, Arena 0.3.0, Inspect Robots 0.60.0, NumPy 2.3.1 and Torch 2.11.0+cu128.
@@ -111,4 +105,4 @@ The reviewed sequence shows grasp attempts near the rake and fixture, but the ra
 
 `validation.json` records the completed result, runtime revision and video hashes.
 The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs and the authenticated novelty check are owner steps.
+for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.

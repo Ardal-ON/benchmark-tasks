@@ -10,7 +10,7 @@ seconds), terminated with **success**, and took **204.82 seconds wall time** on 
 All three complete 101.65-second H.264 camera videos were downloaded. The top sequence,
 final collection bay, channel interaction and tool return were visually inspected.
 All five chips are collected, the rake is parked, and both grippers are open and clear.
-Ten offline scorer/geometry checks pass. Media upload remains pending final video review.
+Ten offline scorer/geometry checks pass.
 
 ## Reproduce
 
@@ -104,5 +104,4 @@ and joint state. All three complete camera videos were downloaded and visually r
 The reviewed sequence shows grasp attempts near the rake and fixture, but the rake remains on its supports and the five chips stay in their starting channels. No chips are cleared into the collection bay. Final history has no rake-chip contact or chip-contact provenance. The top sequence, final frame and both wrist views were inspected.
 
 `validation.json` records the completed result, runtime revision and video hashes.
-The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.
+The Dream video, full-score demo and setup image are linked through the media ID in `task.json`.

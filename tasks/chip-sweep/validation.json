@@ -34,10 +34,7 @@
     "assets/rake.usdc": "e1aab57ab116cb8991bdfdb002d2e9b7e7541c186b0438648c5e407b39a0f978",
     "assets/chip_tray.usdc": "da01a013c5e9a904417ab21e9bba1a60033fd1c3d4ccf57b4f83a9b4a28a63f6"
   },
-  "pending": [
-    "Final task-board ownership recheck immediately before submission",
-    "Owner: media upload and media ID"
-  ],
+  "pending": [],
   "dream": {
     "trial": "chip-sweep-dream-01",
     "checkpoint": "dreamlabs/dream-1-beta",

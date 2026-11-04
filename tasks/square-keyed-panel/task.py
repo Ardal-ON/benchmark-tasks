@@ -5,6 +5,7 @@ Each T-shaped tab must fit its matching recess; all parts should lie flat.
 from pathlib import Path
 import math
 import json
+from functools import lru_cache
 import numpy as np
 from yam_arena.constants import FINGER_OPEN
 from yam_arena.demo import Waypoint, pick_place_waypoints
@@ -16,6 +17,7 @@ HEIGHT=.024
 GRASP_Z_OFFSET=.021
 RELEASE_GAP=.006
 FINGER_HOLD=-.020
+ASSEMBLY_CLEARANCE=.0005
 TABLE_CENTRE=(.36, 0.0)
 # Each point is the world-aligned bounding-box centre; yaws are in radians.
 START=[(.190,.180,0.0),(.285,.205,.40),(.180,-.180,-.40),(.285,-.205,.65)]
@@ -73,12 +75,12 @@ def grasp_offset(index):
     cells=_hook.geometry.cells_for(index)
     cx=(min(x for x,_ in cells)+max(x for x,_ in cells)+1)*.0005
     cy=(min(y for _,y in cells)+max(y for _,y in cells)+1)*.0005
-    gx,gy=(.015,0.)
+    gx,gy=(0.,.017 if index<2 else -.022)
     return np.array([gx-cx,gy-cy])
 
 
 def grasp_yaw(index):
-    return 0.
+    return -math.pi/2 if index<2 else math.pi/2
 
 
 # Controller calibration is separate from physical setup and scoring targets.
@@ -95,8 +97,44 @@ def release_yaw(index):
     return math.radians(DEMO_CALIBRATION.get(str(index+1),{}).get('yaw_deg',0.))
 
 
+@lru_cache(maxsize=4)
+def _bounds_corners(index):
+    return np.asarray([(x*.001,y*.001) for x0,x1,y0,y1 in _hook.geometry.rectangles(_hook.geometry.cells_for(index))
+                        for x in (x0,x1) for y in (y0,y1)])
+
+
+def rotated_bounds_center(index,rotation):
+    """Arena reference centroid: rotate the local geometry-bounds centre."""
+    corners=_bounds_corners(index)
+    local=(corners.min(axis=0)+corners.max(axis=0))/2
+    return rotation[:2,:2]@local
+
+
+def assembly_pose(index,anchor):
+    """Fit the remaining body grid to the first piece's measured rigid pose."""
+    x,y,z,w=anchor.quat_xyzw
+    yaw=math.atan2(2*(w*z+x*y),1-2*(y*y+z*z))
+    c,s=math.cos(yaw),math.sin(yaw)
+    rotation=np.array([[c,-s,0.],[s,c,0.],[0.,0.,1.]])
+    anchor_root=anchor.pos[:2]-rotated_bounds_center(0,rotation)
+    base0=np.asarray(GOAL[0])-rotated_bounds_center(0,np.eye(3))
+    base=np.asarray(GOAL[index])-rotated_bounds_center(index,np.eye(3))
+    delta=base-base0+ASSEMBLY_CLEARANCE*np.array([index in (1,3),-int(index in (2,3))])
+    root=anchor_root+rotation[:2,:2]@delta
+    return root+rotated_bounds_center(index,rotation),rotation
+
+
+_spec_closure=_importlib.spec_from_file_location('square_closure',Path(__file__).with_name('closure.py'))
+_closure=_importlib.module_from_spec(_spec_closure);_spec_closure.loader.exec_module(_closure)
+
+
+def fit_final_corner(objects,initial_xy,rotation):
+    yaw=math.atan2(rotation[1,0],rotation[0,0])
+    return _closure.fit_corner(objects,_hook.geometry,GOAL,initial_xy,yaw)
+
+
 def demo():
-    left=[];right=[Waypoint(28.0,(.12,-.30,TOP+.13),FINGER_OPEN,'wait clear of left arm')]
+    left=[];right=[Waypoint(29.0,(.12,-.30,TOP+.13),FINGER_OPEN,'wait clear of left arm')]
     for i in range(4):
         x,y,yaw=START[i]; gx,gy=np.asarray(GOAL[i])+release_offset(i)
         offset=grasp_offset(i)
@@ -104,7 +142,7 @@ def demo():
         pick_offset=np.array([[c,-s],[s,c]])@offset
         moves=pick_place_waypoints((x+pick_offset[0],y+pick_offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET),
                                   (gx+offset[0],gy+offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET+RELEASE_GAP),
-                                  travel_z=TOP+.09,yaw=yaw+grasp_yaw(i),place_yaw=grasp_yaw(i)+release_yaw(i))
+                                  travel_z=TOP+.07,yaw=yaw+grasp_yaw(i),place_yaw=grasp_yaw(i)+release_yaw(i))
         for move in moves:
             if move.finger==0.: move.finger=FINGER_HOLD
         # Let horizontal motion settle before entering the 2 mm mating clearance.
@@ -112,6 +150,12 @@ def demo():
         moves[6].duration=2.0
         moves.insert(7,Waypoint(1.0,moves[6].pos,moves[6].finger,'seat',grasp_yaw(i)+release_yaw(i)))
         moves.insert(8,Waypoint(.5,moves[7].pos,moves[7].finger,'settle',grasp_yaw(i)+release_yaw(i)))
+        if i>0:
+            final=moves[6]
+            above=(final.pos[0],final.pos[1],TOP+HEIGHT/2+GRASP_Z_OFFSET+.030)
+            moves[6:7]=[Waypoint(1.0,above,FINGER_HOLD,'lower',final.yaw),
+                        Waypoint(.8,above,FINGER_HOLD,'align',final.yaw),
+                        Waypoint(1.2,final.pos,FINGER_HOLD,'lower',final.yaw)]
         for move in moves: move.label=f'{i+1}:{move.label}'
         (left if i<2 else right).extend(moves)
     left.append(Waypoint(2.0,(.12,.30,TOP+.12),FINGER_OPEN,'park left clear'))

@@ -52,11 +52,17 @@ calibration. A later gentler-grip diagnostic placed the first piece within 0.83 
 These isolated checks do not prove a full assembly; validation with all neighbors remains required.
 Piece collider contact offsets are 0.5 mm with zero rest offset; position/velocity solver
 iterations are 32/4. Robot colliders and actuator settings are unchanged. The carrying height is
-90 mm above the tabletop. The current candidate uses a -20 mm finger-joint hold target rather than commanding fully
+70 mm above the tabletop. The current candidate uses a -20 mm finger-joint hold target rather than commanding fully
 closed fingers; it grasps the upper 4 mm of the body. The robot lowers the held part to a 6 mm
 bottom clearance before
 releasing it, allowing the fingers to clear assembled neighbors. These candidate settings
 require further physical validation; the current candidate has not demonstrated full score.
+All four pieces individually reached submillimeter final placement in isolated diagnostics,
+but the full trial with those independent offsets scored 0.0 due to insertion interference.
+The current controller instead fits later pieces to the first piece's measured rigid pose,
+adds an alignment hold above existing parts, and maintains horizontal feedback during descent.
+It stops a failed scripted insertion if tilt exceeds 15 degrees. These controller rules do
+not change task scoring. A successful full assembly remains unproven.
 Use `-P trace_path=/absolute/path/poses.jsonl` to record measured piece poses every ten actions.
 
 From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, install this task's
@@ -66,7 +72,7 @@ editable package in the Arena environment (`uv pip install -e . --no-deps`), the
 "$SIM_ROOT/cluster/run-arena.sh" inspect-robots run --embodiment yam_arena --policy square_scripted \
   -E task="$PWD/task.py" -E top_cam=demo -E object_jitter=0 -E control_hz=20 \
   -E cam_width=640 -E cam_height=360 --instruction 'assemble the four keyed pieces into a square at the center of the table' \
-  --scorer task_score --max-steps 1200 --seed 0 --store-frames --log-dir /path/to/run-output
+  --scorer task_score --max-steps 2400 --seed 0 --store-frames --log-dir /path/to/run-output
 ```
 
 Tested with `yam-isaac-lab-arena` commit `0059d02a1a91bc6834c1d0846022891df0c78730`,
@@ -75,3 +81,21 @@ the node's NVIDIA NGX library to be visible in the container. Run offline checks
 `python -B -m unittest -v test_task` in the Arena environment. `geometry.py` defines the pieces;
 `procedural.py` creates their primitive colliders and rigid bodies at runtime. Model-run evidence,
 media upload, a full-score demo and the board's novelty check remain outstanding.
+
+The current demonstration advances descent only when measured horizontal error is below 0.4 mm,
+orientation error below 0.5 degrees, and height tracking error below 1 mm. The second arm waits
+for the first arm to finish parking. A two-minute run limit allows these precision holds.
+Placement uses 0.5 mm of body-to-body clearance within the unchanged 2 mm seam tolerance.
+The parts and scorer are unchanged; full-score feasibility still requires a completed trial.
+
+The current grasp closes along the parts' x direction, at body-local y=+17 mm for the left
+arm and -22 mm for the right arm, with respective gripper yaw -90/+90 degrees. Offline IK
+checks cover each pickup/placement and ±5-degree hover corrections; these grasp choices
+avoid the joint-4 saturation observed in the previous front-edge grasp. Rotation integral
+bias is capped at 6 degrees. This candidate remains under physical validation.
+
+For the final component, `closure.py` fits the projected box-collider footprints against the
+three measured neighbors and retains only targets satisfying the original scoring tolerances.
+It reconstructs object roots from Arena's transformed local-bounds centers. The final descent
+uses tighter feedback holds; this fit selects robot targets and never moves object poses.
+The previous side-grip trial seated three pieces and scored 0.75; closure remains unproven.

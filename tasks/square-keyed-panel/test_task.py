@@ -46,6 +46,51 @@ class PuzzleTests(unittest.TestCase):
                   ((2,0,3,1),(3,3,3,3)),((3,2,1,0),(2,2,2,2))}
         self.assertEqual(set(valid),expected)
 
+    def test_final_corner_fit_uses_original_seam_and_position_tolerances(self):
+        objects={f'square_api_piece_{i}':state(xy) for i,xy in enumerate(task.GOAL,1)}
+        fit=task.fit_final_corner(objects,task.GOAL[3],np.eye(3))
+        self.assertGreater(fit['clearance'],.0002)
+        objects['square_api_piece_4']=state(fit['xy'],fit['yaw'])
+        self.assertEqual(task.score(objects),1.)
+
+    def test_side_grasps_contact_full_body_rows_clear_of_keys(self):
+        # Actual fingertip contact-band width is 15.5 mm (the higher carriage is wider).
+        for i in range(4):
+            cells=geometry.cells_for(i)
+            rows=range(9,25) if i<2 else range(-25,-14)
+            self.assertTrue(all((x,y) in cells for y in rows for x in range(-25,25)))
+            self.assertFalse(any(y in rows and not -25<=x<25 for x,y in cells))
+
+    def test_scripted_insertion_plan_fits_control_budget(self):
+        plan=task.demo()
+        self.assertLessEqual(max(sum(w.duration for w in moves) for moves in plan.values()),120.)
+        for i in (2,3,4):
+            moves=plan['left' if i==2 else 'right']
+            holds=[w for w in moves if w.label==f'{i}:align']
+            self.assertTrue(any(abs(w.pos[2]-(task.TOP+task.HEIGHT/2+task.GRASP_Z_OFFSET+.030))<1e-8 for w in holds))
+
+    def test_measured_anchor_preserves_rigid_keyed_body_grid(self):
+        yaw=math.radians(2)
+        c,s=math.cos(yaw),math.sin(yaw)
+        R=np.array([[c,-s,0.],[s,c,0.],[0.,0.,1.]])
+        base0=np.asarray(task.GOAL[0])-task.rotated_bounds_center(0,np.eye(3))
+        anchor_root=base0+np.array([.0005,-.0005])
+        anchor=state(anchor_root+task.rotated_bounds_center(0,R),yaw)
+        objects={'square_api_piece_1':anchor}
+        for i in range(1,4):
+            xy,rot=task.assembly_pose(i,anchor)
+            base=np.asarray(task.GOAL[i])-task.rotated_bounds_center(i,np.eye(3))
+            delta=base-base0+task.ASSEMBLY_CLEARANCE*np.array([i in (1,3),-int(i in (2,3))])
+            expected=anchor_root+R[:2,:2]@delta
+            np.testing.assert_allclose(xy-task.rotated_bounds_center(i,R),expected,atol=1e-10)
+            np.testing.assert_allclose(rot,R,atol=1e-10)
+            objects[f'square_api_piece_{i+1}']=state(xy,yaw)
+        self.assertEqual(task.score(objects),1.)
+        # At the near-zero anchor yaw used by the demo, existing seam tolerances admit the clearance.
+        flat=state(task.GOAL[0]);objects={'square_api_piece_1':flat}
+        for i in range(1,4):objects[f'square_api_piece_{i+1}']=state(task.assembly_pose(i,flat)[0])
+        self.assertEqual(task.score(objects),1.)
+
     def test_controller_calibration_does_not_move_scoring_targets(self):
         original=task.DEMO_CALIBRATION
         goals=list(task.GOAL)

@@ -61,7 +61,7 @@ The part represents a lightweight training component, the guard rigid plastic, t
 ## Validation and review state
 
 The refined mesh-housing demo scored **1.0** in **823 steps**, terminated with
-**success**, and took **92.56 seconds wall time** on the CARC L40S. Seed 0,
+**success**, and took **92.56 seconds wall time** on an L40S. Seed 0,
 zero jitter, 20 Hz control, 640 × 360 calibrated cameras and a 2,400-step limit
 were used. The complete 41.20-second H.264 videos from all three cameras were
 downloaded. The top sequence, setup, final tray and right-wrist closeup were

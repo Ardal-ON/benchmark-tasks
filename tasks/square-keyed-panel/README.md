@@ -1,101 +1,109 @@
-# Draft: four-piece square puzzle for an assembly workbench
+# Assemble a four-piece keyed square panel
 
-Four separate 50 × 50 × 24 mm stylized manufactured inserts, each one rigid, must be fitted into
-a 100 × 100 mm square at the actual centre of the simulated table. Large T-shaped tabs project
-12 mm and widen to 20 mm (40% of a piece's body width). Four different offsets distinguish the
-four internal seams, with 2 mm nominal clearance. The four pieces have tabs or recesses on two
-sides. Four small orange marks indicate the target corners; they are not a supporting fixture.
+Fit four colored, rigid components into a flat square at the workbench center. Distinct
+T-shaped mating profiles require the correct piece identities and orientations. Four orange
+corner marks locate the target; they do not constrain or support the assembly.
 
-The pieces begin at four scattered positions with different yaw angles. The simulation's shapes,
-friction and clearance are approximate; they are not a validated manufacturing model. This is a
-draft; the task board requires team sign-in for novelty review. A successful full assembly has not
-yet been demonstrated. The scripted controller is under active physical validation; it is not yet a full-score demo.
+The seeded scripted physics demonstration scored **1.0**, terminated with **success**, and
+completed **3,507 control steps** (175.35 simulated seconds) within the 3,600-step limit.
+Wall time including initialization was **600.35 seconds** on an NVIDIA L40S. The complete
+640 × 360, 20 Hz top-camera video is **175.40 seconds**; all three camera videos were downloaded
+and inspected, including the final interlocks in the right wrist view. `validation.json`
+records the result and runtime source hashes. Dream-1 has not been run for this task, and
+media have not been uploaded. A full model trial and the task board's authenticated novelty
+check remain submission preparation work.
 
-The original open-loop scripted plan is not yet successful. The task, geometry, scorer and tests are on
-a dedicated task branch based on the current upstream `main`; no media ID or model-run score has
-been recorded. See `task.json` for the precise geometry, fixed initial configuration and scoring.
-The tabletop target is fixed at `(0.36, 0.0)` metres, the station table's center. The corner marks
-are visual indicators rather than physical assembly guides.
+## Reproduce
 
-The geometry test enumerates all piece permutations and right-angle rotations on a 1 mm grid. It
-finds one relative assembly, with the only other solutions being rotations of the whole square.
-This is not a proof over arbitrary 3-D orientations, deformations or strategies.
-
-## Procedural geometry and reproduction
-
-The pieces are created at runtime from Isaac Lab cuboid and physics APIs. No authored `.usd` or
-`.usda` files are required for the puzzle pieces. Isaac Sim still uses its normal in-memory USD
-stage internally, and the robot and station continue to use the framework's existing assets.
-The stock task-file API accepts single primitives or registered assets, not compound primitive
-pieces. `procedural.py` therefore installs a task-scoped spawner adapter around the pinned YAM
-Arena implementation; it restores the stock object factory after building this task. The adapter
-uses framework internals and must be revalidated if the pinned framework changes.
-
-The fixed-seed L40S scripted run of this procedural task scored **0.25/1** and ended by
-`policy_stop` after 885 steps; it took approximately 188 seconds including initialization.
-It is not a full-score demonstration. The dimension-corrected procedural preassembled
-diagnostic settled and scored 1.0, but begins at the goal and does not demonstrate the task.
-
-`square_demo.py` registers a separate `square_scripted` policy. It reads simulator piece
-poses for Cartesian grasp correction and commands only robot joint targets. This privileged
-feedback is for the feasibility demonstration; it is not given to a model policy. Piece poses
-are cached by the scorer without changing scoring equations. Original motion and feedback
-trial 04 reached 0.25; feedback trials 01, 02, 03, 05 and 06 reached 0.0. These are failed
-assembly demonstrations, not evidence of full feasibility. Completed trial videos have been
-collected for inspection; trial 06's final transfer was interrupted by an SSH outage.
-A shorter first-piece diagnostic is under validation to isolate release drift before another
-full assembly trial. The current candidate uses a shallow grasp with bounded pose corrections during alignment and a pause before opening the jaws.
-A demo calibration file compensates measured jaw-opening offsets with Cartesian
-position and yaw adjustments. These are controller calibration values; the scorer is unchanged.
-Two isolated left-arm placements reached approximately 0.1 and 0.2 mm final position error during
-calibration. A later gentler-grip diagnostic placed the first piece within 0.83 mm without offsets.
-These isolated checks do not prove a full assembly; validation with all neighbors remains required.
-Piece collider contact offsets are 0.5 mm with zero rest offset; position/velocity solver
-iterations are 32/4. Robot colliders and actuator settings are unchanged. The carrying height is
-70 mm above the tabletop. The current candidate uses a -20 mm finger-joint hold target rather than commanding fully
-closed fingers; it grasps the upper 4 mm of the body. The robot lowers the held part to a 6 mm
-bottom clearance before
-releasing it, allowing the fingers to clear assembled neighbors. These candidate settings
-require further physical validation; the current candidate has not demonstrated full score.
-All four pieces individually reached submillimeter final placement in isolated diagnostics,
-but the full trial with those independent offsets scored 0.0 due to insertion interference.
-The current controller instead fits later pieces to the first piece's measured rigid pose,
-adds an alignment hold above existing parts, and maintains horizontal feedback during descent.
-It stops a failed scripted insertion if tilt exceeds 15 degrees. These controller rules do
-not change task scoring. A successful full assembly remains unproven.
-Use `-P trace_path=/absolute/path/poses.jsonl` to record measured piece poses every ten actions.
-
-From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, install this task's
-editable package in the Arena environment (`uv pip install -e . --no-deps`), then:
+Use the configured Linux YAM Arena environment with RTX rendering. From this directory,
+activate that environment and register the demonstration policy:
 
 ```bash
-"$SIM_ROOT/cluster/run-arena.sh" inspect-robots run --embodiment yam_arena --policy square_scripted \
-  -E task="$PWD/task.py" -E top_cam=demo -E object_jitter=0 -E control_hz=20 \
-  -E cam_width=640 -E cam_height=360 --instruction 'assemble the four keyed pieces into a square at the center of the table' \
-  --scorer task_score --max-steps 2400 --seed 0 --store-frames --log-dir /path/to/run-output
+uv pip install -e . --no-deps
+python -B -m unittest -v test_task
 ```
 
-Tested with `yam-isaac-lab-arena` commit `0059d02a1a91bc6834c1d0846022891df0c78730`,
-Isaac Lab Arena 0.3.1, Isaac Sim 6 and `inspect-robots` 0.60.0. The tested renderer requires
-the node's NVIDIA NGX library to be visible in the container. Run offline checks with
-`python -B -m unittest -v test_task` in the Arena environment. `geometry.py` defines the pieces;
-`procedural.py` creates their primitive colliders and rigid bodies at runtime. Model-run evidence,
-media upload, a full-score demo and the board's novelty check remain outstanding.
+On the configured cluster, set `SIM_ROOT` to the installed runtime root, then run from a GPU
+allocation. Both this task folder and its editable installation must be available there.
 
-The current demonstration advances descent only when measured horizontal error is below 0.4 mm,
-orientation error below 0.5 degrees, and height tracking error below 1 mm. The second arm waits
-for the first arm to finish parking. A two-minute run limit allows these precision holds.
-Placement uses 0.5 mm of body-to-body clearance within the unchanged 2 mm seam tolerance.
-The parts and scorer are unchanged; full-score feasibility still requires a completed trial.
+```bash
+"$SIM_ROOT/cluster/run-arena.sh" inspect-robots run \
+  --embodiment yam_arena --policy square_scripted \
+  -E task="$PWD/task.py" -E top_cam=demo -E object_jitter=0 \
+  -E control_hz=20 -E cam_width=640 -E cam_height=360 \
+  --instruction 'assemble the four keyed pieces into a square at the center of the table' \
+  --scorer task_score --max-steps 3600 --seed 0 --store-frames \
+  --log-dir /path/outside/the/repository/square-demo
+```
 
-The current grasp closes along the parts' x direction, at body-local y=+17 mm for the left
-arm and -22 mm for the right arm, with respective gripper yaw -90/+90 degrees. Offline IK
-checks cover each pickup/placement and ±5-degree hover corrections; these grasp choices
-avoid the joint-4 saturation observed in the previous front-edge grasp. Rotation integral
-bias is capped at 6 degrees. This candidate remains under physical validation.
+Add `-P trace_path=/absolute/path/poses.jsonl` to record measured piece poses and controller
+progress every ten actions. Render the terminal run with `inspect-robots video <run.json>`.
+Keep logs, raw frames, screenshots and videos outside the public task directory.
 
-For the final component, `closure.py` fits the projected box-collider footprints against the
-three measured neighbors and retains only targets satisfying the original scoring tolerances.
-It reconstructs object roots from Arena's transformed local-bounds centers. The final descent
-uses tighter feedback holds; this fit selects robot targets and never moves object poses.
-The previous side-grip trial seated three pieces and scored 0.75; closure remains unproven.
+The tested sources are YAM Arena commit `0059d02a1a91bc6834c1d0846022891df0c78730` and
+Isaac Lab Arena commit `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`, with Inspect Robots 0.60.0
+and Isaac Sim 6. The configured launcher exposes the node's NGX library for rendering.
+
+## Fixed setup
+
+World x points forward, y left and z up. The tabletop is at z = 0.7475 m. The nominal
+assembly center is (0.36, 0) m on the 110 × 130 cm station workbench.
+
+- Four loose components have 50 × 50 × 24 mm main bodies and assigned mass 80 g each. Their
+  internal edges have 12 mm projecting T tabs or matching recesses: neck width 14 mm, head
+  width 20 mm, distinct offsets −12, −9, −6 and −3 mm, with 2 mm nominal slot-width clearance.
+- Their local-bounds reference centers start at (0.190, 0.180), (0.285, 0.205),
+  (0.180, −0.180), and (0.285, −0.205) m. Initial yaw angles are 0, 0.40, −0.40 and 0.65 radians.
+  Initial center height is 0.7595 m. Jitter is disabled.
+- Four fixed orange 6 × 6 × 0.5 mm marks are centered at x = 0.307 or 0.413 m,
+  y = ±0.053 m, z = 0.74775 m.
+
+`geometry.py` and `task.py` specify every profile, color and pose. Reset restores the four
+components and the robot's ready state. Nothing is consumed. The material is a stylized rigid
+polymer approximation; mass, friction and compliance are not calibrated to manufactured parts.
+
+## Scoring
+
+Award 0.25 for each piece whose Arena reference centroid is within 4 mm horizontally and in
+height of its specified target, with full 3-D rotation within 8° of zero, linear speed below
+0.01 m/s and angular speed below 0.5 rad/s. Arena transforms the center of the object's local
+geometry bounds into the world; this reference differs from recomputing a world AABB center.
+
+| Piece | Target reference centroid (m) |
+| --- | --- |
+| 1, blue | (0.341, 0.019, 0.7595) |
+| 2, orange | (0.385, 0.019, 0.7595) |
+| 3, green | (0.341, −0.025, 0.7595) |
+| 4, purple | (0.385, −0.025, 0.7595) |
+
+When all four qualify individually, each seam's relative displacement must also match its
+target displacement within 2 mm on every axis. Otherwise cap the score at 0.75. No qualifying
+pieces scores zero; all other partial outcomes score 0.25 per qualifying piece. The final
+score is used. Holding 1.0 for one second terminates the trial successfully.
+
+## Physics and demonstration
+
+The pieces are compound rigid bodies spawned at runtime with Isaac Lab primitive APIs;
+there are no authored puzzle USD files. `procedural.py` scopes a spawner adapter to this task
+and restores the stock object factory after construction. This uses pinned framework
+internals and needs revalidation with a different framework version. PhysX runs at 240 Hz,
+with 20 Hz control. Piece contact/rest offsets are 0.5/0 mm, position/velocity solver iterations
+32/4, and static/dynamic friction 1.2/1.0. Robot colliders, drives and effort limits are unchanged.
+
+`square_scripted` reads privileged simulator object poses and sends robot joint targets only.
+It does not attach objects, write object poses, change the scorer, or bypass contacts. It
+uses side-edge grasps, a −20 mm finger-joint hold target, a 70 mm TCP travel height, bounded
+pose feedback and measured-error holds during descent. The right arm waits for the left
+arm to clear the assembly. `demo_calibration.json` contains small, fixed waypoint adjustments
+for measured release shifts; these have no effect on scoring targets.
+
+Later placements follow the first component's measured frame with 0.5 mm nominal body
+clearance. `closure.py` chooses the fourth piece's pose against all three measured neighbor
+collider footprints, restricted to the original position and seam tolerances. The script
+stops an insertion after excessive tilt or a sustained failure to align. The gate, clearance
+planner and privileged feedback are demonstration aids, not additional scoring rules.
+
+Eight offline checks cover profile dimensions/clearance, uniqueness on a 1 mm grid over
+right-angle piece permutations, scoring, calibration independence, frame geometry, fingertip
+contact regions, nominal timing, and the final-corner fit. The uniqueness check is limited to
+its stated planar enumeration; it is not a proof over arbitrary 3-D configurations.

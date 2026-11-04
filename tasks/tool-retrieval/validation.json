@@ -26,8 +26,57 @@
     "pyproject.toml": "cd160c2d3b246fb6b9106f678e6ea69a2fceedb74442ab65ccca906d5a2ac8ac"
   },
   "pending": [
-    "Dream-1 model trial",
-    "Authenticated task-board novelty check",
-    "Media upload and media ID"
-  ]
+    "Owner: authenticated task-board novelty check",
+    "Owner: media upload and media ID"
+  ],
+  "dream": {
+    "trial": "tool-retrieval-dream-01",
+    "checkpoint": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "steps": 2400,
+    "max_steps": 2400,
+    "control_hz": 20,
+    "simulated_seconds": 120.0,
+    "wall_seconds": 282.52103232592344,
+    "mean_inference_latency_seconds": 0.6450159500073641,
+    "seed": 0,
+    "object_jitter": 0,
+    "resolution": [
+      640,
+      360
+    ],
+    "top_cam": "calibrated",
+    "environment_revision": "c9a4bd57ef91",
+    "visual_review": "The reviewed sequence shows grasp attempts around the spatula while the blue part remains beneath the housing. No extraction or tray placement is completed. The final contact history records no tool-part contact and no extraction. The top sequence, final frame and both wrist views were inspected.",
+    "videos": [
+      {
+        "camera": "top",
+        "duration": 120.05,
+        "sha256": "3f993a1c5c321a74d72fcefc730491b2fafd03aecab63d1bf159621b695c0bde",
+        "bytes": 2119822
+      },
+      {
+        "camera": "left",
+        "duration": 120.05,
+        "sha256": "f19a550f0d05895e7e9ce24b0d4a0b56aa3874782a62351ec8553998bafef485",
+        "bytes": 2539349
+      },
+      {
+        "camera": "right",
+        "duration": 120.05,
+        "sha256": "3279799c5c12b04ce1ab454754dae838eccf40ba5908a71a825a8c57ee5e92aa",
+        "bytes": 3082013
+      }
+    ],
+    "video_hash_scope": "The videos array hashes the original source-camera recordings; submission_video hashes the faststart stream-copy used in the handoff.",
+    "submission_video": {
+      "file": "model.mp4",
+      "sha256": "a11dc3557e9c0299eedd64f51c3124ec65a9e468dd1c0142902e72757a16c6ee",
+      "bytes": 2119822,
+      "encoding": "H.264/yuv420p, stream-copy remux with faststart; frames unchanged"
+    }
+  }
 }

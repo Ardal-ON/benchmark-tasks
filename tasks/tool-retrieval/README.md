@@ -73,11 +73,24 @@ The runtime is Python 3.12.12, Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0,
 YAM Arena 0.1.0 and Inspect Robots 0.60.0. Source pins: YAM
 `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`. `validation.json` records source hashes.
-Dream-1 has not been evaluated on this refined revision; earlier primitive-guard
-model results do not validate it. Authenticated novelty review, model trial and
-media upload remain pending. No push or pull request has been made.
+The completed model trial uses this refined revision. Authenticated novelty review and media upload will be handled by the owner during submission.
 
 For a configured cluster, activate the configured container environment with
 `$SIM_ROOT/cluster/run-arena.sh`, install this folder with `uv pip install -e . --no-deps`,
 then run `run_demo.sh` inside the GPU allocation. Set `RETRIEVAL_LOG_ROOT` to a
 writable directory outside the repository. `run_dream.sh` uses the same setup.
+
+## Dream-1 evaluation
+
+`dreamlabs/dream-1-beta` completed with a final score of **0** in **2,400 steps**,
+terminating with `max_steps`. Wall time including initialization and inference
+was **282.52 seconds**. The run used seed 0, zero jitter, 20 Hz control, 640 × 360
+saved camera frames, the `calibrated` top-camera configuration and the same runtime source
+hashes and physics as the expert demonstration. The model received ordinary camera images
+and joint state. All three complete camera videos were downloaded and visually reviewed.
+
+The reviewed sequence shows grasp attempts around the spatula while the blue part remains beneath the housing. No extraction or tray placement is completed. The final contact history records no tool-part contact and no extraction. The top sequence, final frame and both wrist views were inspected.
+
+`validation.json` records the completed result, runtime revision and video hashes.
+The expert and model videos, matching setup image and source package are supplied separately
+for the owner's submission. Media IDs and the authenticated novelty check are owner steps.

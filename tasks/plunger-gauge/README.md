@@ -11,7 +11,7 @@ complete H.264 camera videos were downloaded. The top sequence, both left-wrist 
 insertions and final tool return were visually reviewed. Both pins achieved the required
 stroke, returned, and the tool was parked; no invalid robot–pin contact was recorded.
 Seven offline scorer checks pass, including actual `LeftArm`/`RightArm` actor paths.
-Media upload remains pending final video review.
+
 
 ## Reproduce
 
@@ -105,5 +105,4 @@ and joint state. All three complete camera videos were downloaded and visually r
 The reviewed sequence shows the left arm approaching the tool stand and fixture, but the pin tool remains in its stand and neither recessed plunger completes a test stroke. Final contact history has no tool-pin contacts and no tested plungers. The top sequence, final frame and both wrist views were inspected.
 
 `validation.json` records the completed result, runtime revision and video hashes.
-The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.
+The Dream video, full-score demo and setup image are linked through the media ID in `task.json`.

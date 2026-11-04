@@ -37,10 +37,7 @@
     "assets/punch.usdc": "1813df78d552a459946a99d134cf69543970ff6c4f435b041d2833dafcba7d4f",
     "assets/punch_stand.usdc": "7f57e8b4b324b1199c044f37d8cf43b4321d31423e58bbef8d4b50b6b09c3755"
   },
-  "pending": [
-    "Final task-board ownership recheck immediately before submission",
-    "Owner: media upload and media ID"
-  ],
+  "pending": [],
   "dream": {
     "trial": "plunger-gauge-dream-01",
     "checkpoint": "dreamlabs/dream-1-beta",

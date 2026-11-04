@@ -11,7 +11,7 @@ friction and clearance are approximate; they are not a validated manufacturing m
 draft; the task board requires team sign-in for novelty review. A successful full assembly has not
 yet been demonstrated. The current scripted controller is a first candidate, not a verified demo.
 
-The initial scripted plan is not yet verified. The task, assets, scorer and geometry tests are on
+The initial scripted plan is not yet successful. The task, geometry, scorer and tests are on
 a dedicated task branch based on the current upstream `main`; no media ID or model-run score has
 been recorded. See `task.json` for the precise geometry, fixed initial configuration and scoring.
 The tabletop target is fixed at `(0.36, 0.0)` metres, the station table's center. The corner marks
@@ -21,12 +21,20 @@ The geometry test enumerates all piece permutations and right-angle rotations on
 finds one relative assembly, with the only other solutions being rotations of the whole square.
 This is not a proof over arbitrary 3-D orientations, deformations or strategies.
 
-## First trial and reproduction
+## Procedural geometry and reproduction
 
-The first fixed-seed L40S scripted run scored **0.25/1**, ended by `policy_stop` after
-885 steps, and took approximately 199 seconds wall time including initialization. It is not a
-full-score demonstration and must not be used as one. The preassembled diagnostic settled and
-scored 1.0, but it begins at the goal and does not demonstrate the task.
+The pieces are created at runtime from Isaac Lab cuboid and physics APIs. No authored `.usd` or
+`.usda` files are required for the puzzle pieces. Isaac Sim still uses its normal in-memory USD
+stage internally, and the robot and station continue to use the framework's existing assets.
+The stock task-file API accepts single primitives or registered assets, not compound primitive
+pieces. `procedural.py` therefore installs a task-scoped spawner adapter around the pinned YAM
+Arena implementation; it restores the stock object factory after building this task. The adapter
+uses framework internals and must be revalidated if the pinned framework changes.
+
+The fixed-seed L40S scripted run of this procedural task scored **0.25/1** and ended by
+`policy_stop` after 885 steps; it took approximately 188 seconds including initialization.
+It is not a full-score demonstration. The dimension-corrected procedural preassembled
+diagnostic settled and scored 1.0, but begins at the goal and does not demonstrate the task.
 
 From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, then:
 
@@ -40,6 +48,6 @@ From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, t
 Tested with `yam-isaac-lab-arena` commit `0059d02a1a91bc6834c1d0846022891df0c78730`,
 Isaac Lab Arena 0.3.1, Isaac Sim 6 and `inspect-robots` 0.60.0. The tested renderer requires
 the node's NVIDIA NGX library to be visible in the container. Run offline checks with
-`python -B -m unittest -v test_task` in the Arena environment. `make_assets.py` regenerates
-the four USD files. Model-run evidence, media upload, a full-score demo and the board's novelty
-check remain outstanding.
+`python -B -m unittest -v test_task` in the Arena environment. `geometry.py` defines the pieces;
+`procedural.py` creates their primitive colliders and rigid bodies at runtime. Model-run evidence,
+media upload, a full-score demo and the board's novelty check remain outstanding.

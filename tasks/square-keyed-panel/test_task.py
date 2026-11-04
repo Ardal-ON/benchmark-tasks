@@ -3,7 +3,7 @@ import itertools
 import math
 import unittest
 import numpy as np
-import make_assets
+import geometry
 import task
 from yam_arena.task_file import ObjectState
 
@@ -15,11 +15,21 @@ def state(xy,yaw=0):
 
 
 class PuzzleTests(unittest.TestCase):
+    def test_key_dimensions_and_matching_clearance(self):
+        male = geometry.cells_for(0)
+        female = geometry.cells_for(1)
+        self.assertEqual(sum(x == 25 for x, _ in male), geometry.NECK_WIDTH)
+        self.assertEqual(sum(x == 30 for x, _ in male), geometry.HEAD_WIDTH)
+        self.assertEqual(sum((-25, y) not in female for y in range(-25, 25)),
+                         geometry.NECK_WIDTH + geometry.CLEARANCE)
+        self.assertEqual(sum((-20, y) not in female for y in range(-25, 25)),
+                         geometry.HEAD_WIDTH + geometry.CLEARANCE)
+
     def test_unique_square_at_right_angle_orientations(self):
         offsets=[(-25,25),(25,25),(-25,-25),(25,-25)]
         variants={}
         for p in range(4):
-            cells=make_assets.cells_for(p)
+            cells=geometry.cells_for(p)
             for r in range(4):
                 for slot,(dx,dy) in enumerate(offsets):
                     shape={(x+dx,y+dy) for x,y in cells}
@@ -37,12 +47,12 @@ class PuzzleTests(unittest.TestCase):
         self.assertEqual(set(valid),expected)
 
     def test_scoring_requires_correct_position_and_orientation(self):
-        objs={f'piece_{i}':state(xy) for i,xy in enumerate(task.GOAL,1)}
+        objs={f'square_api_piece_{i}':state(xy) for i,xy in enumerate(task.GOAL,1)}
         self.assertEqual(task.score(objs),1.0)
-        objs['piece_2']=state(task.GOAL[1],yaw=math.pi/2)
+        objs['square_api_piece_2']=state(task.GOAL[1],yaw=math.pi/2)
         self.assertLess(task.score(objs),1.0)
-        objs['piece_2']=state((task.GOAL[1][0]+.01,task.GOAL[1][1]))
+        objs['square_api_piece_2']=state((task.GOAL[1][0]+.01,task.GOAL[1][1]))
         self.assertLess(task.score(objs),1.0)
-        self.assertEqual(task.score({f'piece_{i}':state(s[:2],s[2]) for i,s in enumerate(task.START,1)}),0.0)
+        self.assertEqual(task.score({f'square_api_piece_{i}':state(s[:2],s[2]) for i,s in enumerate(task.START,1)}),0.0)
 
 if __name__=='__main__': unittest.main()

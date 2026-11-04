@@ -5,10 +5,9 @@ Each T-shaped tab must fit its matching recess; all parts should lie flat.
 from pathlib import Path
 import math
 import numpy as np
-from isaaclab_arena.assets.registries import AssetRegistry
 from yam_arena.constants import FINGER_OPEN
 from yam_arena.demo import Waypoint, pick_place_waypoints
-from yam_arena.task_file import Asset, Box, TABLE_TOP
+from yam_arena.task_file import Box, TABLE_TOP
 
 SCENE='station'
 TOP=TABLE_TOP[SCENE]
@@ -21,11 +20,14 @@ GOAL=[(.341,.019),(.385,.019),(.341,-.025),(.385,-.025)]
 COLORS=[(.18,.43,.65),(.65,.36,.12),(.20,.53,.37),(.56,.27,.48)]
 OBJECTS=[]
 for i,((x,y,yaw),color) in enumerate(zip(START,COLORS),1):
-    name=f'robocurve_square_puzzle_piece_{i}'
-    registry=AssetRegistry()
-    if not registry.is_registered(name,ensure_loaded=False):
-        registry.register(type(name,(),{'usd_path':str(Path(__file__).parent/'assets'/f'piece_{i}.usda')}),name)
-    OBJECTS.append(Asset(f'piece_{i}',name,xy=(x,y),yaw=yaw,extent=.062 if i<4 else .05,mass=.08,color=color))
+    OBJECTS.append(Box(f'square_api_piece_{i}',pos=(x,y,TOP+HEIGHT/2),size=(.05,.05,HEIGHT),mass=.08,color=color,yaw=yaw))
+
+# Install an Isaac Lab primitive-spawner hook; it creates compound bodies in memory.
+import importlib.util as _importlib
+_spec=_importlib.spec_from_file_location('square_api_hook',Path(__file__).with_name('procedural.py'))
+_hook=_importlib.module_from_spec(_spec)
+_spec.loader.exec_module(_hook)
+_hook.install(Path(__file__).parent)
 
 # Four flat corner marks, outside the 10 cm square; they do not form walls or supports.
 for n,(x,y) in enumerate([(.307,-.053),(.307,.053),(.413,-.053),(.413,.053)],1):
@@ -41,11 +43,11 @@ def _placed(obj,goal):
 
 
 def score(objects):
-    n=sum(_placed(objects[f'piece_{i}'],np.asarray(goal)) for i,goal in enumerate(GOAL,1))
+    n=sum(_placed(objects[f'square_api_piece_{i}'],np.asarray(goal)) for i,goal in enumerate(GOAL,1))
     if n<4: return n/4
     # All four seams must also be aligned, preventing credit for four nearby separated pieces.
     for i,j in ((0,1),(0,2),(1,3),(2,3)):
-        delta=objects[f'piece_{j+1}'].pos-objects[f'piece_{i+1}'].pos
+        delta=objects[f'square_api_piece_{j+1}'].pos-objects[f'square_api_piece_{i+1}'].pos
         target=np.r_[np.subtract(GOAL[j],GOAL[i]),0.0]
         if np.max(np.abs(delta-target))>.002: return .75
     return 1.0
@@ -55,7 +57,7 @@ def success(objects): return score(objects)==1.0
 
 
 def distance(objects):
-    return float(sum(np.linalg.norm(objects[f'piece_{i}'].pos[:2]-goal) for i,goal in enumerate(GOAL,1)))
+    return float(sum(np.linalg.norm(objects[f'square_api_piece_{i}'].pos[:2]-goal) for i,goal in enumerate(GOAL,1)))
 
 
 def demo():

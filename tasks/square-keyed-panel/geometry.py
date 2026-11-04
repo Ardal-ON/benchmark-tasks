@@ -1,5 +1,4 @@
 """Generate four single-rigid-body, compound-collider square puzzle pieces in metres."""
-from pathlib import Path
 
 STEP = .001
 BODY = 50                    # body is 50 x 50 mm
@@ -15,7 +14,6 @@ EDGES = [ [('right',0,'male'),('bottom',1,'male')],
           [('left',0,'female'),('bottom',2,'male')],
           [('top',1,'female'),('right',3,'male')],
           [('top',2,'female'),('left',3,'female')] ]
-OUT=Path(__file__).parent / 'assets'
 
 
 def cells_for(piece):
@@ -32,7 +30,8 @@ def cells_for(piece):
                     if not 0 <= depth < DEPTH + 1: continue
                     w = (NECK_WIDTH//2 + 1) if depth < 3 else (HEAD_WIDTH//2 + 1)
                 elif not 0 <= v < DEPTH: continue
-                if abs(u-centre) >= w: continue
+                # Half-open cells produce the stated even widths exactly.
+                if not -w <= u-centre < w: continue
                 x,y = {'right': (25+v,u), 'left':(-26-v,u),
                        'top':(u,25+v), 'bottom':(u,-26-v)}[side]
                 if kind == 'male': cells.add((x,y))
@@ -52,34 +51,3 @@ def rectangles(cells):
         for x in range(x0,x1):
             for y in range(y0,y1): remaining.remove((x,y))
         yield x0,x1,y0,y1
-
-
-def main():
-    OUT.mkdir(exist_ok=True)
-    for n in range(4):
-        blocks=[]
-        for i,(x0,x1,y0,y1) in enumerate(rectangles(cells_for(n))):
-            sx,sy=(x1-x0)*STEP,(y1-y0)*STEP
-            px,py=(x0+x1)*STEP/2,(y0+y1)*STEP/2
-            blocks.append(f'''    def Cube "block_{i}" (prepend apiSchemas = ["PhysicsCollisionAPI"])
-    {{
-        double size = 1
-        double3 xformOp:scale = ({sx:.5f}, {sy:.5f}, {HEIGHT})
-        double3 xformOp:translate = ({px:.5f}, {py:.5f}, 0)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
-        color3f[] primvars:displayColor = [(0.5, 0.55, 0.6)]
-    }}\n''')
-        text='''#usda 1.0
-(
-    defaultPrim = "Piece"
-    metersPerUnit = 1
-    upAxis = "Z"
-)
-def Xform "Piece" (prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"])
-{
-    float physics:mass = 0.08
-'''+''.join(blocks)+'}\n'
-        (OUT/f'piece_{n+1}.usda').write_text(text)
-        print(f'piece {n+1}: {len(blocks)} collision boxes')
-
-if __name__ == '__main__': main()

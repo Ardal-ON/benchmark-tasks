@@ -12,6 +12,8 @@ from yam_arena.task_file import Box, TABLE_TOP
 SCENE='station'
 TOP=TABLE_TOP[SCENE]
 HEIGHT=.024
+GRASP_Z_OFFSET=.023
+RELEASE_GAP=.008
 TABLE_CENTRE=(.36, 0.0)
 # Each point is the world-aligned bounding-box centre; yaws are in radians.
 START=[(.190,.180,0.0),(.285,.205,.40),(.180,-.180,-.40),(.285,-.205,.65)]
@@ -42,7 +44,11 @@ def _placed(obj,goal):
                 angle<=math.radians(8) and obj.resting())
 
 
+demo_states={}
+
+
 def score(objects):
+    demo_states.update(objects)
     n=sum(_placed(objects[f'square_api_piece_{i}'],np.asarray(goal)) for i,goal in enumerate(GOAL,1))
     if n<4: return n/4
     # All four seams must also be aligned, preventing credit for four nearby separated pieces.
@@ -60,13 +66,36 @@ def distance(objects):
     return float(sum(np.linalg.norm(objects[f'square_api_piece_{i}'].pos[:2]-goal) for i,goal in enumerate(GOAL,1)))
 
 
+def grasp_offset(index):
+    """Grip a solid strip clear of all four mating profiles."""
+    cells=_hook.geometry.cells_for(index)
+    cx=(min(x for x,_ in cells)+max(x for x,_ in cells)+1)*.0005
+    cy=(min(y for _,y in cells)+max(y for _,y in cells)+1)*.0005
+    gx,gy=(.015,0.)
+    return np.array([gx-cx,gy-cy])
+
+
+def grasp_yaw(index):
+    return 0.
+
+
 def demo():
-    # Initial candidate: left arm places the two near its side; right arm waits, then places the others.
-    left=[];right=[Waypoint(22.0,(.12,-.30,TOP+.13),FINGER_OPEN,'wait clear of left arm')]
+    left=[];right=[Waypoint(28.0,(.12,-.30,TOP+.13),FINGER_OPEN,'wait clear of left arm')]
     for i in range(4):
         x,y,yaw=START[i]; gx,gy=GOAL[i]
-        moves=pick_place_waypoints((x,y,TOP+HEIGHT/2+.003),
-                                  (gx,gy,TOP+HEIGHT/2+.007),
-                                  travel_z=TOP+.12,yaw=yaw,place_yaw=0.0)
+        offset=grasp_offset(i)
+        c,s=math.cos(yaw),math.sin(yaw)
+        pick_offset=np.array([[c,-s],[s,c]])@offset
+        moves=pick_place_waypoints((x+pick_offset[0],y+pick_offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET),
+                                  (gx+offset[0],gy+offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET+RELEASE_GAP),
+                                  travel_z=TOP+.09,yaw=yaw+grasp_yaw(i),place_yaw=grasp_yaw(i))
+        # Let horizontal motion settle before entering the 2 mm mating clearance.
+        moves.insert(5,Waypoint(1.0,moves[4].pos,moves[4].finger,'align',grasp_yaw(i)))
+        moves[6].duration=2.0
+        moves.insert(7,Waypoint(1.0,moves[6].pos,moves[6].finger,'seat',grasp_yaw(i)))
+        moves.insert(8,Waypoint(.5,moves[7].pos,moves[7].finger,'settle',grasp_yaw(i)))
+        for move in moves: move.label=f'{i+1}:{move.label}'
         (left if i<2 else right).extend(moves)
+    left.append(Waypoint(2.0,(.12,.30,TOP+.12),FINGER_OPEN,'park left clear'))
+    right.append(Waypoint(2.0,(.12,-.30,TOP+.12),FINGER_OPEN,'park right clear'))
     return {'left':left,'right':right}

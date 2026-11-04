@@ -25,6 +25,13 @@ class PuzzleTests(unittest.TestCase):
         self.assertEqual(sum((-20, y) not in female for y in range(-25, 25)),
                          geometry.HEAD_WIDTH + geometry.CLEARANCE)
 
+    def test_demo_grasps_clear_mating_tabs_and_recesses(self):
+        # A 10 mm-wide finger pad sees two straight, opposing 50 mm body edges.
+        for i in range(4):
+            cells=geometry.cells_for(i)
+            self.assertTrue({(x,y) for x in range(10,20) for y in range(-25,25)} <= cells)
+            self.assertFalse(any(10<=x<20 and not -25<=y<25 for x,y in cells))
+
     def test_unique_square_at_right_angle_orientations(self):
         offsets=[(-25,25),(25,25),(-25,-25),(25,-25)]
         variants={}

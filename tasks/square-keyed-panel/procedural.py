@@ -31,11 +31,13 @@ def _object(specification,scene):
         for i,(x0,x1,y0,y1) in enumerate(blocks):
             size=((x1-x0)*geometry.STEP,(y1-y0)*geometry.STEP,geometry.HEIGHT)
             pos=((x0+x1)*geometry.STEP/2,(y0+y1)*geometry.STEP/2,0.)
-            part=sim.CuboidCfg(size=size,collision_props=scene._contact_props(),
+            part=sim.CuboidCfg(size=size,collision_props=sim.CollisionPropertiesCfg(contact_offset=.0005,rest_offset=0.),
                 physics_material=scene._grippy(),visual_material=sim.PreviewSurfaceCfg(diffuse_color=color,roughness=.4))
             sim.spawn_cuboid(f'{prim_path}/block_{i}',part,translation=pos)
         root=sim.get_current_stage().GetPrimAtPath(prim_path)
         UsdPhysics.RigidBodyAPI.Apply(root)
+        sim.define_rigid_body_properties(prim_path,sim.RigidBodyPropertiesCfg(
+            solver_position_iteration_count=32,solver_velocity_iteration_count=4))
         UsdPhysics.MassAPI.Apply(root).CreateMassAttr().Set(float(specification.mass))
         return root
 

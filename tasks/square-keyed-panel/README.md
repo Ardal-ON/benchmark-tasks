@@ -9,9 +9,9 @@ sides. Four small orange marks indicate the target corners; they are not a suppo
 The pieces begin at four scattered positions with different yaw angles. The simulation's shapes,
 friction and clearance are approximate; they are not a validated manufacturing model. This is a
 draft; the task board requires team sign-in for novelty review. A successful full assembly has not
-yet been demonstrated. The current scripted controller is a first candidate, not a verified demo.
+yet been demonstrated. The scripted controller is under active physical validation; it is not yet a full-score demo.
 
-The initial scripted plan is not yet successful. The task, geometry, scorer and tests are on
+The original open-loop scripted plan is not yet successful. The task, geometry, scorer and tests are on
 a dedicated task branch based on the current upstream `main`; no media ID or model-run score has
 been recorded. See `task.json` for the precise geometry, fixed initial configuration and scoring.
 The tabletop target is fixed at `(0.36, 0.0)` metres, the station table's center. The corner marks
@@ -36,10 +36,28 @@ The fixed-seed L40S scripted run of this procedural task scored **0.25/1** and e
 It is not a full-score demonstration. The dimension-corrected procedural preassembled
 diagnostic settled and scored 1.0, but begins at the goal and does not demonstrate the task.
 
-From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, then:
+`square_demo.py` registers a separate `square_scripted` policy. It reads simulator piece
+poses for Cartesian grasp correction and commands only robot joint targets. This privileged
+feedback is for the feasibility demonstration; it is not given to a model policy. Piece poses
+are cached by the scorer without changing scoring equations. Original motion and feedback
+trial 04 reached 0.25; feedback trials 01, 02, 03, 05 and 06 reached 0.0. These are failed
+assembly demonstrations, not evidence of full feasibility. Completed trial videos have been
+collected for inspection; trial 06's final transfer was interrupted by an SSH outage.
+A shorter first-piece diagnostic is under validation to isolate release drift before another
+full assembly trial. The current candidate uses a shallow grasp on a solid strip clear of the
+mating profiles, bounded pose corrections during alignment, and a pause before opening the jaws.
+Piece collider contact offsets are 0.5 mm with zero rest offset; position/velocity solver
+iterations are 32/4. Robot colliders and actuator settings are unchanged. The carrying height is
+90 mm above the tabletop. The robot lowers the held part to an 8 mm bottom clearance before
+releasing it, allowing the fingers to clear assembled neighbors. These candidate settings
+require further physical validation; the current candidate has not demonstrated full score.
+Use `-P trace_path=/absolute/path/poses.jsonl` to record measured piece poses every ten actions.
+
+From a GPU allocation, set `SIM_ROOT` to the installed Robocurve runtime root, install this task's
+editable package in the Arena environment (`uv pip install -e . --no-deps`), then:
 
 ```bash
-"$SIM_ROOT/cluster/run-arena.sh" inspect-robots run --embodiment yam_arena --policy yam_scripted \
+"$SIM_ROOT/cluster/run-arena.sh" inspect-robots run --embodiment yam_arena --policy square_scripted \
   -E task="$PWD/task.py" -E top_cam=demo -E object_jitter=0 -E control_hz=20 \
   -E cam_width=640 -E cam_height=360 --instruction 'assemble the four keyed pieces into a square at the center of the table' \
   --scorer task_score --max-steps 1200 --seed 0 --store-frames --log-dir /path/to/run-output

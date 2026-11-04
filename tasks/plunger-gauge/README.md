@@ -11,7 +11,7 @@ complete H.264 camera videos were downloaded. The top sequence, both left-wrist 
 insertions and final tool return were visually reviewed. Both pins achieved the required
 stroke, returned, and the tool was parked; no invalid robot–pin contact was recorded.
 Seven offline scorer checks pass, including actual `LeftArm`/`RightArm` actor paths.
-Authenticated novelty review and media upload will be handled by the owner during submission.
+Media upload remains pending final video review.
 
 ## Reproduce
 
@@ -106,4 +106,4 @@ The reviewed sequence shows the left arm approaching the tool stand and fixture,
 
 `validation.json` records the completed result, runtime revision and video hashes.
 The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs and the authenticated novelty check are owner steps.
+for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.

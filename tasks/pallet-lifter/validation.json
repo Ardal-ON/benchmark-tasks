@@ -35,10 +35,7 @@
     "assets/pallet.usdc": "c5b23db189491d045dd5fca23af9a9951c8b8446d2f97f9fe155e3c6089d7481",
     "assets/rests.usdc": "edd8fce105711f76c0ad8782a9f99d25cb3509fc28f1dcfe0b33f630e9058207"
   },
-  "pending": [
-    "Final task-board ownership recheck immediately before submission",
-    "Owner: media upload and media ID"
-  ],
+  "pending": [],
   "dream": {
     "trial": "pallet-lifter-dream-01",
     "checkpoint": "dreamlabs/dream-1-beta",

@@ -11,7 +11,7 @@ All three complete H.264 videos were downloaded. The top sequence and final plac
 were visually inspected: the loaded pallet rests on the green rails, the fork is withdrawn
 and returned, and both hands are clear. Seven offline scorer checks pass, including
 actual PhysX robot prim paths. The completed Dream-1 trial is recorded below.
-Media upload remains pending final video review.
+
 
 ## Reproduce
 
@@ -107,5 +107,4 @@ and joint state. All three complete camera videos were downloaded and visually r
 The reviewed sequence shows the left arm reaching around the fork and loaded pallet, while the lifter remains on its supports and the pallet stays in its starting position. No contact-verified lift or transfer is completed. Final history has no lifter-pallet contact and no verified lift. The top sequence, final frame and both wrist views were inspected.
 
 `validation.json` records the completed result, runtime revision and video hashes.
-The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.
+The Dream video, full-score demo and setup image are linked through the media ID in `task.json`.

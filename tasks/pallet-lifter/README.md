@@ -10,8 +10,8 @@ seconds), terminated with **success**, and took **103.52 seconds wall time** on 
 All three complete H.264 videos were downloaded. The top sequence and final placement
 were visually inspected: the loaded pallet rests on the green rails, the fork is withdrawn
 and returned, and both hands are clear. Seven offline scorer checks pass, including
-actual PhysX robot prim paths. Dream-1, authenticated novelty review and media upload
-remain pending.
+actual PhysX robot prim paths. The completed Dream-1 trial is recorded below.
+Media upload remains pending final video review.
 
 ## Reproduce
 
@@ -108,4 +108,4 @@ The reviewed sequence shows the left arm reaching around the fork and loaded pal
 
 `validation.json` records the completed result, runtime revision and video hashes.
 The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs and the authenticated novelty check are owner steps.
+for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.

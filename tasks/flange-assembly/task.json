@@ -14,5 +14,6 @@
   "run_limit": "2,700 control steps (135 seconds of simulated time at 20 Hz).",
   "reset_notes": "Restore both flanges to their staging blocks and all four pins upright to the listed positions; reset both arms to the station ready pose. Use seed 0 and object_jitter=0. No parts are consumed.",
   "fidelity": "Rigid CAD visuals with 55 convex collision pieces per flange; annular holder and tapered pins have physical colliders. Lightweight training masses and uncalibrated friction approximate bench assembly. No gasket, threads, locking clips, preload, pressure or deformation. Final pose/velocity scoring infers seating; it does not measure contact, release or action sequence. Scripted demo uses measured pose feedback. CPU PhysX at 240 Hz, RTX rendering.",
-  "scores": "Dream-1 (dreamlabs/dream-1-beta): 0.0; scripted demo: 1.0."
+  "scores": "Dream-1 (dreamlabs/dream-1-beta): 0.0; scripted demo: 1.0.",
+  "media": "M-KSJ5FA"
 }

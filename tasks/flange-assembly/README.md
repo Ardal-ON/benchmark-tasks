@@ -2,7 +2,7 @@
 
 Transfer two loose pipe flanges onto a round holder, align their bolt circles and install four removable locating pins. This models the alignment step of equipment and pipework assembly with lightweight training parts. The pins do not lock, seal or clamp the joint.
 
-The scripted demo reaches full score (1.0). Dream-1 completed the full action limit and scored 0.0. Media has not been uploaded, and `task.json` intentionally has no media ID pending local review and authorization to upload.
+The scripted demo reaches full score (1.0). Dream-1 completed the full action limit and scored 0.0. The Dream video, full-score demo and initial setup screenshot are uploaded under media ID `M-KSJ5FA`, recorded in `task.json`.
 
 The layout, object inventory, instruction, numerical final-state scoring and reset procedure are specified in `task.json`. Positions use the station world frame: x forward, y left, z up, table top at 0.7475 m. The initial lower flange is inverted, neck down; the upper flange is neck up. Both flange bounding-box centres settle 80.5 mm above the table on their staging blocks. The task file gives spawning origins: because the CAD origin is at the mating face, these differ from bounding-box centres.
 

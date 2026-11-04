@@ -94,3 +94,18 @@ YAM source `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena source
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`; Python 3.12.12, Isaac Sim 6.1.0.0,
 Isaac Lab 17.0.2, Arena 0.3.0, Inspect Robots 0.60.0, NumPy 2.3.1, Torch 2.11.0+cu128,
 NVIDIA L40S. Source hashes and media validation are recorded in `validation.json`.
+
+## Dream-1 evaluation
+
+`dreamlabs/dream-1-beta` completed with a final score of **0** in **1,800 steps**,
+terminating with `max_steps`. Wall time including initialization and inference
+was **204.61 seconds**. The run used seed 0, zero jitter, 20 Hz control, 640 × 360
+saved camera frames, the `demo` top-camera configuration and the same runtime source
+hashes and physics as the expert demonstration. The model received ordinary camera images
+and joint state. All three complete camera videos were downloaded and visually reviewed.
+
+The reviewed sequence shows the left arm reaching around the fork and loaded pallet, while the lifter remains on its supports and the pallet stays in its starting position. No contact-verified lift or transfer is completed. Final history has no lifter-pallet contact and no verified lift. The top sequence, final frame and both wrist views were inspected.
+
+`validation.json` records the completed result, runtime revision and video hashes.
+The expert and model videos, matching setup image and source package are supplied separately
+for the owner's submission. Media IDs and the authenticated novelty check are owner steps.

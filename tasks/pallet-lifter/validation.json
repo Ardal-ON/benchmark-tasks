@@ -36,8 +36,57 @@
     "assets/rests.usdc": "edd8fce105711f76c0ad8782a9f99d25cb3509fc28f1dcfe0b33f630e9058207"
   },
   "pending": [
-    "Dream-1 model trial",
-    "Authenticated task-board novelty check",
-    "Media upload and media ID"
-  ]
+    "Owner: authenticated task-board novelty check",
+    "Owner: media upload and media ID"
+  ],
+  "dream": {
+    "trial": "pallet-lifter-dream-01",
+    "checkpoint": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "steps": 1800,
+    "max_steps": 1800,
+    "control_hz": 20,
+    "simulated_seconds": 90.0,
+    "wall_seconds": 204.6136605287902,
+    "mean_inference_latency_seconds": 0.6043671206571162,
+    "seed": 0,
+    "object_jitter": 0,
+    "resolution": [
+      640,
+      360
+    ],
+    "top_cam": "demo",
+    "environment_revision": "486dc90db407",
+    "visual_review": "The reviewed sequence shows the left arm reaching around the fork and loaded pallet, while the lifter remains on its supports and the pallet stays in its starting position. No contact-verified lift or transfer is completed. Final history has no lifter-pallet contact and no verified lift. The top sequence, final frame and both wrist views were inspected.",
+    "videos": [
+      {
+        "camera": "top",
+        "duration": 90.05,
+        "sha256": "a882acff8f4fa6b71e239d7950fb5fc6ea8262646dbeda7af9a7d5b5d0a871d9",
+        "bytes": 1634407
+      },
+      {
+        "camera": "left",
+        "duration": 90.05,
+        "sha256": "9660f299b618a739101d0d37974202f4006a9539f290fee2be0118e2e2e68480",
+        "bytes": 2045357
+      },
+      {
+        "camera": "right",
+        "duration": 90.05,
+        "sha256": "ac09d45edc5e3bd78df77c0dfec6f3632529be958dc7e56031141fff7ff438e1",
+        "bytes": 1986106
+      }
+    ],
+    "video_hash_scope": "The videos array hashes the original source-camera recordings; submission_video hashes the faststart stream-copy used in the handoff.",
+    "submission_video": {
+      "file": "model.mp4",
+      "sha256": "eb23c6cfbb20ba72a4cf95fd2eb03a81a3a30cab81a06df81adae0ada85305c2",
+      "bytes": 1634407,
+      "encoding": "H.264/yuv420p, stream-copy remux with faststart; frames unchanged"
+    }
+  }
 }

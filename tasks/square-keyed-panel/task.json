@@ -14,5 +14,6 @@
   "run_limit": "3,600 control steps (180 seconds at 20 Hz)",
   "reset_notes": "Restore the four pieces to the specified fixed initial positions and yaw angles; object jitter is disabled.",
   "fidelity": "Stylized compound rigid parts use primitive box colliders, approximate friction, 2 mm nominal key clearance, 0.5 mm contact offsets and zero rest offsets. Solver iterations are 32/4. Robot colliders and actuators are unchanged. Geometry and materials are not calibrated to physical manufactured parts. The scripted demonstration uses privileged pose feedback and robot joint targets only.",
-  "scores": "Dream-1 beta: 0 after 3600 steps (max_steps); scripted demo: 1.0 after 3507 steps (success)."
+  "scores": "Dream-1 beta: 0 after 3600 steps (max_steps); scripted demo: 1.0 after 3507 steps (success).",
+  "media": "M-YMLUDT"
 }

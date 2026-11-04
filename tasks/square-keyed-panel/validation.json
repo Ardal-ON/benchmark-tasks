@@ -36,10 +36,7 @@
     "demo_calibration.json": "72b98e280665da232e4e32eb8f0b11c31fc648afcf124f03227cb755b3cf9cc3",
     "pyproject.toml": "a339d7dd8ba34987d926105070a6e2e5cfab530786ff20aa1b15d6a7a132938d"
   },
-  "pending": [
-    "Final task-board ownership recheck immediately before submission",
-    "Owner: media upload and media ID"
-  ],
+  "pending": [],
   "runtime_packages": {
     "python": "3.12.12",
     "isaacsim": "6.1.0.0",

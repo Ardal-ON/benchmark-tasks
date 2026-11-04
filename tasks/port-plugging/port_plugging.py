@@ -68,7 +68,9 @@ def plugged(port, objects):
 
 
 def _tally(objects):
-    return sum(plugged(p, objects) for p in TO_PLUG), int(plugged(TEST_PORT, objects)) + int(not plugged(PRE_PLUGGED, objects))
+    f, y = objects["plug_fitted"], PORTS[PRE_PLUGGED]
+    fitted_in = (abs(f.pos[0] - MANIFOLD["x"]) <= HOLE / 2 and abs(f.pos[1] - y) <= HOLE / 2 and f.low[2] <= FACE_Z - 0.01)
+    return sum(plugged(p, objects) for p in TO_PLUG), int(plugged(TEST_PORT, objects)) + int(not fitted_in)
 
 
 def success(objects):
@@ -152,6 +154,8 @@ if __name__ == "__main__":
     assert score(done) == 1.0 and success(done)
     assert score(dict(done, plug_2=inport("port_2"))) == (2 - 1.5) / 2  # the test port plugged too
     assert score(dict(start, plug_1=inport("port_1"), plug_2=inport("port_2"), plug_3=inport("port_3"))) == (2 - 1.5) / 2
+    swapped = dict(done, plug_fitted=inport("port_1"), plug_1=inport("port_4"))  # exploit (council): the fitted plug swapped out
+    assert abs(score(swapped) - (2 - 1.5) / 2) < 1e-9, score(swapped)
     t = max(sum(w.duration for w in wps) for wps in demo().values())
     assert t * 20 < 2400, t
     print(f"ok: demo {t:.1f} s ({t * 20:.0f} steps)")

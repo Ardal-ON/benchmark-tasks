@@ -4,6 +4,7 @@ Each T-shaped tab must fit its matching recess; all parts should lie flat.
 """
 from pathlib import Path
 import math
+import json
 import numpy as np
 from yam_arena.constants import FINGER_OPEN
 from yam_arena.demo import Waypoint, pick_place_waypoints
@@ -12,8 +13,9 @@ from yam_arena.task_file import Box, TABLE_TOP
 SCENE='station'
 TOP=TABLE_TOP[SCENE]
 HEIGHT=.024
-GRASP_Z_OFFSET=.023
-RELEASE_GAP=.008
+GRASP_Z_OFFSET=.021
+RELEASE_GAP=.006
+FINGER_HOLD=-.020
 TABLE_CENTRE=(.36, 0.0)
 # Each point is the world-aligned bounding-box centre; yaws are in radians.
 START=[(.190,.180,0.0),(.285,.205,.40),(.180,-.180,-.40),(.285,-.205,.65)]
@@ -67,7 +69,7 @@ def distance(objects):
 
 
 def grasp_offset(index):
-    """Grip a solid strip clear of all four mating profiles."""
+    """Return the local offset for the scripted grasp."""
     cells=_hook.geometry.cells_for(index)
     cx=(min(x for x,_ in cells)+max(x for x,_ in cells)+1)*.0005
     cy=(min(y for _,y in cells)+max(y for _,y in cells)+1)*.0005
@@ -79,21 +81,37 @@ def grasp_yaw(index):
     return 0.
 
 
+# Controller calibration is separate from physical setup and scoring targets.
+_calibration_path=Path(__file__).with_name('demo_calibration.json')
+DEMO_CALIBRATION=json.loads(_calibration_path.read_text()) if _calibration_path.exists() else {}
+
+
+def release_offset(index):
+    entry=DEMO_CALIBRATION.get(str(index+1),{})
+    return np.asarray(entry.get('xy',[0.,0.]),dtype=float)
+
+
+def release_yaw(index):
+    return math.radians(DEMO_CALIBRATION.get(str(index+1),{}).get('yaw_deg',0.))
+
+
 def demo():
     left=[];right=[Waypoint(28.0,(.12,-.30,TOP+.13),FINGER_OPEN,'wait clear of left arm')]
     for i in range(4):
-        x,y,yaw=START[i]; gx,gy=GOAL[i]
+        x,y,yaw=START[i]; gx,gy=np.asarray(GOAL[i])+release_offset(i)
         offset=grasp_offset(i)
         c,s=math.cos(yaw),math.sin(yaw)
         pick_offset=np.array([[c,-s],[s,c]])@offset
         moves=pick_place_waypoints((x+pick_offset[0],y+pick_offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET),
                                   (gx+offset[0],gy+offset[1],TOP+HEIGHT/2+GRASP_Z_OFFSET+RELEASE_GAP),
-                                  travel_z=TOP+.09,yaw=yaw+grasp_yaw(i),place_yaw=grasp_yaw(i))
+                                  travel_z=TOP+.09,yaw=yaw+grasp_yaw(i),place_yaw=grasp_yaw(i)+release_yaw(i))
+        for move in moves:
+            if move.finger==0.: move.finger=FINGER_HOLD
         # Let horizontal motion settle before entering the 2 mm mating clearance.
-        moves.insert(5,Waypoint(1.0,moves[4].pos,moves[4].finger,'align',grasp_yaw(i)))
+        moves.insert(5,Waypoint(1.0,moves[4].pos,moves[4].finger,'align',grasp_yaw(i)+release_yaw(i)))
         moves[6].duration=2.0
-        moves.insert(7,Waypoint(1.0,moves[6].pos,moves[6].finger,'seat',grasp_yaw(i)))
-        moves.insert(8,Waypoint(.5,moves[7].pos,moves[7].finger,'settle',grasp_yaw(i)))
+        moves.insert(7,Waypoint(1.0,moves[6].pos,moves[6].finger,'seat',grasp_yaw(i)+release_yaw(i)))
+        moves.insert(8,Waypoint(.5,moves[7].pos,moves[7].finger,'settle',grasp_yaw(i)+release_yaw(i)))
         for move in moves: move.label=f'{i+1}:{move.label}'
         (left if i<2 else right).extend(moves)
     left.append(Waypoint(2.0,(.12,.30,TOP+.12),FINGER_OPEN,'park left clear'))

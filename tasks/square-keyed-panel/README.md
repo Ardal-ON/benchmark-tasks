@@ -44,11 +44,17 @@ trial 04 reached 0.25; feedback trials 01, 02, 03, 05 and 06 reached 0.0. These 
 assembly demonstrations, not evidence of full feasibility. Completed trial videos have been
 collected for inspection; trial 06's final transfer was interrupted by an SSH outage.
 A shorter first-piece diagnostic is under validation to isolate release drift before another
-full assembly trial. The current candidate uses a shallow grasp on a solid strip clear of the
-mating profiles, bounded pose corrections during alignment, and a pause before opening the jaws.
+full assembly trial. The current candidate uses a shallow grasp with bounded pose corrections during alignment and a pause before opening the jaws.
+A demo calibration file compensates measured jaw-opening offsets with Cartesian
+position and yaw adjustments. These are controller calibration values; the scorer is unchanged.
+Two isolated left-arm placements reached approximately 0.1 and 0.2 mm final position error during
+calibration. A later gentler-grip diagnostic placed the first piece within 0.83 mm without offsets.
+These isolated checks do not prove a full assembly; validation with all neighbors remains required.
 Piece collider contact offsets are 0.5 mm with zero rest offset; position/velocity solver
 iterations are 32/4. Robot colliders and actuator settings are unchanged. The carrying height is
-90 mm above the tabletop. The robot lowers the held part to an 8 mm bottom clearance before
+90 mm above the tabletop. The current candidate uses a -20 mm finger-joint hold target rather than commanding fully
+closed fingers; it grasps the upper 4 mm of the body. The robot lowers the held part to a 6 mm
+bottom clearance before
 releasing it, allowing the fingers to clear assembled neighbors. These candidate settings
 require further physical validation; the current candidate has not demonstrated full score.
 Use `-P trace_path=/absolute/path/poses.jsonl` to record measured piece poses every ten actions.

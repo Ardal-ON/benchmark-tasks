@@ -25,13 +25,6 @@ class PuzzleTests(unittest.TestCase):
         self.assertEqual(sum((-20, y) not in female for y in range(-25, 25)),
                          geometry.HEAD_WIDTH + geometry.CLEARANCE)
 
-    def test_demo_grasps_clear_mating_tabs_and_recesses(self):
-        # A 10 mm-wide finger pad sees two straight, opposing 50 mm body edges.
-        for i in range(4):
-            cells=geometry.cells_for(i)
-            self.assertTrue({(x,y) for x in range(10,20) for y in range(-25,25)} <= cells)
-            self.assertFalse(any(10<=x<20 and not -25<=y<25 for x,y in cells))
-
     def test_unique_square_at_right_angle_orientations(self):
         offsets=[(-25,25),(25,25),(-25,-25),(25,-25)]
         variants={}
@@ -52,6 +45,18 @@ class PuzzleTests(unittest.TestCase):
         expected={((0,1,2,3),(0,0,0,0)),((1,3,0,2),(1,1,1,1)),
                   ((2,0,3,1),(3,3,3,3)),((3,2,1,0),(2,2,2,2))}
         self.assertEqual(set(valid),expected)
+
+    def test_controller_calibration_does_not_move_scoring_targets(self):
+        original=task.DEMO_CALIBRATION
+        goals=list(task.GOAL)
+        objects={f'square_api_piece_{i}':state(xy) for i,xy in enumerate(goals,1)}
+        try:
+            task.DEMO_CALIBRATION={'1':{'xy':[.01,-.01],'yaw_deg':10.}}
+            self.assertEqual(task.score(objects),1.)
+            self.assertEqual(task.GOAL,goals)
+            self.assertEqual(task.score({f'square_api_piece_{i}':state(start[:2],start[2]) for i,start in enumerate(task.START,1)}),0.)
+        finally:
+            task.DEMO_CALIBRATION=original
 
     def test_scoring_requires_correct_position_and_orientation(self):
         objs={f'square_api_piece_{i}':state(xy) for i,xy in enumerate(task.GOAL,1)}

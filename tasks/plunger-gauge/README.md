@@ -28,7 +28,7 @@ inspect-robots run --embodiment yam_plunger_gauge --policy plunger_gauge_scripte
   --log-dir /path/outside/repository/plunger-demo
 ```
 
-CARC uses `$SIM_ROOT/cluster/run-arena.sh` inside the L40S allocation. Render the completed
+The configured cluster uses `$SIM_ROOT/cluster/run-arena.sh` inside the L40S allocation. Render the completed
 JSON with `inspect-robots video <run.json>`. For Dream-1 use the same scene, embodiment,
 seed and budget with `--policy dream -P model=dreamlabs/dream-1-beta`.
 

@@ -25,10 +25,7 @@
     "build_fixture.py": "d00469dbd11af9166c787652047a86ae4b9c1a6d2f3694bc0bba2240c1a6a6a4",
     "pyproject.toml": "cd160c2d3b246fb6b9106f678e6ea69a2fceedb74442ab65ccca906d5a2ac8ac"
   },
-  "pending": [
-    "Final task-board ownership recheck immediately before submission",
-    "Owner: media upload and media ID"
-  ],
+  "pending": [],
   "dream": {
     "trial": "tool-retrieval-dream-01",
     "checkpoint": "dreamlabs/dream-1-beta",

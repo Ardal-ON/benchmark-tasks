@@ -73,7 +73,7 @@ The runtime is Python 3.12.12, Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0,
 YAM Arena 0.1.0 and Inspect Robots 0.60.0. Source pins: YAM
 `0059d02a1a91bc6834c1d0846022891df0c78730`, Arena
 `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`. `validation.json` records source hashes.
-The completed model trial uses this refined revision. Media upload remains pending final video review.
+The completed model trial uses this refined revision.
 
 For a configured cluster, activate the configured container environment with
 `$SIM_ROOT/cluster/run-arena.sh`, install this folder with `uv pip install -e . --no-deps`,
@@ -92,5 +92,4 @@ and joint state. All three complete camera videos were downloaded and visually r
 The reviewed sequence shows grasp attempts around the spatula while the blue part remains beneath the housing. No extraction or tray placement is completed. The final contact history records no tool-part contact and no extraction. The top sequence, final frame and both wrist views were inspected.
 
 `validation.json` records the completed result, runtime revision and video hashes.
-The expert and model videos, matching setup image and source package are supplied separately
-for the owner's submission. Media IDs will be added after final video review; recheck task-board ownership before submission.
+The Dream video, full-score demo and setup image are linked through the media ID in `task.json`.

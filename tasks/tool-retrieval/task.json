@@ -14,5 +14,6 @@
   "run_limit": "2400 control steps (120 simulated seconds at 20 Hz)",
   "reset_notes": "Fixed seed 0, zero reset jitter. Restore both loose objects and both arms; clear contact and failure history; settle physics.",
   "fidelity": "Rigid spatula from Arena, with a visible rigid grip sleeve and convex blade/handle collision approximations. Hood has mesh visuals and five box panel collision envelopes plus mounting lugs; 0.7 mm visual chamfers. Part and tray are primitives. No attachments, teleportation or breakaway constraints. Materials and friction are uncalibrated. The part is access-constrained, not friction-jammed. PhysX contact history verifies tool-only extraction.",
-  "scores": "Dream-1 beta: 0 after 2400 steps (max_steps); scripted demo: 1.0 after 823 steps (success)."
+  "scores": "Dream-1 beta: 0 after 2400 steps (max_steps); scripted demo: 1.0 after 823 steps (success).",
+  "media": "M-QELTUH"
 }

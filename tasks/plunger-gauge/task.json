@@ -14,5 +14,5 @@
   "run_limit": "1800 control steps (90 seconds at 20 Hz)",
   "reset_notes": "Use seed 0 and zero object jitter. Joint world anchors are authored for this fixed layout. Restore tool, pins and robot, clear contact/test history and settle; spring preload under gravity depresses each pin about 0.6 mm.",
   "fidelity": "Rigid pin tool and pins. Maximal-coordinate prismatic joints approximate passive springs: 500 N/m stiffness, 2 N s/m damping, 20 N drive cap, 10 mm travel. Convex sector colliders approximate circular well walls; visual bores are circular. No object-pose writes or attachments during the trial. No tactile force sensor or electrical test is simulated. Materials are uncalibrated.",
-  "scores": "Scripted physics demo: 1.0, 724 steps, success. Dream-1: not run."
+  "scores": "Dream-1 beta: 0 after 1800 steps (max_steps); scripted demo: 1.0 after 724 steps (success)."
 }

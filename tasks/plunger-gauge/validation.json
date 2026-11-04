@@ -38,8 +38,57 @@
     "assets/punch_stand.usdc": "7f57e8b4b324b1199c044f37d8cf43b4321d31423e58bbef8d4b50b6b09c3755"
   },
   "pending": [
-    "Dream-1 model trial",
-    "Authenticated task-board novelty check",
-    "Media upload and media ID"
-  ]
+    "Owner: authenticated task-board novelty check",
+    "Owner: media upload and media ID"
+  ],
+  "dream": {
+    "trial": "plunger-gauge-dream-01",
+    "checkpoint": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "steps": 1800,
+    "max_steps": 1800,
+    "control_hz": 20,
+    "simulated_seconds": 90.0,
+    "wall_seconds": 236.0590742654167,
+    "mean_inference_latency_seconds": 0.6473174686543643,
+    "seed": 0,
+    "object_jitter": 0,
+    "resolution": [
+      640,
+      360
+    ],
+    "top_cam": "demo",
+    "environment_revision": "00a80a3a0cd0",
+    "visual_review": "The reviewed sequence shows the left arm approaching the tool stand and fixture, but the pin tool remains in its stand and neither recessed plunger completes a test stroke. Final contact history has no tool-pin contacts and no tested plungers. The top sequence, final frame and both wrist views were inspected.",
+    "videos": [
+      {
+        "camera": "top",
+        "duration": 90.05,
+        "sha256": "d7a23fcd759396e66ffcd1e81c3a97a5c11f6874ac4304a1a661c20d1419248e",
+        "bytes": 1578619
+      },
+      {
+        "camera": "left",
+        "duration": 90.05,
+        "sha256": "b1435eb0c5bc88a9dc3a6caa52959a3bbfb77d5b3f4351bab3381d3e0852ce41",
+        "bytes": 2180465
+      },
+      {
+        "camera": "right",
+        "duration": 90.05,
+        "sha256": "04e4dba4ebd778de85b78eb328fa41bfdd9359c8c125d0e06e3bac64fa54e7b3",
+        "bytes": 1345884
+      }
+    ],
+    "video_hash_scope": "The videos array hashes the original source-camera recordings; submission_video hashes the faststart stream-copy used in the handoff.",
+    "submission_video": {
+      "file": "model.mp4",
+      "sha256": "2c60a2de8f0e7f6a2ed53300b8bf6eb55b9fcf38231edd71f9fb4e486f2f96e8",
+      "bytes": 1578619,
+      "encoding": "H.264/yuv420p, stream-copy remux with faststart; frames unchanged"
+    }
+  }
 }

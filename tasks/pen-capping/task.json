@@ -1,0 +1,28 @@
+{
+  "title": "Cap and sort four pens",
+  "category": "Impact on jobs",
+  "keywords": [
+    "bimanual assembly",
+    "insertion",
+    "color matching",
+    "sorting"
+  ],
+  "instruction": "Fit each pen with a cap of the same color. Put the two red pens on the left and the two blue pens on the right.",
+  "context": "Preparing writing tools for storage combines matching closures, retaining each cap and separating tools by color.",
+  "setup": "Existing YAM station; metres, x forward/y left/z up, tabletop z=0.7475. Four 165.2 mm pens with 19.4 mm barrels, 35 g each; four separate 35 mm hollow caps, 8 g each, approximately 32 mm across. Nominal pen roots (x,y,yaw degrees): red (0.16,-0.16,-100), blue (0.29,-0.15,-80), red (0.42,-0.16,-65), blue (0.21,-0.34,-110); z=0.7575. Corresponding cap roots: red (0.18,0.15,-120), blue (0.38,0.32,-105), red (0.40,0.10,-145), blue (0.24,0.05,-125); z=0.7638. Objects settle from these poses. Fixed red-left and blue-right 240 x 200 mm printed destination areas centered at (0.300,+/-0.230), 0.3 mm above the table. Seed 0, zero jitter.",
+  "scoring": "End score 0.125 per correctly colored cap retained after measured insertion and one second with both hands clear; another 0.125 for that capped pen released and resting in its correct marked area for one second. Wrong-color or uncapped pens earn no placement credit. Rest requires pen root 6\u201325 mm above tabletop, axis within 8 degrees of horizontal and speed (norm linear velocity+0.06*norm angular velocity) < 0.015 m/s. A conservative projected pen/cap envelope must be inside the rectangle with 1 mm inset. Release uses TCP clearance > 60 mm from the full pen segment and its cap. Full completion requires all four retained caps and all four released, resting correct placements.",
+  "run_limit": "4400 steps (220 s at 20 Hz), tightened from the initial 4800 after the 3540-step, 177.05 s full-score demo. That demo used a 4800-step launch cap and ended within the final limit; Dream used 4400.",
+  "reset_notes": "Remove all retention joints, restore separate pens and caps to the fixed layout, clear insertion/release/scoring histories, flush camera history and capture fresh observations.",
+  "fidelity": "Catalog barrel visuals with analytic pen collisions. Each rigid cap has 16 convex wall segments and a closed end, leaving an actual open 12.5 mm-apothem bore. No teleportation assembles caps. Measured aligned approach and seating for 0.2 s permit a fixed joint at the reached relative pose; this approximates snap retention and is non-removable until reset. No elastic cap deformation or frictional snap-fit is simulated. The bore is enlarged for rigid insertion clearance. A lost measured seat invalidates retention. Printed destination areas are flat visual markers on the existing table.",
+  "scores": {
+    "scripted_demo": 1.0,
+    "dream": 0.0,
+    "demo_video_s": 177.05,
+    "dream_video_s": 220.05,
+    "demo_steps": 3540,
+    "dream_steps": 4400,
+    "demo_wall_s": 362.2432967503555,
+    "dream_wall_s": 493.00840881979093,
+    "runtime_revision": "2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438"
+  }
+}

@@ -1,0 +1,1776 @@
+{
+  "tested_runtime_revision": "2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438",
+  "fixed_config": {
+    "seed": 0,
+    "object_jitter": 0,
+    "control_hz": 20,
+    "camera_pixels": [
+      640,
+      360
+    ],
+    "physics_hz": 240,
+    "device": "cpu",
+    "top_camera_intrinsics_multiplier": 1.6
+  },
+  "scripted_demo": {
+    "trial": "next-pen-capping-full-02",
+    "score": 1.0,
+    "steps": 3540,
+    "video_s": 177.05,
+    "wall_s": 362.2432967503555,
+    "launch_limit": 4800
+  },
+  "dream": {
+    "trial": "next-pen-capping-dream-01",
+    "score": 0.0,
+    "steps": 4400,
+    "video_s": 220.05,
+    "wall_s": 493.00840881979093,
+    "launch_limit": 4400
+  },
+  "final_run_limit": 4400,
+  "budget_note": "Tightened after the completed demo; actual demo steps fit the final budget. No runtime input changed.",
+  "milestones": [
+    {
+      "trial": "next-pen-capping-prototype-05",
+      "score": 0.125,
+      "maximum_prototype_score": 0.125,
+      "video_s": 35.05,
+      "interaction": "One physically inserted, retained cap after release."
+    },
+    {
+      "trial": "next-pen-capping-two-color-08",
+      "score": 0.5,
+      "maximum_prototype_score": 0.5,
+      "video_s": 89.1,
+      "interaction": "One red and one blue physically capped and released in their areas before expansion to four."
+    }
+  ],
+  "scorer_checks": 7,
+  "visual_review": {
+    "demo": {
+      "demo_ready": true,
+      "task_score": 1.0,
+      "reviewed": "Complete top timeline at 0.5 s intervals (15 sheets), final frame, both synchronized wrist timelines, and left wrist seating details.",
+      "findings": "Four physical two-arm cap insertions, followed by released flat placement: two red left, two blue right. All four remain retained and resting through the final 5 s. Wrist views show held cap mouths and barrels; grippers occlude some seating details, so top trajectory and measured seating records supply complementary evidence.",
+      "physics_audit": "All eight masses, 4/17 pen/cap colliders, friction and contact offsets verified in simulator; reset removes retention joints and clears scorer.",
+      "environment_revision": "2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438",
+      "budget_decision": "Tighten initial 4800 to 4400 steps (220 s), retaining 43 s headroom beyond the completed 177.05 s demonstration. Demo launch cap was 4800; actual 3540 steps fits final budget."
+    },
+    "dream": {
+      "reviewed": true,
+      "task_score": 0.0,
+      "review_scope": "Complete 220.05 s top timeline at 0.5 s intervals (19 sheets), both synchronized wrist timelines and final frame.",
+      "findings": "Dream moves and repeatedly regrips a red pen, drops it, and displaces a red cap. It puts an uncapped red pen in the left print. No measured cap seat or retained pair occurs; no capping or placement credit. Final red and blue pens remain uncapped.",
+      "runtime_errors": 0,
+      "environment_revision": "2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438"
+    }
+  },
+  "runtime_audit": {
+    "environment_revision": "2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438",
+    "assets": {
+      "pen_0": {
+        "mass_kg": 0.03500000014901161,
+        "world_aabb_m": [
+          0.05547471344470978,
+          0.16741356253623962,
+          0.02720123529434204
+        ],
+        "colliders": [
+          {
+            "shape": "Cylinder",
+            "name": "Barrel",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.14,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Shoulder",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.007,
+            "height_m": 0.0168,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Nib",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.003,
+            "height_m": 0.0196,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "End",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.0084,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "cap_0": {
+        "mass_kg": 0.00800000037997961,
+        "world_aabb_m": [
+          0.04522475600242615,
+          0.04631778597831726,
+          0.032013773918151855
+        ],
+        "colliders": [
+          {
+            "shape": "Cube",
+            "name": "Wall00",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.01425,
+              0.0
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall01",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285837,
+              0.005453238911202529
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall02",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.010076271631908303,
+              0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall03",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.00545323891120253,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall04",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              8.725608443924892e-19,
+              0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall05",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202528,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall06",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908301,
+              0.010076271631908303
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall07",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285837,
+              0.005453238911202531
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall08",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.01425,
+              1.7451216887849783e-18
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall09",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285838,
+              -0.005453238911202528
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall10",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908305,
+              -0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall11",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202538,
+              -0.013165283338285833
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall12",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -2.6176825331774675e-18,
+              -0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall13",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.005453238911202533,
+              -0.013165283338285835
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall14",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.0100762716319083,
+              -0.010076271631908305
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall15",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285833,
+              -0.005453238911202538
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "ClosedEnd",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.016,
+            "height_m": 0.003,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "pen_1": {
+        "mass_kg": 0.03500000014901161,
+        "world_aabb_m": [
+          0.050864964723587036,
+          0.16660085320472717,
+          0.02252054214477539
+        ],
+        "colliders": [
+          {
+            "shape": "Cylinder",
+            "name": "Barrel",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.14,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Shoulder",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.007,
+            "height_m": 0.0168,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Nib",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.003,
+            "height_m": 0.0196,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "End",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.0084,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "cap_1": {
+        "mass_kg": 0.00800000037997961,
+        "world_aabb_m": [
+          0.0399814248085022,
+          0.042093098163604736,
+          0.032013654708862305
+        ],
+        "colliders": [
+          {
+            "shape": "Cube",
+            "name": "Wall00",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.01425,
+              0.0
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall01",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285837,
+              0.005453238911202529
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall02",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.010076271631908303,
+              0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall03",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.00545323891120253,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall04",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              8.725608443924892e-19,
+              0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall05",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202528,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall06",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908301,
+              0.010076271631908303
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall07",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285837,
+              0.005453238911202531
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall08",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.01425,
+              1.7451216887849783e-18
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall09",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285838,
+              -0.005453238911202528
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall10",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908305,
+              -0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall11",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202538,
+              -0.013165283338285833
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall12",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -2.6176825331774675e-18,
+              -0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall13",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.005453238911202533,
+              -0.013165283338285835
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall14",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.0100762716319083,
+              -0.010076271631908305
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall15",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285833,
+              -0.005453238911202538
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "ClosedEnd",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.016,
+            "height_m": 0.003,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "pen_2": {
+        "mass_kg": 0.03500000014901161,
+        "world_aabb_m": [
+          0.09150591492652893,
+          0.15983736515045166,
+          0.02393364906311035
+        ],
+        "colliders": [
+          {
+            "shape": "Cylinder",
+            "name": "Barrel",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.14,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Shoulder",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.007,
+            "height_m": 0.0168,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Nib",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.003,
+            "height_m": 0.0196,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "End",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.0084,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "cap_2": {
+        "mass_kg": 0.00800000037997961,
+        "world_aabb_m": [
+          0.04703265428543091,
+          0.046299248933792114,
+          0.032013654708862305
+        ],
+        "colliders": [
+          {
+            "shape": "Cube",
+            "name": "Wall00",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.01425,
+              0.0
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall01",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285837,
+              0.005453238911202529
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall02",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.010076271631908303,
+              0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall03",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.00545323891120253,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall04",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              8.725608443924892e-19,
+              0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall05",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202528,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall06",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908301,
+              0.010076271631908303
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall07",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285837,
+              0.005453238911202531
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall08",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.01425,
+              1.7451216887849783e-18
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall09",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285838,
+              -0.005453238911202528
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall10",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908305,
+              -0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall11",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202538,
+              -0.013165283338285833
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall12",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -2.6176825331774675e-18,
+              -0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall13",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.005453238911202533,
+              -0.013165283338285835
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall14",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.0100762716319083,
+              -0.010076271631908305
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall15",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285833,
+              -0.005453238911202538
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "ClosedEnd",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.016,
+            "height_m": 0.003,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "pen_3": {
+        "mass_kg": 0.03500000014901161,
+        "world_aabb_m": [
+          0.07995374500751495,
+          0.16377416253089905,
+          0.024959206581115723
+        ],
+        "colliders": [
+          {
+            "shape": "Cylinder",
+            "name": "Barrel",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.14,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Shoulder",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.007,
+            "height_m": 0.0168,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "Nib",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.003,
+            "height_m": 0.0196,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "End",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.0097,
+            "height_m": 0.0084,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      },
+      "cap_3": {
+        "mass_kg": 0.00800000037997961,
+        "world_aabb_m": [
+          0.04629930853843689,
+          0.047032639384269714,
+          0.032013773918151855
+        ],
+        "colliders": [
+          {
+            "shape": "Cube",
+            "name": "Wall00",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.01425,
+              0.0
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall01",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285837,
+              0.005453238911202529
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall02",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.010076271631908303,
+              0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall03",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.00545323891120253,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall04",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              8.725608443924892e-19,
+              0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall05",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202528,
+              0.013165283338285837
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall06",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908301,
+              0.010076271631908303
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall07",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285837,
+              0.005453238911202531
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall08",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.01425,
+              1.7451216887849783e-18
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall09",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.013165283338285838,
+              -0.005453238911202528
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall10",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.010076271631908305,
+              -0.010076271631908301
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall11",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -0.005453238911202538,
+              -0.013165283338285833
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall12",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              -2.6176825331774675e-18,
+              -0.01425
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall13",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.005453238911202533,
+              -0.013165283338285835
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall14",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.0100762716319083,
+              -0.010076271631908305
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cube",
+            "name": "Wall15",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "size_m": [
+              0.03200000151991844,
+              0.0035000001080334187,
+              0.006399999838322401
+            ],
+            "translation_m": [
+              0.0015,
+              0.013165283338285833,
+              -0.005453238911202538
+            ],
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          },
+          {
+            "shape": "Cylinder",
+            "name": "ClosedEnd",
+            "friction": [
+              1.2000000476837158,
+              1.0
+            ],
+            "radius_m": 0.016,
+            "height_m": 0.003,
+            "axis": "X",
+            "contact_offset_m": 0.00019999999494757503,
+            "rest_offset_m": 0.0
+          }
+        ]
+      }
+    },
+    "bore_inner_apothem_m": 0.0125,
+    "bore_open_at_local_x_m": 0.0175,
+    "synthetic_reset_joint_attributes": [
+      {
+        "body0": [
+          "pen_0"
+        ],
+        "body1": [
+          "cap_0"
+        ],
+        "local0": [
+          -0.3087630569934845,
+          -0.010359552688896656,
+          0.023868044838309288
+        ],
+        "local1": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "body0": [
+          "pen_1"
+        ],
+        "body1": [
+          "cap_1"
+        ],
+        "local0": [
+          -0.44723090529441833,
+          0.17038802802562714,
+          -0.024155182763934135
+        ],
+        "local1": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "body0": [
+          "pen_2"
+        ],
+        "body1": [
+          "cap_2"
+        ],
+        "local0": [
+          -0.24409355223178864,
+          0.09258715063333511,
+          -0.019529355689883232
+        ],
+        "local1": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "body0": [
+          "pen_3"
+        ],
+        "body1": [
+          "cap_3"
+        ],
+        "local0": [
+          -0.37674233317375183,
+          -0.04680947959423065,
+          -0.10737637430429459
+        ],
+        "local1": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "reset": {
+      "passed": true,
+      "retention_joint_removed": true,
+      "scoring_cleared": true
+    },
+    "audit_scope": "Actual simulator collider/material/dimension inspection and synthetic reset test, not a scored robot demonstration."
+  }
+}

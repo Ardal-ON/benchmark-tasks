@@ -77,7 +77,7 @@ Dream-1 has not been evaluated on this refined revision; earlier primitive-guard
 model results do not validate it. Authenticated novelty review, model trial and
 media upload remain pending. No push or pull request has been made.
 
-For CARC, activate the configured container environment with
+For a configured cluster, activate the configured container environment with
 `$SIM_ROOT/cluster/run-arena.sh`, install this folder with `uv pip install -e . --no-deps`,
 then run `run_demo.sh` inside the GPU allocation. Set `RETRIEVAL_LOG_ROOT` to a
 writable directory outside the repository. `run_dream.sh` uses the same setup.

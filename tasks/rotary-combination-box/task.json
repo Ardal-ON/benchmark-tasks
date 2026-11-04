@@ -1,0 +1,18 @@
+{
+  "title": "Open a box using rotating combination wheels",
+  "category": "Impact on jobs",
+  "keywords": [
+    "rotary manipulation",
+    "combination lock",
+    "hinged lid",
+    "sequential manipulation"
+  ],
+  "instruction": "Set the three numbered wheels to 3–1–7, then open the lid.",
+  "context": "Setting retained rotary controls before opening a latched enclosure combines angular alignment with a mechanically constrained sequence.",
+  "setup": "Existing YAM station; metres, x forward/y left/z up, table z=0.7475. Fixed blue storage box140x400x60 mm at x0.250–0.390,y±0.200. Three independent70 mm diameter,26.5 mm thick,80 g numbered wheels on a120x400x10 mm ledge, centers(0.190,0.120/0/−0.120,0.7875), code order left-to-right in the top view. Initial digits2,0,8. Raised45x18x12 mm gripping bars,120 mm wheel pitch, fixed orange index triangles. Separate140x400x8 mm lid,120 g, world-y hinge(0.250,0,0.8125); raised55x18x12 mm handle centered(0.360,−0.120,0.8385). Seed0, zero jitter.",
+  "scoring": "End score:0.2 per wheel within5° of the requested digit, angular speed<0.1 rad/s and both TCPs>80 mm away for1 second. Later incorrect settings lose credit. Axle displacement>5 mm or tilt>5° permanently invalidates that wheel. Another0.4 for lid opening>=60° after valid measured-code unlocking. Opening>5° while locked, hinge displacement>5 mm or axis tilt>5° permanently invalidates opening credit.",
+  "run_limit": "3,600 steps (180 seconds at20 Hz)",
+  "reset_notes": "Restore initial wheel angles and object poses, close and relock the hinge, clear scoring history and flush camera history before the first observation.",
+  "fidelity": "Catalog bin and wheel-hub visuals with analytic collisions. Real revolute axles and lid hinge; equal sinusoidal detents hold all ten digits. A latch approximation holds hinge limits at0° until all measured wheel angles match3–1–7, then permits up to110° opening and stays retracted until reset. Robot contact and gravity move the lid; no pose teleportation or opening motor. The complete internal mechanism of a commercial combination lock is not simulated.",
+  "scores": "Dream-1 run: 0.0; demo: 1.0"
+}

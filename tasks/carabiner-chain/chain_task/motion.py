@@ -40,3 +40,11 @@ Continue a requested pinch across replans; otherwise the measured opening
 would remove contact force at the beginning of a long hold.
 """
  return 0. if previous is not None and previous.targets[-1].grip==0. and targets[0].grip==0. else measured
+
+def parent_normalization(pp,pr,hand_p,hand_r,yaw_degrees=-10.):
+ """Robot targets rotating a held parent about its upper arch; no body writes."""
+ from chain_task.geometry import rz,rx
+ local=np.array([-.002,.030,0.]);pivot=pp+pr@local;goal=rz(np.deg2rad(yaw_degrees))@rx(np.pi/2);off=pr.T@(hand_p-pp);relative=hand_r.T@pr;targets=[]
+ for fraction in np.linspace(0.,1.,41)[1:]:
+  s=ik.smoothstep(float(fraction));r=ik.slerp_matrix(pr,goal,s);p=pivot+np.array([0,0,.0015*s])-r@local;targets.append(Target(.1,p+r@off,r@relative.T,0.,'stabilize parent through robot contact'))
+ targets.append(Target(2,targets[-1].pos,targets[-1].rot,0.,'settle stabilized parent'));return targets,p,goal

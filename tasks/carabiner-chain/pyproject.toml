@@ -7,6 +7,7 @@ version = "0.1.0"
 [project.entry-points."inspect_robots.embodiments"]
 yam_carabiner_chain = "chain_task.embodiment:make_embodiment"
 [project.entry-points."inspect_robots.policies"]
+carabiner_chain_scripted = "chain_task.third:make_policy"
 carabiner_two_link_scripted = "chain_task.pair:make_policy"
 carabiner_handoff_clip_scripted = "chain_task.handoff:make_policy"
 carabiner_spine_clip_scripted = "chain_task.policy:make_spine_clip_policy"

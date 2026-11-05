@@ -111,17 +111,17 @@ Runtime revision: `2425d4f3d93b1a1e701c9ccc8df52523d2a369f5066168d618d4e5acc2fa4
 | Dream-1 beta | 0.0 | 4,400 | 220.05 s | 485.50 s |
 
 Both completed without trial errors, using the same source revision, cameras,
-physics, seed 0, zero jitter and 4,400-step limit. The full videos and
-wrist views were reviewed. The owner approved the original-camera pair for
-submission. Media upload and PR creation are performed separately.
+physics, seed 0, zero jitter and 4,400-step limit. The recorded videos and submission text were reviewed and approved for
+submission. The uploaded demo, Dream run and setup image are recorded as
+media `M-MYJ9A2` in `task.json`; synchronized wrist views are retained locally.
 
 The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
 quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
 At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
 cx=318.389435, cy=177.876312. The exact calibration and result records are in
 `validation.json`. Physics and reset checks were performed before the camera
-revision; their physics inputs are unchanged. The approved demos provide
-full-score verification under the final camera configuration.
+revision; their physics inputs are unchanged. The recorded demos demonstrate
+full scores under the final camera configuration.
 
 The one-pen milestone proved physical insertion and retention after release.
 The next milestone capped and placed one red and one blue pen before scene

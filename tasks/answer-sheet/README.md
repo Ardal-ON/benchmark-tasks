@@ -49,7 +49,7 @@ Source and asset-use terms are recorded in `assets/provenance.json` and
 
 One seed (0), zero jitter, 240 Hz CPU PhysX and 20 Hz control are used. Camera
 observations are 640 × 360. The top view uses the existing station demo sensor
-with fixed 2× intrinsics, equivalent to native pixels x 190–510, y 115–295.
+with its native pose and intrinsics, without a crop or zoom override.
 The calibrated wrist mounts are unchanged.
 
 ## Scoring and fidelity
@@ -73,18 +73,25 @@ verified both empty ink geometry and a blank returned observation after marking.
 
 ## Recorded runs
 
-Final revision: `1e0fd0de3ba0784f68c0adf416cae3d59d1daa02d79a90a05cbc123507421dc1`.
+Runtime revision: `01b108f4fb38e7df7e1110b8a0df76346c9b1542496f44b2f8021bcc561c84ab`.
 
 | Policy | Score | Steps | Video time | Wall time |
 | --- | ---: | ---: | ---: | ---: |
-| Scripted | 1.0 | 1,401 | 70.10 s | 162.60 s |
-| Dream-1 beta | 0.0 | 2,400 | 120.05 s | 257.07 s |
+| Scripted | 1.0 | 1,401 | 70.10 s | 165.23 s |
+| Dream-1 beta | 0.0 | 2,400 | 120.05 s | 522.77 s |
 
-Both are completed records with no errored trials. The limit remains 2,400
-steps (120 seconds at 20 Hz); the scripted policy requests stop after its demo.
-Full videos, setup image, useful synchronized wrist footage, completed results,
-tested source hashes and the PR draft are kept in the task's external review
-folder. Media upload and PR submission await the owner's video review.
+Both completed without trial errors, using the same source revision, cameras,
+physics, seed 0, zero jitter and 2,400-step limit. The full videos and
+wrist views were reviewed. The owner approved the original-camera pair for
+submission. Media upload and PR creation are performed separately.
+
+The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
+quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
+At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
+cx=318.389435, cy=177.876312. The exact calibration and result records are in
+`validation.json`. Physics and reset checks were performed before the camera
+revision; their physics inputs are unchanged. The approved demos provide
+full-score verification under the final camera configuration.
 
 Run the seven scorer checks after installation with `pytest -q test_ink.py`.
 They cover complete/partial answers, wrong-answer marks and dots, stationary

@@ -13,12 +13,6 @@ class AnswerSheetEmbodiment(YamArenaEmbodiment):
         super().__init__(**kwargs)
         from dataclasses import replace
         import hashlib
-        # A fixed 2x view of the existing station sensor, equivalent to the
-        # native rectangle [190:510,115:295] resized to 640x360. Both evaluation
-        # policies get these same intrinsics; the calibrated wrists are kept.
-        lens=self.rig.top_cam.lens
-        lens=replace(lens,fx=lens.fx*2,fy=lens.fy*2,cx=(lens.cx-190)*2,cy=(lens.cy-115)*2)
-        self.rig=replace(self.rig,top_cam=replace(self.rig.top_cam,lens=lens))
         root=Path(__file__).resolve().parent.parent
         digest=hashlib.sha256()
         for p in sorted(root.rglob('*')):

@@ -9,9 +9,9 @@
   ],
   "instruction": "Pick up the pen and mark A for question 1, C for question 2, D for question 3, and B for question 4.",
   "context": "Completing printed inspection and administrative forms requires grasping a writing tool and placing deliberate marks in specified fields.",
-  "setup": "Existing YAM station; x forward, y left, z up, metres. Tabletop z=0.7475. A fixed 235x235x1 mm sheet is centred at (0.285,0.020), top 1 mm above table. Four question rows at x=0.355,0.310,0.265,0.220; A-D columns at y=0.080,0.040,0.000,-0.040. Boxes are 22 mm square with printed labels. One uncapped 120x19.44x19.44 mm marker, 25 g, lies along x at root (0.240,-0.240,0.7575), nib toward -x. Fixed layout, seed0, no jitter.",
+  "setup": "Existing YAM station; x forward, y left, z up, metres. Tabletop z=0.7475. A fixed 235x235x1 mm sheet is centred at (0.285,0.020), top 1 mm above table. Four question rows at x=0.355,0.310,0.265,0.220; A-D columns at y=0.080,0.040,0.000,-0.040. Boxes are 22 mm square with printed labels. One uncapped 120x19.44x19.44 mm marker, 25 g, lies along x at root (0.240,-0.240,0.7575), nib toward -x. Fixed layout, seed0, no jitter. Native station demo camera, 640x360; fixed original pose and intrinsics, no crop or zoom; calibrated wrist cameras unchanged.",
   "scoring": "End score: 0.25 per correctly answered row. A qualifying ink component spans at least12 mm and occupies at least20 connected 0.5 mm cells inside the requested box, inset0.6 mm. Any mark in another answer box, including a dot, invalidates the row. A dot, hovering, or disconnected short dashes earns no answer credit. Other rows score0.",
-  "run_limit": "2,400 steps (120 seconds at20 Hz)",
+  "run_limit": "2,400 steps (120 seconds at 20 Hz)",
   "reset_notes": "Restore marker and ready robot; sheet stays fixed. Clear permanent ink, scorer state and camera history before returning the reset observation.",
   "fidelity": "Rigid fixed paper; permanent visual ink follows measured nib-paper contacts, with finite contact tolerances and a 0.5 mm scoring raster. No fluid deposition, paper deformation or handwriting recognition. Marker reuses a trimmed catalog barrel with analytic collisions and an exposed spherical nib. Uniform 1.2/1.0 static/dynamic friction is a grippy approximation.",
   "scores": "Dream-1 run: 0.0; demo: 1.0"

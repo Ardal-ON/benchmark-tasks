@@ -8,7 +8,6 @@ class PenEmbodiment(YamArenaEmbodiment):
  def __init__(self,**kwargs):
   super().__init__(**kwargs)
   from dataclasses import replace
-  camera=self.rig.top_cam;lens=camera.lens;lens=replace(lens,fx=lens.fx*1.6,fy=lens.fy*1.6,cx=(lens.cx-140)*1.6,cy=(lens.cy-100)*1.6);self.rig=replace(self.rig,top_cam=replace(camera,lens=lens))
   root=Path(__file__).resolve().parent.parent;h=hashlib.sha256()
   for p in sorted(root.rglob('*')):
    if p.is_file() and p.suffix in ('.py','.usdc','.png','.toml') and '__pycache__' not in p.parts:h.update(str(p.relative_to(root)).encode()+b'\0'+p.read_bytes())

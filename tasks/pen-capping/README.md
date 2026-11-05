@@ -57,7 +57,7 @@ terms are in `assets/provenance.json` and `assets/SOURCE.txt`.
 
 CPU PhysX 240 Hz, control 20 Hz, observations 640×360. Static/dynamic friction
 is 1.2/1.0; task contact/rest offsets are 0.2/0 mm. Top camera is the existing
-station demo sensor with fixed 1.6× intrinsics (native crop x 140–540,y 100–325).
+station demo sensor with native pose and intrinsics, without crop or zoom.
 Calibrated wrist cameras are unchanged. Regenerate with
 `python build_assets.py CATALOG_MARKER_USD` using the recorded source.
 
@@ -101,23 +101,29 @@ camera observations after temporal-history flushing. Scorer tests cover
 partial and full outcomes, wrong colors, uncapped placement, missed insertion,
 side/angle errors, held/moving objects, destination errors and release duration.
 
-## Completed trials
+## Recorded runs
 
-The scripted demo completed with **1.0** in 3540 steps, 177.05 s of complete
-video and 362.24 s wall time. Dream-1 beta completed with **0.000** in 4400
-steps, 220.05 s of complete video and 493.01 s wall time. Neither final
-trial errored. Both use runtime revision `2b74c00c46f90f5152cd5aa078fccbfd10f0f384adea83d199e76f41a8d5e438`.
+Runtime revision: `2425d4f3d93b1a1e701c9ccc8df52523d2a369f5066168d618d4e5acc2fa4e58`.
 
-The final budget is 4400 steps (220 s). The initial 4800-step demo launch cap
-was tightened after the reliable 177.05 s demonstration; its actual 3540 steps
-fit the final limit with 43 s headroom. Dream used 4400 steps. The configuration
-and runtime inputs were unchanged. Complete top and wrist videos, terminal
-results, exact source hashes and the physics/reset audit accompany the review
-packet. Asset masses, all collider counts/materials/contact offsets and reset
-clearing were checked in the running simulator. Seven scorer checks pass.
+| Policy | Score | Steps | Video time | Wall time |
+| --- | ---: | ---: | ---: | ---: |
+| Scripted | 1.0 | 3,540 | 177.05 s | 365.77 s |
+| Dream-1 beta | 0.0 | 4,400 | 220.05 s | 485.50 s |
 
+Both completed without trial errors, using the same source revision, cameras,
+physics, seed 0, zero jitter and 4,400-step limit. The full videos and
+wrist views were reviewed. The owner approved the original-camera pair for
+submission. Media upload and PR creation are performed separately.
 
-The one-pen milestone was completed before scene expansion: both arms fit a
-cap through its hollow bore, release the assembly, and show retained capping.
-The two-color milestone then capped and placed one red and one blue pen
-before expanding to all four.
+The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
+quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
+At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
+cx=318.389435, cy=177.876312. The exact calibration and result records are in
+`validation.json`. Physics and reset checks were performed before the camera
+revision; their physics inputs are unchanged. The approved demos provide
+full-score verification under the final camera configuration.
+
+The one-pen milestone proved physical insertion and retention after release.
+The next milestone capped and placed one red and one blue pen before scene
+expansion to four. The final 4,400-step budget was tightened from the initial
+4,800 after the full-score demo showed that 3,540 steps were sufficient.

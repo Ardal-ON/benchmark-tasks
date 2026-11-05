@@ -81,17 +81,17 @@ Runtime revision: `01b108f4fb38e7df7e1110b8a0df76346c9b1542496f44b2f8021bcc561c8
 | Dream-1 beta | 0.0 | 2,400 | 120.05 s | 522.77 s |
 
 Both completed without trial errors, using the same source revision, cameras,
-physics, seed 0, zero jitter and 2,400-step limit. The full videos and
-wrist views were reviewed. The owner approved the original-camera pair for
-submission. Media upload and PR creation are performed separately.
+physics, seed 0, zero jitter and 2,400-step limit. The recorded videos and submission text were reviewed and approved for
+submission. The uploaded demo, Dream run and setup image are recorded as
+media `M-XSHMV8` in `task.json`; synchronized wrist views are retained locally.
 
 The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
 quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
 At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
 cx=318.389435, cy=177.876312. The exact calibration and result records are in
 `validation.json`. Physics and reset checks were performed before the camera
-revision; their physics inputs are unchanged. The approved demos provide
-full-score verification under the final camera configuration.
+revision; their physics inputs are unchanged. The recorded demos demonstrate
+full scores under the final camera configuration.
 
 Run the seven scorer checks after installation with `pytest -q test_ink.py`.
 They cover complete/partial answers, wrong-answer marks and dots, stationary

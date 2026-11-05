@@ -49,8 +49,8 @@ using the recorded source downloads; generated assets are self-contained.
 
 CPU PhysX runs at 240 Hz, control at 20 Hz; seed 0, zero jitter. Uniform
 static/dynamic friction is 1.2/1.0; task collider contact/rest offsets are
-0.3/0 mm. Observations are 640×360. The existing top demo camera has fixed
-2× intrinsics (native crop x=190–510, y=115–295); wrist calibrations are unchanged.
+0.3/0 mm. Observations are 640×360. The existing top demo camera uses its native
+pose and intrinsics without crop or zoom; wrist calibrations are unchanged.
 
 ## Mechanism and score
 
@@ -76,15 +76,27 @@ history and returns fresh camera observations after temporal-history flushing.
 `pytest -q tasks/rotary-combination-box/test_scoring.py` checks partial and full
 scores, wraparound, tolerance, release, spin, lost settings and forced opening.
 
-## Completed trials
+## Recorded runs
 
-Scripted demo: **1.0**, 941 control steps, 47.10 s complete video, 109.78 s wall time.
-Dream-1 beta: **0.0**, 3,600 steps, 180.05 s complete video, 784.68 s wall time
-(including automatic model-capacity waiting). Both completed without trial errors.
-Dream did not retain any requested setting or unlock/open the lid. The
-3,600-step budget is retained; poor model performance was not used to justify a rerun.
+Runtime revision: `a3cbf1145df54a0676f433ca2543ec22762c4916cc086e3cfca8c95269cc3660`.
 
-The one-wheel physical milestone preceded the full scene: the robot turned
-2 to 3, released, and left the wheel stationary at 108° with its axle fixed.
-Full videos and useful synchronized wrist views are provided for owner review.
-`validation.json` records exact tested runtime hashes and measured physics.
+| Policy | Score | Steps | Video time | Wall time |
+| --- | ---: | ---: | ---: | ---: |
+| Scripted | 1.0 | 941 | 47.10 s | 108.64 s |
+| Dream-1 beta | 0.0 | 3,600 | 180.05 s | 659.87 s |
+
+Both completed without trial errors, using the same source revision, cameras,
+physics, seed 0, zero jitter and 3,600-step limit. The full videos and
+wrist views were reviewed. The owner approved the original-camera pair for
+submission. Media upload and PR creation are performed separately.
+
+The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
+quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
+At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
+cx=318.389435, cy=177.876312. The exact calibration and result records are in
+`validation.json`. Physics and reset checks were performed before the camera
+revision; their physics inputs are unchanged. The approved demos provide
+full-score verification under the final camera configuration.
+
+The one-wheel physics milestone preceded scene expansion: the robot rotated
+2 to 3 and released the wheel stationary at 108° with its axle fixed.

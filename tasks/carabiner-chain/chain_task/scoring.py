@@ -76,5 +76,5 @@ class History:
    valid=released and settled and suspended
    timers[path]=self.timers.get(path,0.)+dt if valid else 0.
    if timers[path]>=2.-1e-9:best=max(best,len(path)/3.)
-  self.timers=timers;self.score=best;self.reasons=dict(edges={k:sorted(v) for k,v in edges.items()},closed=closed,released=released,settled=settled,paths=[list(p) for p in paths],seconds={'/'.join(k):v for k,v in timers.items()})
+  self.timers=timers;self.score=best;self.reasons=dict(edges={k:sorted(v) for k,v in edges.items()},closed=closed,released=released,settled=settled,paths=[list(p) for p in paths],seconds={'/'.join(k):v for k,v in timers.items()},body_speeds={k:dict(linear_m_s=float(np.linalg.norm(bodies[k].v)),angular_rad_s=float(np.linalg.norm(bodies[k].w))) for k in required if k!='stand'})
   return self.score

@@ -1,82 +1,61 @@
 {
-  "status": "In development; no assembly result validated",
-  "instruction": "Make one hanging chain using all three carabiners. Clip one to the stand, then link each remaining carabiner through the previous one. Close all gates and let go.",
-  "offline_tests": {
-    "passed": 14,
-    "coverage": [
-      "true serial loop geometry and conservative tangencies",
-      "branches/direct eye hooks do not add serial credit",
-      "held/moving/reopened/missing/NaN/broken results",
-      "continuous release and reset invalidation",
-      "three reproducible layout seeds"
-    ]
+  "status": "Development prototype; one physical link, second counterhold approach blocked",
+  "latest_trial": "chain-pair-023",
+  "score": 0.3333333333333333,
+  "actions": 1577,
+  "sim_seconds": 78.85,
+  "wall_seconds": 220.89565549930558,
+  "termination": "policy_stop",
+  "eval_seed": 17,
+  "actual_seed": 3841821929,
+  "layout_seed": 17,
+  "environment_revision": "999c3e2390d86799d49649995d4031b05cc99176ca5f70afac67d6c2c8ce703c",
+  "offline_tests": 21,
+  "live_integrity_reset_checks": {
+    "count": 11,
+    "configuration": "Historical original damping1/s; current final audit still pending"
   },
-  "mechanism": {
-    "diagnostic_only": true,
-    "live_integrity_reset_checks": 10,
-    "quiet_trial": {
-      "name": "chain-quiet-001",
-      "steps": 401,
-      "sim_seconds": 20.05,
-      "wall_seconds": 65.40189701365307,
-      "score": 0.0,
-      "live_audit_hz": 240
-    },
-    "torque_fixture": [
-      {
-        "external_torque_Nm": 0.0,
-        "angle_deg": -9.827073682221578e-16,
-        "equivalent_tip_force_N": 0.0
-      },
-      {
-        "external_torque_Nm": 0.002,
-        "angle_deg": 4.001065312927519,
-        "equivalent_tip_force_N": 0.05128205128205128
-      },
-      {
-        "external_torque_Nm": 0.005,
-        "angle_deg": 10.012988588456732,
-        "equivalent_tip_force_N": 0.12820512820512822
-      },
-      {
-        "external_torque_Nm": 0.01,
-        "angle_deg": 20.10322809404282,
-        "equivalent_tip_force_N": 0.25641025641025644
-      },
-      {
-        "external_torque_Nm": 0.02,
-        "angle_deg": 30.000023313285674,
-        "equivalent_tip_force_N": 0.5128205128205129
-      },
-      {
-        "external_torque_Nm": 0.0,
-        "angle_deg": -1.745156857989353e-05,
-        "equivalent_tip_force_N": 0.0
-      }
-    ]
+  "current_physics": {
+    "device": "cpu",
+    "physics_hz": 240,
+    "control_hz": 20,
+    "position_iterations": 64,
+    "velocity_iterations": 16,
+    "body_angular_damping_per_s": 5,
+    "static_friction": 0.6,
+    "dynamic_friction": 0.4,
+    "ccd": true
   },
-  "layout": {
-    "default_seed": 17,
-    "offline_collision_checked_seeds": [
-      17,
-      23,
-      41
+  "current_camera": {
+    "top_cam": "demo",
+    "original_wrist_calibrations": true,
+    "observation_pixels": [
+      640,
+      360
     ],
-    "arbitrary_seed_accessibility_rejection": false,
-    "optional_live_layouts": "Pending separate environment tests; diagnostic reseeding rows invalid as optional-seed evidence"
+    "diagnostic_excluded": true
   },
-  "demonstration": {
-    "status": "First physical clip trial in development; no two-link assembly",
-    "full_score_pair": false
-  },
-  "dream": {
-    "run": false,
-    "reason": "Full-score frozen demo pair and required review absent"
-  },
+  "robot_actions_only": true,
+  "gate_targets_fixed_passive": true,
+  "third_assembly_motion_implemented": false,
+  "full_score_pair": false,
+  "dream_run": false,
   "publication": {
     "local_only": true,
     "pushed": false,
     "uploaded": false,
     "pr": false
-  }
+  },
+  "blocker": "Second counterholding approach IK guard:3.287mm/.03121rad; final grasp target is reachable, approach is being shortened",
+  "completed_results": [
+    {
+      "trial": "chain-pair-023",
+      "final_score": 0.3333333333333333
+    },
+    {
+      "trial": "chain-spine-clip-019",
+      "final_score": 0.0,
+      "reason": "Unused tabletop gate reset all-body settling timer"
+    }
+  ]
 }

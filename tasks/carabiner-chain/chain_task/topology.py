@@ -88,3 +88,39 @@ def segment_matrix_distance(first,second):
   z=y-x;t=np.clip(np.sum((p-x)*z,-1)/np.maximum(np.sum(z*z,-1),1e-20),0,1);values.append(np.linalg.norm(p-x-t[...,None]*z,axis=-1))
  s=(bb*ee-cc*dd)/np.maximum(den,1e-20);t=(aa*ee-bb*dd)/np.maximum(den,1e-20);valid=(den>1e-20)&(s>=0)&(s<=1)&(t>=0)&(t<=1)
  values.append(np.where(valid,np.linalg.norm(w+s[...,None]*u-t[...,None]*v,axis=-1),np.inf));return np.min(values,axis=0)
+
+class RodAudit:
+ """Sweep exact capsule/cylinder primitives at<=1mm endpoint intervals.
+
+Capsule bounds screen pairs; true flat-ended cylinder contacts confirm gate
+candidates. The0.9mm solver-overlap limit is unchanged.
+ """
+ def __init__(self):self.previous={};self.invalid=False;self.reason=None;self.narrow_checks=0
+ @staticmethod
+ def primitive(points,radius,cylinder):
+  import hppfcl as fcl
+  a,b=points;axis=b-a;length=float(np.linalg.norm(axis));z=axis/max(length,1e-20);helper=np.array([0.,0.,1.]) if abs(z[2])<.9 else np.array([1.,0.,0.]);x=np.cross(helper,z);x/=max(np.linalg.norm(x),1e-20);rotation=np.column_stack([x,np.cross(z,x),z]);shape=(fcl.Cylinder if cylinder else fcl.Capsule)(float(radius),length)
+  return fcl.CollisionObject(shape,fcl.Transform3f(rotation,(a+b)/2))
+ def exact_penetration(self,a,ra,ca,b,rb,cb):
+  import hppfcl as fcl
+  self.narrow_checks+=1;request=fcl.CollisionRequest();request.enable_contact=True;request.num_max_contacts=4;request.gjk_tolerance=1e-8;result=fcl.CollisionResult();fcl.collide(self.primitive(a,ra,ca),self.primitive(b,rb,cb),request,result);contacts=result.getContacts();return max([0.]+[float(c.penetration_depth) for c in contacts])
+ def update(self,groups):
+  if self.invalid:return False
+  groups={n:(np.asarray(v[0]),np.asarray(v[1]),np.asarray(v[2],dtype=bool) if len(v)>2 else np.zeros(len(v[0]),dtype=bool)) for n,v in groups.items()};names=list(groups);motion={}
+  for n,(points,radii,types) in groups.items():
+   if n in self.previous:
+    motion[n]=float(np.max(np.linalg.norm(points-self.previous[n][0],axis=-1)))
+    if motion[n]>.05:self.invalid=True;self.reason=dict(reason='unexplained_substep_motion',body=n,endpoint_motion_m=motion[n]);return False
+   else:motion[n]=0.
+  for i,a in enumerate(names):
+   for b in names[i+1:]:
+    pa,ra,ca=groups[a];pb,rb,cb=groups[b];old_a=self.previous.get(a,groups[a])[0];old_b=self.previous.get(b,groups[b])[0]
+    if min(np.linalg.norm(pa.mean((0,1))-pb.mean((0,1))),np.linalg.norm(old_a.mean((0,1))-old_b.mean((0,1))))>.13:continue
+    samples=max(1,int(np.ceil(max(motion[a],motion[b])/.001)))
+    for fraction in np.linspace(0,1,min(samples,64)+1)[1:]:
+     sa,sb=old_a+fraction*(pa-old_a),old_b+fraction*(pb-old_b);distance=segment_matrix_distance(sa,sb);depth=ra[:,None]+rb[None,:]-distance
+     for x,y in np.argwhere(depth>.0009):
+      penetration=self.exact_penetration(sa[x],ra[x],ca[x],sb[y],rb[y],cb[y]) if ca[x] or cb[y] else float(depth[x,y])
+      if penetration>.0009:
+       self.invalid=True;self.reason=dict(reason='swept_interbody_rod_penetration',pair=[a,b],segments=[int(x),int(y)],flat_cylinders=[bool(ca[x]),bool(cb[y])],penetration_m=penetration,bounding_capsule_penetration_m=float(depth[x,y]));return False
+  self.previous={n:(p.copy(),r.copy(),k.copy()) for n,(p,r,k) in groups.items()};return True

@@ -24,11 +24,19 @@ class Plan:
   if pe>.002 or re>.02:raise RuntimeError('IK guard '+label+f' position={pe} rotation={re}')
   return np.r_[self.q,g],label
 
-def grasp(p,r,flip=0):
+def grasp(p,r,flip=0,style="arch"):
  s=1 if r[2,2]>0 else -1
- x=r[:,0];z=np.array([0.,0.,-1.]);y=np.cross(z,x);tool=np.column_stack([x,y,z])@np.diag([-1.,-1.,1.]) if flip else np.column_stack([x,y,z])
- tcp=p+r@np.array([0.,-s*.036,0.])+np.array([0,0,.0125]);return tcp,tool
+ x=r[:,1] if style=='long' else r[:,0];z=np.array([0.,0.,-1.]);y=np.cross(z,x);tool=np.column_stack([x,y,z])@np.diag([-1.,-1.,1.]) if flip else np.column_stack([x,y,z])
+ local=np.array([0.,-s*.032,0.]) if style=='arch' else np.array([-.016 if style=='spine' else -.006,0.,0.]);tcp=p+r@local+np.array([0,0,.0125]);return tcp,tool
 
-def pickup(p,r,flip=0):
- tcp,tool=grasp(p,r,flip)
- return [Target(3,tcp+[0,0,.075],tool,.55,'above loose carabiner'),Target(2,tcp,tool,.55,'descend bottom arch'),Target(1,tcp,tool,0.,'pinch bottom arch'),Target(3,tcp+[0,0,.12],tool,0.,'lift carabiner'),Target(2,tcp+[0,0,.12],tool,0.,'observe physical grasp')]
+def pickup(p,r,flip=0,style="arch"):
+ tcp,tool=grasp(p,r,flip,style);opening={"arch":.55,"long":.85,"spine":.20}[style]
+ return [Target(3,tcp+[0,0,.075],tool,opening,'above loose carabiner'),Target(2,tcp,tool,opening,'descend bottom arch'),Target(1,tcp,tool,0.,'pinch bottom arch'),Target(3,tcp+[0,0,.12],tool,0.,'lift carabiner'),Target(2,tcp+[0,0,.12],tool,0.,'observe physical grasp')]
+
+def transition_grip(previous,targets,measured):
+ """A blocked jaw's opening is not its commanded closure.
+
+Continue a requested pinch across replans; otherwise the measured opening
+would remove contact force at the beginning of a long hold.
+"""
+ return 0. if previous is not None and previous.targets[-1].grip==0. and targets[0].grip==0. else measured

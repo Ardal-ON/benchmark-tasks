@@ -1,0 +1,12 @@
+{
+  "title": "Assemble a hanging carabiner chain",
+  "category": "Impact on jobs",
+  "keywords": ["bimanual", "assembly", "spring gates", "interlinking"],
+  "instruction": "Make one hanging chain using all three carabiners. Clip one to the stand, then link each remaining carabiner through the previous one. Close all gates and let go.",
+  "context": "Serial assembly requires stabilizing a growing movable chain while aligning and operating the next passive gate.",
+  "setup": "Three loose 64.5 x 36.5 mm nonlocking accessory carabiners have 4.5 mm frame sections, 20 g total mass each and a passive 30 degree spring gate. A fixed pole carries a closed, empty D eye offset 80 mm toward the robot; its lower physical edge is 220 mm above the table. Layout seed 17 fixes the default nonoverlapping positions, full-circle yaws and either broad face down. Native cameras remain unchanged.",
+  "scoring": "The longest valid unbranched serial path from the eye earns 1/3 per carabiner. Gates must be within 5 degrees of closed with tip gap <=1.5 mm. Every carabiner must be released, all robot collider bounds at least 5 mm clear, speed <=10 mm/s and spin <=0.2 rad/s for two continuous seconds. Counted links must remain at least 20 mm above the table. Spanning-surface interlink tests and physics-step checks reject closed-gate tunneling. Branches and extra direct hooks do not extend the serial prefix. Missing, invalid or broken state and stand displacement invalidate the trial.",
+  "run_limit": "4,800 actions, 240 seconds at 20 Hz; development mechanism probes use shorter recorded limits.",
+  "fidelity": "Original rigid capsule frames preserve real open collision holes. Each separate cylinder gate has a passive linear torsion spring and angular stops. Own-frame/gate contacts are disabled to avoid hinge self-contact; gates still collide with the stand and other carabiners. Joint stops define the opening range. No snaps, welds, policy attachments or completed-link freezing are used. Physics and scorer remain under validation.",
+  "scores": "Development prototype; no completed robot assembly or Dream result is claimed. Media ID omitted from this local draft."
+}

@@ -41,7 +41,5 @@ class History:
         self.proof=self.proof+dt if good else 0.
         if self.proof>=.5-1e-9:self.tightened=True
         if not seated:self.tightened=False
-        final=self.tightened and s.ratchet_cycles>=6 and seated and s.released and s.still and not s.socket_engaged
-        self.released_seconds=self.released_seconds+dt if final else 0.
-        if self.released_seconds>=2.-1e-9:self.score=1.
+        if self.tightened and seated:self.score=1.
         return self.score

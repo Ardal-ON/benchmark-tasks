@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import numpy as np
 import imageio.v3 as iio
-from ratchet_task.embodiment import RatchetEmbodiment,FEEDBACK,ROOT
+from ratchet_task.embodiment import make_embodiment,FEEDBACK,ROOT
 from ratchet_task.policy import FastenPolicy
 from ratchet_task.config import INSTRUCTION,MAX_STEPS
 from inspect_robots import Scene
@@ -15,7 +15,7 @@ def serial(v):
  if isinstance(v,dict):return {k:serial(x) for k,x in v.items()}
  if isinstance(v,(list,tuple)):return [serial(x) for x in v]
  return v
-emb=RatchetEmbodiment(task=str(ROOT/'task.py'),mechanisms=True,walls=bool(int(sys.argv[2])) if len(sys.argv)>2 else False,device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360)
+emb=make_embodiment(task=str(ROOT/'task.py'),device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360)
 scene=Scene(id='confined-ratchet-demo',instruction=INSTRUCTION)
 full=True
 tool_only=False
@@ -44,5 +44,5 @@ except Exception as e:
 finally:
  for writer in writers.values():
   writer.stdin.close();writer.wait(timeout=30)
- result=dict(milestone_only=not full,full_task_demo=full,pickup_check=tool_only,completed=bool(error is None and (emb.history.score==1. if full else (policy.phase=='tool_approach' if tool_only else policy.stop))),error=error,score=getattr(getattr(emb,"history",None),"score",0.),elapsed_seconds=time.monotonic()-started,steps=len(rows),revision=emb.info.environment_revision,last=rows[-1] if rows else None)
+ result=dict(full_task_demo=True,walls=emb.walls,mechanisms=emb.mechanisms,max_steps=MAX_STEPS,seed=17,completed=bool(error is None and (emb.history.score==1. if full else (policy.phase=='tool_approach' if tool_only else policy.stop))),error=error,score=getattr(getattr(emb,"history",None),"score",0.),elapsed_seconds=time.monotonic()-started,steps=len(rows),revision=emb.info.environment_revision,last=rows[-1] if rows else None)
  json.dump(result,open(out/'demo-result.json','w'),indent=2);json.dump(rows,open(out/'demo-trace.json','w'));print('RATCHET_DEMO_COMPLETE',json.dumps(result),flush=True);emb.close()

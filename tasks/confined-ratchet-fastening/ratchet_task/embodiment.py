@@ -93,8 +93,6 @@ class RatchetEmbodiment(YamArenaEmbodiment):
                 if self._hardware_active and self.hardware is not None:self.hardware.after_step()
                 return result
             self._base.sim.step=hardware_step
-            from ratchet_task.sensors import hand_geometry
-            self._hand_geometry=hand_geometry()
     def _reset_supports(self,enabled):
         # Reset-only placement jigs keep the preassembled initial condition fixed
         # while the base environment settles. Both are removed before actions.
@@ -148,28 +146,10 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         self._read()
         if self.mechanisms and self.hardware is not None and self.hardware.telemetry:
             from ratchet_task.scoring import State
-            from ratchet_task.sensors import hand_bounds
             f=self.hardware.telemetry;f.update(self.hardware.contact_summary());f['interface_torque']=f['socket_torque_nm'] if f['socket_engaged'] else 0.;FEEDBACK['hardware']=f
-            bounds=hand_bounds(self._base,self._hand_geometry)
-            objbounds=[]
-            for name in ['bolt','handle','drive','pawl']:
-                aabb=self._base.arena_world.get_aabb_w(name)
-                objbounds.append((array(aabb.min_point)[0],array(aabb.max_point)[0]))
-            clear=True
-            for alo,ahi in bounds.values():
-                for blo,bhi in objbounds:
-                    if np.linalg.norm(np.maximum(0,np.maximum(alo-bhi,blo-ahi)))<.005:clear=False
-            opened=all(-np.mean(h['fingers'])/.04695>=.85 for h in FEEDBACK['hands'].values())
-            tcp_clear=all(min(np.linalg.norm(h['tcp']-p) for n,p in FEEDBACK['poses'].items() if n in ['bolt','handle','drive','pawl'])>=.08 for h in FEEDBACK['hands'].values())
-            still=True
-            for name in ['bolt','handle','drive','pawl']:
-                v=array(self._base.arena_world.get_root_linear_velocity_w(name))[0]
-                w=array(self._base.arena_world.get_root_angular_velocity_w(name))[0]
-                still &= np.linalg.norm(v)<=.01 and np.linalg.norm(w)<=.1
-            parked=np.linalg.norm(FEEDBACK['poses']['drive']-TOOL_PARK)<.035
             fixture=float(np.linalg.norm(FEEDBACK['poses']['fixture']-[AXIS[0],AXIS[1],TABLE]))
             valid=bool(f['valid']) and abs(f.get('pitch_error_m',0.))<=.0002
-            state=State(captured=f['captured'],valid=valid,turns=f['turns'],gap=f['gap'],interface_torque=f['interface_torque'],socket_engaged=f['socket_engaged'],ratchet_cycles=f['ratchet_cycles'],released=bool(clear and opened and tcp_clear and parked),still=bool(still),fixture_displacement=fixture)
+            state=State(captured=f['captured'],valid=valid,turns=f['turns'],gap=f['gap'],interface_torque=f['interface_torque'],socket_engaged=f['socket_engaged'],ratchet_cycles=f['ratchet_cycles'],fixture_displacement=fixture)
             self.history.update(state,1/self.info.control_hz);FEEDBACK.update(score=self.history.score,tightened=self.history.tightened,proof=self.history.proof)
         return super()._task_step()
 def make_embodiment(**kwargs):

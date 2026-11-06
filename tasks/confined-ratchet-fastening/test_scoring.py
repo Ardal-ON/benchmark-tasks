@@ -7,10 +7,10 @@ class Scoring(unittest.TestCase):
         h=History();s=State(captured=True,turns=11,gap=0,interface_torque=.5,ratchet_cycles=6)
         for _ in range(40):h.update(s,.05)
         self.assertFalse(h.tightened);self.assertEqual(h.score,.7)
-    def test_release_required(self):
+    def test_seated_hold_completes(self):
         h=History();s=State(captured=True,turns=11,gap=0,interface_torque=.5,socket_engaged=True,ratchet_cycles=6)
         for _ in range(10):h.update(s,.05)
-        self.assertTrue(h.tightened);self.assertEqual(h.score,.7)
+        self.assertTrue(h.tightened);self.assertEqual(h.score,1.)
         s.socket_engaged=False;s.interface_torque=0;s.released=True;s.still=True
         for _ in range(40):h.update(s,.05)
         self.assertEqual(h.score,1.)

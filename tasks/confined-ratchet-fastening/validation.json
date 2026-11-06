@@ -1,16 +1,33 @@
 {
-  "status": "assets_loaded_mechanism_unqualified",
-  "asset_preflight": {
-    "run": "assets-003",
-    "source_revision": "8282283c2ebc39d1eee21b23dcf62f75603d8a5d0f1ff4ca6e4581ddc7e41963",
-    "physics_hz": 480,
-    "settled_observation_seconds": 5,
-    "tool_drift_m": 1.2324944691499695e-05
+  "status": "reviewed_confined_demo_passed_dream_pending",
+  "offline_tests": 26,
+  "demo": {
+    "completed": true,
+    "score": 1.0,
+    "walls": true,
+    "mechanisms": true,
+    "steps": 1393,
+    "simulated_seconds": 69.65,
+    "wall_seconds": 301.69613697752357,
+    "environment_revision": "1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f",
+    "clockwise_turns": 1.8427277442241823,
+    "final_gap_mm": 0.19734811782834427,
+    "ratchet_cycles": 31,
+    "maximum_pitch_error_um": 14.184910312575738,
+    "handle_yaw_range_deg": [
+      -15.450800270863565,
+      15.471514402550284
+    ],
+    "maximum_control_mean_contact_torque_nm": 0.004788091991110892,
+    "socket_engaged_fraction": 1.0,
+    "maximum_bolt_step_um": 69.93505868501339,
+    "any_integrity_failure": false,
+    "seated_hold_seconds": 0.49999999999999994
   },
-  "offline_tests": 19,
-  "mechanism_qualified": false,
-  "demo": null,
+  "demo_video_review": true,
   "dream": null,
   "pushed": false,
-  "uploaded": false
+  "uploaded": false,
+  "initial_condition": "Threaded bolt with 2.5 mm under-head gap; right gripper already holding fitted ratchet; left clear.",
+  "fidelity": "Physical socket contact and one-way clutch; native pitch coupling; no calibrated torque or preload requirement."
 }

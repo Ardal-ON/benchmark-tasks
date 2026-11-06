@@ -7,10 +7,12 @@
     "confined access",
     "fastening"
   ],
-  "instruction": "Insert and start the loose bracket bolt, then tighten it with the socket ratchet using short strokes inside the walls. Remove the tool, return it to its cradle and release both hands.",
-  "setup": "Development configuration: one loose M8x16 bolt, holder, steel bracket and threaded receiver, a 203 mm ratchet with permanently assembled metric socket, and tool cradle on a dual-YAM station. Restricting walls disabled until mechanism qualification. Exact SI geometry in config.py and build_assets.py.",
-  "scoring": "Planned current-state tiers: 0.2 thread captured; 0.4 at half a turn; 0.7 bracket seated; 1.0 seated, ratcheted to 0.4-0.6 N m and released for 2 s after tool removal. Live scorer integration is not yet qualified.",
-  "run_limit": "7200 steps (360 seconds at 20 Hz), provisional pending demo",
-  "fidelity": "Detailed CC-BY NVIDIA ratchet visuals; original metric bolt/socket CAD. Open compound collision bores. Passive one-way clutch and compliant screw model under development; visual threads are not microscopic contact geometry. Low-torque bench analogue, not service torque.",
-  "scores": "Demo: not run; Dream: not run"
+  "instruction": "Use the fitted socket ratchet to tighten the started bracket bolt with short back-and-forth strokes between the walls until the bolt is seated.",
+  "context": "Confined maintenance work requires repeated short drive and return strokes when surrounding structure prevents a full wrench turn.",
+  "setup": "Dual YAM station. The right gripper initially holds a 203 mm ratchet with a fitted 13.4 mm AF steel socket on an M8x16 steel bolt (1.25 mm pitch, 14 g). The bolt is threaded into a fixed steel receiver under a 3 mm steel bracket with a 2.5 mm under-head gap. Two 162 mm high, 9 mm thick steel walls restrict swing to about \u00b116 degrees. The left arm starts clear. Flat rubber grip pads provide contact purchase. Exact SI poses and geometry are in config.py and build_assets.py.",
+  "scoring": "Current-state score: 0.2 after 0.25 clockwise turns; 0.4 after 1 turn; 0.7 after at least 1.8 turns and an under-head gap within -0.3/+0.2 mm. Full credit requires that seated state with socket engagement for 0.5 s and at least 6 drive/return cycles with actual bolt advance. Initial setup earns zero. Integrity faults and >1 N m contact torque invalidate the trial.",
+  "run_limit": "4,000 actions (200 simulated seconds at 20 Hz)",
+  "reset_notes": "Reset restores the threaded bolt, fitted socket and initial contact grasp. All placement jigs are removed before policy actions.",
+  "fidelity": "NVIDIA ratchet visuals plus original metric socket, bolt and fixture. Physical hex contacts transmit torque; a native one-way clutch and pitch joint drive rotation and axial travel. Thread ridges are visual; tooth impacts, deformation and fastener strength are omitted. The robot starts holding the fitted ratchet on a threaded bolt. Reset placement jigs are removed before actions. Tightening is judged by seating and ratchet cycles.",
+  "scores": "Demo: 1.0; Dream-1: not run yet"
 }

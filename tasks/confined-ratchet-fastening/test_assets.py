@@ -119,7 +119,7 @@ class AssetGeometryTests(unittest.TestCase):
         solids=colliders(open_asset('entry_stop'))
         angles=np.arange(96)*2*np.pi/96
         for radius,expected in [(.0029,False),(.00365,True)]:
-            probes=np.c_[radius*np.cos(angles),radius*np.sin(angles),np.full(96,.08975)]
+            probes=np.c_[radius*np.cos(angles),radius*np.sin(angles),np.full(96,.08725)]
             self.assertEqual(bool(occupied(solids,probes).any()),expected)
 
     def test_fixture_bore_clears_shank_and_visual_thread(self):

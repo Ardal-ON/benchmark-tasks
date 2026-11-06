@@ -94,7 +94,7 @@ class Hardware:
         UsdPhysics.RigidBodyAPI.Apply(carrier.GetPrim())
         marker=UsdGeom.Sphere.Define(self.stage,base+'ThreadCarrier/CarrierGeometry');marker.CreateRadiusAttr(.0005);marker.CreateVisibilityAttr('invisible');UsdPhysics.CollisionAPI.Apply(marker.GetPrim()).CreateCollisionEnabledAttr(False)
         mass=UsdPhysics.MassAPI.Apply(carrier.GetPrim());mass.CreateMassAttr(.014);mass.CreateDiagonalInertiaAttr(Gf.Vec3f(1.e-6));mass.CreateCenterOfMassAttr(Gf.Vec3f(0))
-        carrier_props=PhysxSchema.PhysxRigidBodyAPI.Apply(carrier.GetPrim());carrier_props.CreateDisableGravityAttr(True);carrier_props.CreateLockedRotAxisAttr(7);carrier_props.CreateLockedPosAxisAttr(3);carrier_props.CreateSolverPositionIterationCountAttr(128);carrier_props.CreateSolverVelocityIterationCountAttr(64)
+        carrier_props=PhysxSchema.PhysxRigidBodyAPI.Apply(carrier.GetPrim());carrier_props.CreateDisableGravityAttr(True);carrier_props.CreateLockedRotAxisAttr(7);carrier_props.CreateLockedPosAxisAttr(3);carrier_props.CreateSolverPositionIterationCountAttr(SOLVER_POSITION);carrier_props.CreateSolverVelocityIterationCountAttr(SOLVER_VELOCITY)
         linear=UsdPhysics.PrismaticJoint.Define(self.stage,base+'ThreadTranslation')
         linear.CreateBody1Rel().SetTargets([carrier.GetPath()]);linear.CreateAxisAttr('Z');linear.CreateLocalPos0Attr(Gf.Vec3f(*map(float,p)));linear.CreateLocalPos1Attr(Gf.Vec3f(0));linear.CreateExcludeFromArticulationAttr(True)
         j=UsdPhysics.RevoluteJoint.Define(self.stage,base+'ThreadRotation')
@@ -126,10 +126,12 @@ class Hardware:
             self.sim.apply_torque(self.stageid,self.ids[name],Gf.Vec3f(*map(float,axis*(sign*drag))))
         tip=b-br[:,2]*BOLT_LENGTH
         radial=float(np.linalg.norm(tip[:2]-AXIS[:2]));tilt=float(math.acos(np.clip(br[2,2],-1,1)))
-        inserted=radial<=CAPTURE_OFFSET and tilt<=CAPTURE_TILT and .001<=AXIS[2]-tip[2]<=.0025
+        depth=THREAD_ENTRY_Z-tip[2]
+        inserted=radial<=CAPTURE_OFFSET and tilt<=CAPTURE_TILT and .001<=depth<=.0025
         if not self.screw.captured:
             if inserted:
                 if self.candidate is None:self.candidate=ba
+                self.candidate=max(self.candidate,ba)
                 if ba-self.candidate<=-THREAD_START:self.capture(b,bq,ba)
             else:self.candidate=None
         force=resistance=preload=0.
@@ -161,7 +163,7 @@ class Hardware:
             except RuntimeError:
                 if self.carrier_wait>5:raise
             pitch_error=float(b[2]-self.screw.expected_z(ba))
-        bypass=not self.screw.captured and radial<.002 and tilt<.15 and AXIS[2]-tip[2]>.0035
+        bypass=not self.screw.captured and radial<.002 and tilt<.15 and depth>.0035
         valid=np.all(np.isfinite(np.r_[h,d,b,ha,da,ba])) and not bypass
-        self.telemetry=dict(captured=self.screw.captured,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,clutch_torque=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
+        self.telemetry=dict(captured=self.screw.captured,capture_eligible=bool(inserted),entry_depth_m=float(depth),capture_rotation_rad=0. if self.candidate is None else self.candidate-ba,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,clutch_torque=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
         return self.telemetry

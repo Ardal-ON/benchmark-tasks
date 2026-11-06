@@ -8,5 +8,6 @@ version = "0.1.0"
 yam_confined_ratchet = "ratchet_task.embodiment:make_embodiment"
 [project.entry-points."inspect_robots.policies"]
 confined_bolt_start_scripted = "ratchet_task.policy:make_bolt_start_policy"
+confined_ratchet_scripted = "ratchet_task.policy:make_fasten_policy"
 [tool.setuptools.packages.find]
 include = ["ratchet_task*"]

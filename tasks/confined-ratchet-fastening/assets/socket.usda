@@ -20,7 +20,8 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall0>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(0.0067, 0.003868247, 0), (0.009093267, 0.00525, 0), (6.4293957e-19, 0.0105, 0), (4.737236e-19, 0.007736494, 0), (0.0067, 0.003868247, 0.009), (0.009093267, 0.00525, 0.009), (6.4293957e-19, 0.0105, 0.009), (4.737236e-19, 0.007736494, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(0.0067, 0.003868247, 0.0015), (0.009093267, 0.00525, 0.0015), (6.4293957e-19, 0.0105, 0.0015), (4.737236e-19, 0.007736494, 0.0015), (0.0067, 0.003868247, 0.009), (0.009093267, 0.00525, 0.009), (6.4293957e-19, 0.0105, 0.009), (4.737236e-19, 0.007736494, 0.009)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -30,6 +31,20 @@ def Xform "Asset" (
         def Material "HexWall0"
         {
             token outputs:surface.connect = </Asset/Materials/HexWall0/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
+        def Material "LeadIn0"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn0/Surface.outputs:surface>
 
             def Shader "Surface"
             {
@@ -55,9 +70,37 @@ def Xform "Asset" (
             }
         }
 
+        def Material "LeadIn1"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn1/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
         def Material "HexWall2"
         {
             token outputs:surface.connect = </Asset/Materials/HexWall2/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
+        def Material "LeadIn2"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn2/Surface.outputs:surface>
 
             def Shader "Surface"
             {
@@ -83,6 +126,20 @@ def Xform "Asset" (
             }
         }
 
+        def Material "LeadIn3"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn3/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
         def Material "HexWall4"
         {
             token outputs:surface.connect = </Asset/Materials/HexWall4/Surface.outputs:surface>
@@ -97,9 +154,37 @@ def Xform "Asset" (
             }
         }
 
+        def Material "LeadIn4"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn4/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
         def Material "HexWall5"
         {
             token outputs:surface.connect = </Asset/Materials/HexWall5/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.49, 0.53)
+                float inputs:metallic = 0.85
+                float inputs:roughness = 0.28
+                token outputs:surface
+            }
+        }
+
+        def Material "LeadIn5"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeadIn5/Surface.outputs:surface>
 
             def Shader "Surface"
             {
@@ -840,6 +925,20 @@ def Xform "Asset" (
         }
     }
 
+    def Mesh "LeadIn0" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn0>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(0.0072, 0.004156922, 0), (0.009093267, 0.00525, 0), (6.4293957e-19, 0.0105, 0), (5.090761e-19, 0.008313844, 0), (0.0067, 0.003868247, 0.0015), (0.009093267, 0.00525, 0.0015), (6.4293957e-19, 0.0105, 0.0015), (4.737236e-19, 0.007736494, 0.0015)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
     def Mesh "HexWall1" (
         prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
     )
@@ -848,7 +947,22 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall1>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(4.737236e-19, 0.007736494, 0), (6.4293957e-19, 0.0105, 0), (-0.009093267, 0.00525, 0), (-0.0067, 0.003868247, 0), (4.737236e-19, 0.007736494, 0.009), (6.4293957e-19, 0.0105, 0.009), (-0.009093267, 0.00525, 0.009), (-0.0067, 0.003868247, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(4.737236e-19, 0.007736494, 0.0015), (6.4293957e-19, 0.0105, 0.0015), (-0.009093267, 0.00525, 0.0015), (-0.0067, 0.003868247, 0.0015), (4.737236e-19, 0.007736494, 0.009), (6.4293957e-19, 0.0105, 0.009), (-0.009093267, 0.00525, 0.009), (-0.0067, 0.003868247, 0.009)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
+    def Mesh "LeadIn1" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn1>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(5.090761e-19, 0.008313844, 0), (6.4293957e-19, 0.0105, 0), (-0.009093267, 0.00525, 0), (-0.0072, 0.004156922, 0), (4.737236e-19, 0.007736494, 0.0015), (6.4293957e-19, 0.0105, 0.0015), (-0.009093267, 0.00525, 0.0015), (-0.0067, 0.003868247, 0.0015)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -861,7 +975,22 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall2>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(-0.0067, 0.003868247, 0), (-0.009093267, 0.00525, 0), (-0.009093267, -0.00525, 0), (-0.0067, -0.003868247, 0), (-0.0067, 0.003868247, 0.009), (-0.009093267, 0.00525, 0.009), (-0.009093267, -0.00525, 0.009), (-0.0067, -0.003868247, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.0067, 0.003868247, 0.0015), (-0.009093267, 0.00525, 0.0015), (-0.009093267, -0.00525, 0.0015), (-0.0067, -0.003868247, 0.0015), (-0.0067, 0.003868247, 0.009), (-0.009093267, 0.00525, 0.009), (-0.009093267, -0.00525, 0.009), (-0.0067, -0.003868247, 0.009)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
+    def Mesh "LeadIn2" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn2>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.0072, 0.004156922, 0), (-0.009093267, 0.00525, 0), (-0.009093267, -0.00525, 0), (-0.0072, -0.004156922, 0), (-0.0067, 0.003868247, 0.0015), (-0.009093267, 0.00525, 0.0015), (-0.009093267, -0.00525, 0.0015), (-0.0067, -0.003868247, 0.0015)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -874,7 +1003,22 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall3>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(-0.0067, -0.003868247, 0), (-0.009093267, -0.00525, 0), (-1.9288187e-18, -0.0105, 0), (-1.4211708e-18, -0.007736494, 0), (-0.0067, -0.003868247, 0.009), (-0.009093267, -0.00525, 0.009), (-1.9288187e-18, -0.0105, 0.009), (-1.4211708e-18, -0.007736494, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.0067, -0.003868247, 0.0015), (-0.009093267, -0.00525, 0.0015), (-1.9288187e-18, -0.0105, 0.0015), (-1.4211708e-18, -0.007736494, 0.0015), (-0.0067, -0.003868247, 0.009), (-0.009093267, -0.00525, 0.009), (-1.9288187e-18, -0.0105, 0.009), (-1.4211708e-18, -0.007736494, 0.009)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
+    def Mesh "LeadIn3" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn3>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-0.0072, -0.004156922, 0), (-0.009093267, -0.00525, 0), (-1.9288187e-18, -0.0105, 0), (-1.5272283e-18, -0.008313844, 0), (-0.0067, -0.003868247, 0.0015), (-0.009093267, -0.00525, 0.0015), (-1.9288187e-18, -0.0105, 0.0015), (-1.4211708e-18, -0.007736494, 0.0015)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -887,7 +1031,22 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall4>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(-1.4211708e-18, -0.007736494, 0), (-1.9288187e-18, -0.0105, 0), (0.009093267, -0.00525, 0), (0.0067, -0.003868247, 0), (-1.4211708e-18, -0.007736494, 0.009), (-1.9288187e-18, -0.0105, 0.009), (0.009093267, -0.00525, 0.009), (0.0067, -0.003868247, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-1.4211708e-18, -0.007736494, 0.0015), (-1.9288187e-18, -0.0105, 0.0015), (0.009093267, -0.00525, 0.0015), (0.0067, -0.003868247, 0.0015), (-1.4211708e-18, -0.007736494, 0.009), (-1.9288187e-18, -0.0105, 0.009), (0.009093267, -0.00525, 0.009), (0.0067, -0.003868247, 0.009)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
+    def Mesh "LeadIn4" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn4>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(-1.5272283e-18, -0.008313844, 0), (-1.9288187e-18, -0.0105, 0), (0.009093267, -0.00525, 0), (0.0072, -0.004156922, 0), (-1.4211708e-18, -0.007736494, 0.0015), (-1.9288187e-18, -0.0105, 0.0015), (0.009093267, -0.00525, 0.0015), (0.0067, -0.003868247, 0.0015)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -900,7 +1059,22 @@ def Xform "Asset" (
         int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
         rel material:binding = </Asset/Materials/HexWall5>
         uniform token physics:approximation = "convexHull"
-        point3f[] points = [(0.0067, -0.003868247, 0), (0.009093267, -0.00525, 0), (0.009093267, 0.00525, 0), (0.0067, 0.003868247, 0), (0.0067, -0.003868247, 0.009), (0.009093267, -0.00525, 0.009), (0.009093267, 0.00525, 0.009), (0.0067, 0.003868247, 0.009)]
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(0.0067, -0.003868247, 0.0015), (0.009093267, -0.00525, 0.0015), (0.009093267, 0.00525, 0.0015), (0.0067, 0.003868247, 0.0015), (0.0067, -0.003868247, 0.009), (0.009093267, -0.00525, 0.009), (0.009093267, 0.00525, 0.009), (0.0067, 0.003868247, 0.009)]
+        color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
+        uniform token subdivisionScheme = "none"
+    }
+
+    def Mesh "LeadIn5" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"]
+    )
+    {
+        int[] faceVertexCounts = [4, 4, 4, 4, 4, 4]
+        int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
+        rel material:binding = </Asset/Materials/LeadIn5>
+        uniform token physics:approximation = "convexHull"
+        bool physics:collisionEnabled = 1
+        point3f[] points = [(0.0072, -0.004156922, 0), (0.009093267, -0.00525, 0), (0.009093267, 0.00525, 0), (0.0072, 0.004156922, 0), (0.0067, -0.003868247, 0.0015), (0.009093267, -0.00525, 0.0015), (0.009093267, 0.00525, 0.0015), (0.0067, 0.003868247, 0.0015)]
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         uniform token subdivisionScheme = "none"
     }
@@ -915,6 +1089,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector00>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0049, 0, 0.009), (0.0105, 0, 0.009), (0.010410171, 0.001370525, 0.009), (0.00485808, 0.0006395783, 0.009), (0.0049, 0, 0.022), (0.0105, 0, 0.022), (0.010410171, 0.001370525, 0.022), (0.00485808, 0.0006395783, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -928,6 +1103,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector01>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.00485808, 0.0006395783, 0.009), (0.010410171, 0.001370525, 0.009), (0.010142221, 0.0027176, 0.009), (0.0047330367, 0.0012682133, 0.009), (0.00485808, 0.0006395783, 0.022), (0.010410171, 0.001370525, 0.022), (0.010142221, 0.0027176, 0.022), (0.0047330367, 0.0012682133, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -941,6 +1117,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector02>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0047330367, 0.0012682133, 0.009), (0.010142221, 0.0027176, 0.009), (0.009700735, 0.004018176, 0.009), (0.0045270096, 0.0018751489, 0.009), (0.0047330367, 0.0012682133, 0.022), (0.010142221, 0.0027176, 0.022), (0.009700735, 0.004018176, 0.022), (0.0045270096, 0.0018751489, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -954,6 +1131,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector03>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0045270096, 0.0018751489, 0.009), (0.009700735, 0.004018176, 0.009), (0.009093267, 0.00525, 0.009), (0.0042435243, 0.00245, 0.009), (0.0045270096, 0.0018751489, 0.022), (0.009700735, 0.004018176, 0.022), (0.009093267, 0.00525, 0.022), (0.0042435243, 0.00245, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -967,6 +1145,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector04>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0042435243, 0.00245, 0.009), (0.009093267, 0.00525, 0.009), (0.00833021, 0.006391995, 0.009), (0.0038874315, 0.002982931, 0.009), (0.0042435243, 0.00245, 0.022), (0.009093267, 0.00525, 0.022), (0.00833021, 0.006391995, 0.022), (0.0038874315, 0.002982931, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -980,6 +1159,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector05>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0038874315, 0.002982931, 0.009), (0.00833021, 0.006391995, 0.009), (0.0074246214, 0.0074246214, 0.009), (0.0034648231, 0.0034648231, 0.009), (0.0038874315, 0.002982931, 0.022), (0.00833021, 0.006391995, 0.022), (0.0074246214, 0.0074246214, 0.022), (0.0034648231, 0.0034648231, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -993,6 +1173,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector06>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0034648231, 0.0034648231, 0.009), (0.0074246214, 0.0074246214, 0.009), (0.006391995, 0.00833021, 0.009), (0.002982931, 0.0038874315, 0.009), (0.0034648231, 0.0034648231, 0.022), (0.0074246214, 0.0074246214, 0.022), (0.006391995, 0.00833021, 0.022), (0.002982931, 0.0038874315, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1006,6 +1187,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector07>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.002982931, 0.0038874315, 0.009), (0.006391995, 0.00833021, 0.009), (0.00525, 0.009093267, 0.009), (0.00245, 0.0042435243, 0.009), (0.002982931, 0.0038874315, 0.022), (0.006391995, 0.00833021, 0.022), (0.00525, 0.009093267, 0.022), (0.00245, 0.0042435243, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1019,6 +1201,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector08>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.00245, 0.0042435243, 0.009), (0.00525, 0.009093267, 0.009), (0.004018176, 0.009700735, 0.009), (0.0018751489, 0.0045270096, 0.009), (0.00245, 0.0042435243, 0.022), (0.00525, 0.009093267, 0.022), (0.004018176, 0.009700735, 0.022), (0.0018751489, 0.0045270096, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1032,6 +1215,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector09>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0018751489, 0.0045270096, 0.009), (0.004018176, 0.009700735, 0.009), (0.0027176, 0.010142221, 0.009), (0.0012682133, 0.0047330367, 0.009), (0.0018751489, 0.0045270096, 0.022), (0.004018176, 0.009700735, 0.022), (0.0027176, 0.010142221, 0.022), (0.0012682133, 0.0047330367, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1045,6 +1229,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector10>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0012682133, 0.0047330367, 0.009), (0.0027176, 0.010142221, 0.009), (0.001370525, 0.010410171, 0.009), (0.0006395783, 0.00485808, 0.009), (0.0012682133, 0.0047330367, 0.022), (0.0027176, 0.010142221, 0.022), (0.001370525, 0.010410171, 0.022), (0.0006395783, 0.00485808, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1058,6 +1243,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector11>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0006395783, 0.00485808, 0.009), (0.001370525, 0.010410171, 0.009), (6.4293957e-19, 0.0105, 0.009), (3.0003847e-19, 0.0049, 0.009), (0.0006395783, 0.00485808, 0.022), (0.001370525, 0.010410171, 0.022), (6.4293957e-19, 0.0105, 0.022), (3.0003847e-19, 0.0049, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1071,6 +1257,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector12>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(3.0003847e-19, 0.0049, 0.009), (6.4293957e-19, 0.0105, 0.009), (-0.001370525, 0.010410171, 0.009), (-0.0006395783, 0.00485808, 0.009), (3.0003847e-19, 0.0049, 0.022), (6.4293957e-19, 0.0105, 0.022), (-0.001370525, 0.010410171, 0.022), (-0.0006395783, 0.00485808, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1084,6 +1271,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector13>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0006395783, 0.00485808, 0.009), (-0.001370525, 0.010410171, 0.009), (-0.0027176, 0.010142221, 0.009), (-0.0012682133, 0.0047330367, 0.009), (-0.0006395783, 0.00485808, 0.022), (-0.001370525, 0.010410171, 0.022), (-0.0027176, 0.010142221, 0.022), (-0.0012682133, 0.0047330367, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1097,6 +1285,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector14>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0012682133, 0.0047330367, 0.009), (-0.0027176, 0.010142221, 0.009), (-0.004018176, 0.009700735, 0.009), (-0.0018751489, 0.0045270096, 0.009), (-0.0012682133, 0.0047330367, 0.022), (-0.0027176, 0.010142221, 0.022), (-0.004018176, 0.009700735, 0.022), (-0.0018751489, 0.0045270096, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1110,6 +1299,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector15>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0018751489, 0.0045270096, 0.009), (-0.004018176, 0.009700735, 0.009), (-0.00525, 0.009093267, 0.009), (-0.00245, 0.0042435243, 0.009), (-0.0018751489, 0.0045270096, 0.022), (-0.004018176, 0.009700735, 0.022), (-0.00525, 0.009093267, 0.022), (-0.00245, 0.0042435243, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1123,6 +1313,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector16>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.00245, 0.0042435243, 0.009), (-0.00525, 0.009093267, 0.009), (-0.006391995, 0.00833021, 0.009), (-0.002982931, 0.0038874315, 0.009), (-0.00245, 0.0042435243, 0.022), (-0.00525, 0.009093267, 0.022), (-0.006391995, 0.00833021, 0.022), (-0.002982931, 0.0038874315, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1136,6 +1327,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector17>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.002982931, 0.0038874315, 0.009), (-0.006391995, 0.00833021, 0.009), (-0.0074246214, 0.0074246214, 0.009), (-0.0034648231, 0.0034648231, 0.009), (-0.002982931, 0.0038874315, 0.022), (-0.006391995, 0.00833021, 0.022), (-0.0074246214, 0.0074246214, 0.022), (-0.0034648231, 0.0034648231, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1149,6 +1341,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector18>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0034648231, 0.0034648231, 0.009), (-0.0074246214, 0.0074246214, 0.009), (-0.00833021, 0.006391995, 0.009), (-0.0038874315, 0.002982931, 0.009), (-0.0034648231, 0.0034648231, 0.022), (-0.0074246214, 0.0074246214, 0.022), (-0.00833021, 0.006391995, 0.022), (-0.0038874315, 0.002982931, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1162,6 +1355,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector19>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0038874315, 0.002982931, 0.009), (-0.00833021, 0.006391995, 0.009), (-0.009093267, 0.00525, 0.009), (-0.0042435243, 0.00245, 0.009), (-0.0038874315, 0.002982931, 0.022), (-0.00833021, 0.006391995, 0.022), (-0.009093267, 0.00525, 0.022), (-0.0042435243, 0.00245, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1175,6 +1369,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector20>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0042435243, 0.00245, 0.009), (-0.009093267, 0.00525, 0.009), (-0.009700735, 0.004018176, 0.009), (-0.0045270096, 0.0018751489, 0.009), (-0.0042435243, 0.00245, 0.022), (-0.009093267, 0.00525, 0.022), (-0.009700735, 0.004018176, 0.022), (-0.0045270096, 0.0018751489, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1188,6 +1383,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector21>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0045270096, 0.0018751489, 0.009), (-0.009700735, 0.004018176, 0.009), (-0.010142221, 0.0027176, 0.009), (-0.0047330367, 0.0012682133, 0.009), (-0.0045270096, 0.0018751489, 0.022), (-0.009700735, 0.004018176, 0.022), (-0.010142221, 0.0027176, 0.022), (-0.0047330367, 0.0012682133, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1201,6 +1397,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector22>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0047330367, 0.0012682133, 0.009), (-0.010142221, 0.0027176, 0.009), (-0.010410171, 0.001370525, 0.009), (-0.00485808, 0.0006395783, 0.009), (-0.0047330367, 0.0012682133, 0.022), (-0.010142221, 0.0027176, 0.022), (-0.010410171, 0.001370525, 0.022), (-0.00485808, 0.0006395783, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1214,6 +1411,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector23>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.00485808, 0.0006395783, 0.009), (-0.010410171, 0.001370525, 0.009), (-0.0105, 1.2858791e-18, 0.009), (-0.0049, 6.0007693e-19, 0.009), (-0.00485808, 0.0006395783, 0.022), (-0.010410171, 0.001370525, 0.022), (-0.0105, 1.2858791e-18, 0.022), (-0.0049, 6.0007693e-19, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1227,6 +1425,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector24>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0049, 6.0007693e-19, 0.009), (-0.0105, 1.2858791e-18, 0.009), (-0.010410171, -0.001370525, 0.009), (-0.00485808, -0.0006395783, 0.009), (-0.0049, 6.0007693e-19, 0.022), (-0.0105, 1.2858791e-18, 0.022), (-0.010410171, -0.001370525, 0.022), (-0.00485808, -0.0006395783, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1240,6 +1439,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector25>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.00485808, -0.0006395783, 0.009), (-0.010410171, -0.001370525, 0.009), (-0.010142221, -0.0027176, 0.009), (-0.0047330367, -0.0012682133, 0.009), (-0.00485808, -0.0006395783, 0.022), (-0.010410171, -0.001370525, 0.022), (-0.010142221, -0.0027176, 0.022), (-0.0047330367, -0.0012682133, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1253,6 +1453,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector26>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0047330367, -0.0012682133, 0.009), (-0.010142221, -0.0027176, 0.009), (-0.009700735, -0.004018176, 0.009), (-0.0045270096, -0.0018751489, 0.009), (-0.0047330367, -0.0012682133, 0.022), (-0.010142221, -0.0027176, 0.022), (-0.009700735, -0.004018176, 0.022), (-0.0045270096, -0.0018751489, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1266,6 +1467,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector27>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0045270096, -0.0018751489, 0.009), (-0.009700735, -0.004018176, 0.009), (-0.009093267, -0.00525, 0.009), (-0.0042435243, -0.00245, 0.009), (-0.0045270096, -0.0018751489, 0.022), (-0.009700735, -0.004018176, 0.022), (-0.009093267, -0.00525, 0.022), (-0.0042435243, -0.00245, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1279,6 +1481,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector28>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0042435243, -0.00245, 0.009), (-0.009093267, -0.00525, 0.009), (-0.00833021, -0.006391995, 0.009), (-0.0038874315, -0.002982931, 0.009), (-0.0042435243, -0.00245, 0.022), (-0.009093267, -0.00525, 0.022), (-0.00833021, -0.006391995, 0.022), (-0.0038874315, -0.002982931, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1292,6 +1495,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector29>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0038874315, -0.002982931, 0.009), (-0.00833021, -0.006391995, 0.009), (-0.0074246214, -0.0074246214, 0.009), (-0.0034648231, -0.0034648231, 0.009), (-0.0038874315, -0.002982931, 0.022), (-0.00833021, -0.006391995, 0.022), (-0.0074246214, -0.0074246214, 0.022), (-0.0034648231, -0.0034648231, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1305,6 +1509,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector30>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0034648231, -0.0034648231, 0.009), (-0.0074246214, -0.0074246214, 0.009), (-0.006391995, -0.00833021, 0.009), (-0.002982931, -0.0038874315, 0.009), (-0.0034648231, -0.0034648231, 0.022), (-0.0074246214, -0.0074246214, 0.022), (-0.006391995, -0.00833021, 0.022), (-0.002982931, -0.0038874315, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1318,6 +1523,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector31>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.002982931, -0.0038874315, 0.009), (-0.006391995, -0.00833021, 0.009), (-0.00525, -0.009093267, 0.009), (-0.00245, -0.0042435243, 0.009), (-0.002982931, -0.0038874315, 0.022), (-0.006391995, -0.00833021, 0.022), (-0.00525, -0.009093267, 0.022), (-0.00245, -0.0042435243, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1331,6 +1537,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector32>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.00245, -0.0042435243, 0.009), (-0.00525, -0.009093267, 0.009), (-0.004018176, -0.009700735, 0.009), (-0.0018751489, -0.0045270096, 0.009), (-0.00245, -0.0042435243, 0.022), (-0.00525, -0.009093267, 0.022), (-0.004018176, -0.009700735, 0.022), (-0.0018751489, -0.0045270096, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1344,6 +1551,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector33>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0018751489, -0.0045270096, 0.009), (-0.004018176, -0.009700735, 0.009), (-0.0027176, -0.010142221, 0.009), (-0.0012682133, -0.0047330367, 0.009), (-0.0018751489, -0.0045270096, 0.022), (-0.004018176, -0.009700735, 0.022), (-0.0027176, -0.010142221, 0.022), (-0.0012682133, -0.0047330367, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1357,6 +1565,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector34>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0012682133, -0.0047330367, 0.009), (-0.0027176, -0.010142221, 0.009), (-0.001370525, -0.010410171, 0.009), (-0.0006395783, -0.00485808, 0.009), (-0.0012682133, -0.0047330367, 0.022), (-0.0027176, -0.010142221, 0.022), (-0.001370525, -0.010410171, 0.022), (-0.0006395783, -0.00485808, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1370,6 +1579,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector35>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-0.0006395783, -0.00485808, 0.009), (-0.001370525, -0.010410171, 0.009), (-1.9288187e-18, -0.0105, 0.009), (-9.001154e-19, -0.0049, 0.009), (-0.0006395783, -0.00485808, 0.022), (-0.001370525, -0.010410171, 0.022), (-1.9288187e-18, -0.0105, 0.022), (-9.001154e-19, -0.0049, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1383,6 +1593,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector36>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(-9.001154e-19, -0.0049, 0.009), (-1.9288187e-18, -0.0105, 0.009), (0.001370525, -0.010410171, 0.009), (0.0006395783, -0.00485808, 0.009), (-9.001154e-19, -0.0049, 0.022), (-1.9288187e-18, -0.0105, 0.022), (0.001370525, -0.010410171, 0.022), (0.0006395783, -0.00485808, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1396,6 +1607,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector37>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0006395783, -0.00485808, 0.009), (0.001370525, -0.010410171, 0.009), (0.0027176, -0.010142221, 0.009), (0.0012682133, -0.0047330367, 0.009), (0.0006395783, -0.00485808, 0.022), (0.001370525, -0.010410171, 0.022), (0.0027176, -0.010142221, 0.022), (0.0012682133, -0.0047330367, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1409,6 +1621,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector38>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0012682133, -0.0047330367, 0.009), (0.0027176, -0.010142221, 0.009), (0.004018176, -0.009700735, 0.009), (0.0018751489, -0.0045270096, 0.009), (0.0012682133, -0.0047330367, 0.022), (0.0027176, -0.010142221, 0.022), (0.004018176, -0.009700735, 0.022), (0.0018751489, -0.0045270096, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1422,6 +1635,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector39>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0018751489, -0.0045270096, 0.009), (0.004018176, -0.009700735, 0.009), (0.00525, -0.009093267, 0.009), (0.00245, -0.0042435243, 0.009), (0.0018751489, -0.0045270096, 0.022), (0.004018176, -0.009700735, 0.022), (0.00525, -0.009093267, 0.022), (0.00245, -0.0042435243, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1435,6 +1649,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector40>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.00245, -0.0042435243, 0.009), (0.00525, -0.009093267, 0.009), (0.006391995, -0.00833021, 0.009), (0.002982931, -0.0038874315, 0.009), (0.00245, -0.0042435243, 0.022), (0.00525, -0.009093267, 0.022), (0.006391995, -0.00833021, 0.022), (0.002982931, -0.0038874315, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1448,6 +1663,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector41>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.002982931, -0.0038874315, 0.009), (0.006391995, -0.00833021, 0.009), (0.0074246214, -0.0074246214, 0.009), (0.0034648231, -0.0034648231, 0.009), (0.002982931, -0.0038874315, 0.022), (0.006391995, -0.00833021, 0.022), (0.0074246214, -0.0074246214, 0.022), (0.0034648231, -0.0034648231, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1461,6 +1677,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector42>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0034648231, -0.0034648231, 0.009), (0.0074246214, -0.0074246214, 0.009), (0.00833021, -0.006391995, 0.009), (0.0038874315, -0.002982931, 0.009), (0.0034648231, -0.0034648231, 0.022), (0.0074246214, -0.0074246214, 0.022), (0.00833021, -0.006391995, 0.022), (0.0038874315, -0.002982931, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1474,6 +1691,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector43>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0038874315, -0.002982931, 0.009), (0.00833021, -0.006391995, 0.009), (0.009093267, -0.00525, 0.009), (0.0042435243, -0.00245, 0.009), (0.0038874315, -0.002982931, 0.022), (0.00833021, -0.006391995, 0.022), (0.009093267, -0.00525, 0.022), (0.0042435243, -0.00245, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1487,6 +1705,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector44>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0042435243, -0.00245, 0.009), (0.009093267, -0.00525, 0.009), (0.009700735, -0.004018176, 0.009), (0.0045270096, -0.0018751489, 0.009), (0.0042435243, -0.00245, 0.022), (0.009093267, -0.00525, 0.022), (0.009700735, -0.004018176, 0.022), (0.0045270096, -0.0018751489, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1500,6 +1719,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector45>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0045270096, -0.0018751489, 0.009), (0.009700735, -0.004018176, 0.009), (0.010142221, -0.0027176, 0.009), (0.0047330367, -0.0012682133, 0.009), (0.0045270096, -0.0018751489, 0.022), (0.009700735, -0.004018176, 0.022), (0.010142221, -0.0027176, 0.022), (0.0047330367, -0.0012682133, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1513,6 +1733,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector46>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.0047330367, -0.0012682133, 0.009), (0.010142221, -0.0027176, 0.009), (0.010410171, -0.001370525, 0.009), (0.00485808, -0.0006395783, 0.009), (0.0047330367, -0.0012682133, 0.022), (0.010142221, -0.0027176, 0.022), (0.010410171, -0.001370525, 0.022), (0.00485808, -0.0006395783, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1526,6 +1747,7 @@ def Xform "Asset" (
             int[] faceVertexIndices = [3, 2, 1, 0, 4, 5, 6, 7, 0, 1, 5, 4, 1, 2, 6, 5, 2, 3, 7, 6, 3, 0, 4, 7]
             rel material:binding = </Asset/Materials/UpperBarrel_Sector47>
             uniform token physics:approximation = "convexHull"
+            bool physics:collisionEnabled = 1
             point3f[] points = [(0.00485808, -0.0006395783, 0.009), (0.010410171, -0.001370525, 0.009), (0.0105, -2.5717583e-18, 0.009), (0.0049, -1.2001539e-18, 0.009), (0.00485808, -0.0006395783, 0.022), (0.010410171, -0.001370525, 0.022), (0.0105, -2.5717583e-18, 0.022), (0.0049, -1.2001539e-18, 0.022)]
             color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
             uniform token subdivisionScheme = "none"
@@ -1537,6 +1759,7 @@ def Xform "Asset" (
     )
     {
         rel material:binding = </Asset/Materials/DriveFront>
+        bool physics:collisionEnabled = 1
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         double size = 1
         float3 xformOp:scale = (0.021, 0.00565, 0.006)
@@ -1549,6 +1772,7 @@ def Xform "Asset" (
     )
     {
         rel material:binding = </Asset/Materials/DriveBack>
+        bool physics:collisionEnabled = 1
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         double size = 1
         float3 xformOp:scale = (0.021, 0.00565, 0.006)
@@ -1561,6 +1785,7 @@ def Xform "Asset" (
     )
     {
         rel material:binding = </Asset/Materials/DriveLeft>
+        bool physics:collisionEnabled = 1
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         double size = 1
         float3 xformOp:scale = (0.00565, 0.0097, 0.006)
@@ -1573,6 +1798,7 @@ def Xform "Asset" (
     )
     {
         rel material:binding = </Asset/Materials/DriveRight>
+        bool physics:collisionEnabled = 1
         color3f[] primvars:displayColor = [(0.46, 0.49, 0.53)]
         double size = 1
         float3 xformOp:scale = (0.00565, 0.0097, 0.006)

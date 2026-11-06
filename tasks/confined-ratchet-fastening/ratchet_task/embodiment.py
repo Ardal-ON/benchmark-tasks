@@ -18,7 +18,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         self.hardware=None;self._hardware_active=False;self._raw_physics_step=None
         if self.walls:
             from yam_arena.task_file import Box
-            self.task=replace(self.task,objects=self.task.objects+(Box('walls',pos=(float(AXIS[0]),float(AXIS[1]),TABLE),size=(.09,.12,.18)),))
+            self.task=replace(self.task,objects=self.task.objects+(Box('walls',pos=(float(AXIS[0]),float(AXIS[1]),TABLE),size=(.09,.12,.165)),))
         h=hashlib.sha256()
         for p in sorted(ROOT.rglob('*')):
             if p.is_file() and p.suffix in ('.py','.usda','.toml','.png') and not (len(p.relative_to(ROOT).parts)>2 and p.relative_to(ROOT).parts[:2]==('assets','vendor') and p.relative_to(ROOT).parts[2].startswith('handTool_')):h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
@@ -42,7 +42,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         def spawn(spec):
             if spec.name not in self.task.names:return old_object(spec)
             props=dict(collision_props=sim.CollisionPropertiesCfg(contact_offset=.0001,rest_offset=0.),physics_material=sim.RigidBodyMaterialCfg(static_friction=.55,dynamic_friction=.4))
-            if spec.free:props['rigid_props']=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=128,solver_velocity_iteration_count=64,max_depenetration_velocity=.2,linear_damping=.02,angular_damping=.02)
+            if spec.free:props['rigid_props']=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=SOLVER_POSITION,solver_velocity_iteration_count=SOLVER_VELOCITY,max_depenetration_velocity=.2,linear_damping=.02,angular_damping=.02)
             return Object(name=spec.name,usd_path=str(ROOT/'assets'/f'{spec.name}.usda'),object_type=ObjectType.RIGID if spec.free else ObjectType.BASE,initial_pose=Pose(position_xyz=tuple(map(float,spec.pos))),spawn_cfg_addon=props)
         def callback(hz=None):
             original=old_callback(hz)
@@ -133,7 +133,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             fixture=float(np.linalg.norm(FEEDBACK['poses']['fixture']-[AXIS[0],AXIS[1],TABLE]))
             valid=bool(f['valid']) and abs(f.get('pitch_error_m',0.))<=.0002
             state=State(captured=f['captured'],valid=valid,turns=f['turns'],gap=f['gap'],interface_torque=f['interface_torque'],socket_engaged=f['socket_engaged'],ratchet_cycles=f['ratchet_cycles'],released=bool(clear and opened and tcp_clear and parked),still=bool(still),fixture_displacement=fixture)
-            self.history.update(state,1/self.info.control_hz);FEEDBACK['score']=self.history.score
+            self.history.update(state,1/self.info.control_hz);FEEDBACK.update(score=self.history.score,tightened=self.history.tightened,proof=self.history.proof)
         return super()._task_step()
 def make_embodiment(**kwargs):
     kwargs.setdefault('walls',True);kwargs.setdefault('mechanisms',True)

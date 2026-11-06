@@ -125,11 +125,11 @@ def add_neck_walls(stage,root='/Asset'):
     for sign in [-1,1]:
         cube=UsdGeom.Cube.Define(stage,root+('/NeckWallPositive' if sign>0 else '/NeckWallNegative'))
         cube.CreateSizeAttr(1)
-        cube.AddTranslateOp().Set(Gf.Vec3d(x,sign*y,.09))
+        cube.AddTranslateOp().Set(Gf.Vec3d(x,sign*y,.0825))
         cube.AddRotateZOp().Set(float(-sign*15))
-        cube.AddScaleOp().Set(Gf.Vec3f(length,.009,.18))
+        cube.AddScaleOp().Set(Gf.Vec3f(length,.009,.165))
         cube.CreateDisplayColorAttr([Gf.Vec3f(.17,.29,.40)])
-        UsdPhysics.CollisionAPI.Apply(cube.GetPrim())
-    return dict(center_x_m=x,center_y_magnitude_m=y,center_z_m=.09,
-                length_m=length,thickness_m=.009,height_m=.18,
+        UsdPhysics.CollisionAPI.Apply(cube.GetPrim()).CreateCollisionEnabledAttr(True)
+    return dict(center_x_m=x,center_y_magnitude_m=y,center_z_m=.0825,
+                length_m=length,thickness_m=.009,height_m=.165,
                 positive_y_rotation_deg=-15,negative_y_rotation_deg=15)

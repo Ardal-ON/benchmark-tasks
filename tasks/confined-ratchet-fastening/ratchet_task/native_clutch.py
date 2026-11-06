@@ -11,7 +11,7 @@ from ratchet_task.mechanics import Clutch
 class NativeClutch:
     def __init__(self,stage):
         from pxr import UsdPhysics
-        self.law=Clutch(stiffness=100.,damping=.001)
+        self.law=Clutch(stiffness=100.,damping=.04)
         self.joint=UsdPhysics.RevoluteJoint.Get(stage,'/World/envs/env_0/RatchetDriveJoint')
         drive=UsdPhysics.DriveAPI.Apply(self.joint.GetPrim(),'angular')
         drive.CreateTypeAttr('force');drive.CreateStiffnessAttr(self.law.stiffness*math.pi/180);drive.CreateDampingAttr(self.law.damping*math.pi/180);drive.CreateTargetPositionAttr(0.);drive.CreateTargetVelocityAttr(0.)

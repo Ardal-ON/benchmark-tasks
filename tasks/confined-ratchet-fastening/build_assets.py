@@ -29,7 +29,7 @@ def mesh(s,name,verts,faces,rgb=STEEL,collide=False,visible=True):
     p.CreateDisplayColorAttr([Gf.Vec3f(*rgb)])
     UsdShade.MaterialBindingAPI.Apply(p.GetPrim()).Bind(material(s,name.replace('/','_'),rgb,.85 if rgb==STEEL else .25,.28))
     if collide:
-        UsdPhysics.CollisionAPI.Apply(p.GetPrim());UsdPhysics.MeshCollisionAPI.Apply(p.GetPrim()).CreateApproximationAttr('convexHull')
+        UsdPhysics.CollisionAPI.Apply(p.GetPrim()).CreateCollisionEnabledAttr(True);UsdPhysics.MeshCollisionAPI.Apply(p.GetPrim()).CreateApproximationAttr('convexHull')
     if not visible:p.CreateVisibilityAttr('invisible')
     return p
 
@@ -50,7 +50,7 @@ def ring(s,name,rin,rout,z0,z1,n=48,rgb=STEEL,rect=None,collide=True):
 def box(s,name,p,size,rgb=DARK,collide=True):
     o=UsdGeom.Cube.Define(s,'/Asset/'+name);o.CreateSizeAttr(1.);o.AddTranslateOp().Set(Gf.Vec3d(*map(float,p)));o.AddScaleOp().Set(Gf.Vec3f(*size));o.CreateDisplayColorAttr([Gf.Vec3f(*rgb)])
     UsdShade.MaterialBindingAPI.Apply(o.GetPrim()).Bind(material(s,name.replace('/','_'),rgb,.35,.45))
-    if collide:UsdPhysics.CollisionAPI.Apply(o.GetPrim())
+    if collide:UsdPhysics.CollisionAPI.Apply(o.GetPrim()).CreateCollisionEnabledAttr(True)
     return o
 
 def bolt():
@@ -88,15 +88,20 @@ def build():
     ring(s,'Receiver',.00435,.045,.012,.090,n=48,rgb=DARK,rect=(.045,.04))
     ring(s,'Bracket',.0046,.06,.090,.093,n=48,rgb=BRACKET,rect=(.07,.045))
     s.GetRootLayer().Save()
-    s=stage('entry_stop');ring(s,'ThreadEntry',.0034,.00435,.0895,.090,n=32,rgb=DARK);s.GetRootLayer().Save()
-    s=stage('bolt_holder');ring(s,'Holder',.0044,.014,0,.022,n=32,rgb=BRACKET);box(s,'Foot',[0,0,.002],[.044,.044,.004]);s.GetRootLayer().Save()
+    s=stage('entry_stop');ring(s,'ThreadEntry',.0034,.00435,.087,.0875,n=32,rgb=DARK);s.GetRootLayer().Save()
+    s=stage('bolt_holder');ring(s,'Holder',.0044,.014,0,.016,n=32,rgb=BRACKET);ring(s,'Neck',.0044,.0055,.016,.022,n=32,rgb=BRACKET);box(s,'Foot',[0,0,.002],[.044,.044,.004]);s.GetRootLayer().Save()
     s=stage('socket',.040)
     # Hexagonal physical cavity: inner AF 13.4mm, 0.2mm clearance per face.
     n=6;rin=.0134/np.sqrt(3);rout=.0105
     for i in range(n):
         a,b=np.pi/6+2*np.pi*np.array([i,i+1])/n
         xy=[rin*np.array([np.cos(a),np.sin(a)]),rout*np.array([np.cos(a),np.sin(a)]),rout*np.array([np.cos(b),np.sin(b)]),rin*np.array([np.cos(b),np.sin(b)])]
-        prism(s,f'HexWall{i}',xy,0,.009)
+        prism(s,f'HexWall{i}',xy,.0015,.009)
+        # Machined lead-in:14.4mm mouth tapers to13.4mm AF over1.5mm.
+        bottom=xy.copy();bottom[0]=(.0144/np.sqrt(3))*np.array([np.cos(a),np.sin(a)]);bottom[3]=(.0144/np.sqrt(3))*np.array([np.cos(b),np.sin(b)])
+        v=[(*point,z) for points,z in [(bottom,0.),(xy,.0015)] for point in points]
+        f=[[3,2,1,0],[4,5,6,7]]+[[j,(j+1)%4,(j+1)%4+4,j+4] for j in range(4)]
+        mesh(s,f'LeadIn{i}',v,f,STEEL,True)
     ring(s,'UpperBarrel',.0049,.0105,.009,.022,n=48)
     # 3/8in drive square; cavity remains open.
     inner=.0097/2;outer=.0105
@@ -112,6 +117,8 @@ def build():
     s=stage('tool_cradle');box(s,'Foot',[0,0,.004],[.23,.065,.008]);
     for x in [-.12,0]:
         for y in [-.026,.026]:box(s,f'Support{str(x).replace("-","N").replace(".","D")}{str(y).replace("-","N").replace(".","D")}',[x,y,.016],[.018,.012,.024],BRACKET)
+    # Saddles support the grip underside while the socket rests on the table.
+    for j,x in enumerate([-.07,-.02]):box(s,f'GripSaddle{j}',[x,0,.0226],[.010,.040,.0292],BRACKET)
     s.GetRootLayer().Save()
     hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT/'assets').glob('*.usda'))}
     (ROOT/'assets/generated-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')

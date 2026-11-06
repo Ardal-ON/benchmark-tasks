@@ -17,6 +17,10 @@ class Mechanics(unittest.TestCase):
         self.assertAlmostEqual(s.expected_z(7.-2*math.pi),.09875)
     def test_uncaptured_rejects_prediction(self):
         with self.assertRaises(RuntimeError):Screw().expected_z(0)
-    def test_implicit_clutch_preserves_capacity(self):
-        c=Clutch();c.reset();self.assertAlmostEqual(c.step(20,0,1/480),c.capacity)
+    def test_clutch_preserves_capacity(self):
+        c=Clutch();c.reset();self.assertAlmostEqual(c.step(20,0),c.capacity)
+    def test_damping_spike_does_not_create_spring_energy(self):
+        c=Clutch(stiffness=100,damping=.04);c.reset();phase=c.latch
+        c.step(phase+.001,100.)
+        self.assertEqual(c.latch,phase)
 if __name__=='__main__':unittest.main()

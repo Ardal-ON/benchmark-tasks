@@ -17,15 +17,15 @@ class Clutch:
     torque: float=0.
     def reset(self,relative=0.):
         self.latch=relative+self.backlash;self.torque=0.
-    def step(self,relative,relative_speed,dt=0.,inertia=2.e-5):
+    def step(self,relative,relative_speed):
         if self.latch is None:self.reset(relative)
-        # Forward reference follows return travel, retaining finite take-up.
+        # Re-index only while unloaded on return. Plastic slip can only reduce
+        # stored elastic energy; a damping spike never creates spring extension.
         self.latch=min(self.latch,relative+self.backlash)
+        self.latch=max(self.latch,relative-self.capacity/self.stiffness)
         extension=max(0.,relative-self.latch)
-        implicit=1.+(self.stiffness*dt*dt+self.damping*dt)/inertia
-        spring=max(0.,min(self.capacity,(self.stiffness*extension+self.damping*max(0.,relative_speed))/implicit)) if extension>0 else 0.
-        if spring>=self.capacity:self.latch=relative-self.capacity*implicit/self.stiffness
-        # Viscous return drag always removes, rather than creates, energy.
+        signed=self.stiffness*extension+self.damping*relative_speed
+        spring=max(0.,min(self.capacity,signed)) if extension>0 else 0.
         self.torque=spring+self.drag*relative_speed
         return self.torque
 

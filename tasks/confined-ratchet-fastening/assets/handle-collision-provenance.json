@@ -758,5 +758,17 @@
       ],
       "max_supportplane_violation_m": 0.0
     }
-  ]
+  ],
+  "grip_pads": {
+    "source": "Original flat rubber grip pads",
+    "center_x_m": -0.13,
+    "center_y_magnitude_m": 0.0145,
+    "center_z_m": 0.0132,
+    "size_m": [
+      0.045,
+      0.003,
+      0.023
+    ],
+    "added_mass_kg": 0.004
+  }
 }

@@ -27,7 +27,7 @@ class Bench(RatchetEmbodiment):
         self.input=UsdPhysics.RevoluteJoint.Define(stage,'/World/DiagnosticHandlePin')
         self.input.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/handle')]);self.input.CreateLocalPos0Attr(Gf.Vec3f(*map(float,toolp)));self.input.CreateLocalPos1Attr(Gf.Vec3f(0));self.input.CreateAxisAttr('Z');self.input.CreateExcludeFromArticulationAttr(True)
 emb=Bench(task=str(ROOT/'task.py'),device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360,physics_hz=hz)
-emb.task=replace(emb.task,objects=tuple(replace(o,pos=tuple(map(float,p))) if o.name=='bolt' else replace(o,pos=tuple(map(float,toolp))) if o.name in ['handle','drive'] else o for o in emb.task.objects))
+emb.task=replace(emb.task,objects=tuple(replace(o,pos=tuple(map(float,p))) if o.name=='bolt' else replace(o,pos=tuple(map(float,toolp))) if o.name in ['handle','drive','pawl'] else o for o in emb.task.objects))
 emb.reset(Scene(id='coupled-mechanism-fixture',instruction='Bench calibration only'),seed=17)
 from pxr import UsdPhysics
 # Release the preparation fixture and flush its removal before making the thread.

@@ -9,14 +9,8 @@ def Xform "Asset" (
     prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
 )
 {
-    float physics:mass = 0.086
+    float physics:mass = 0.04
     custom bool physxRigidBody:enableCCD = 1
-
-    def Xform "DriveVisual" (
-        prepend references = @ratchet_visual.usda@</RatchetVisual/Drive>
-    )
-    {
-    }
 
     def Xform "Socket" (
         apiSchemas = None

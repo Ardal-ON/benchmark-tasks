@@ -21,9 +21,9 @@ class Bench(RatchetEmbodiment):
   j=UsdPhysics.FixedJoint.Define(self._base.sim.stage,'/World/DiagnosticBoltSupport');j.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/bolt')]);j.CreateLocalPos0Attr(Gf.Vec3f(*map(float,p)));j.CreateExcludeFromArticulationAttr(True)
   j=UsdPhysics.RevoluteJoint.Define(self._base.sim.stage,'/World/DiagnosticHandlePin');j.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/handle')]);j.CreateAxisAttr('Z');j.CreateLocalPos0Attr(Gf.Vec3f(*map(float,toolp)));j.CreateExcludeFromArticulationAttr(True)
 emb=Bench(task=str(ROOT/'task.py'),device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360)
-emb.task=replace(emb.task,objects=tuple(replace(o,pos=tuple(map(float,p))) if o.name=='bolt' else replace(o,pos=tuple(map(float,toolp))) if o.name in ['handle','drive'] else o for o in emb.task.objects))
+emb.task=replace(emb.task,objects=tuple(replace(o,pos=tuple(map(float,p))) if o.name=='bolt' else replace(o,pos=tuple(map(float,toolp))) if o.name in ['handle','drive','pawl'] else o for o in emb.task.objects))
 emb.reset(Scene(id='known-torque-calibration',instruction='Bench calibration only'),seed=17)
-h=Hardware(emb._base.sim.stage,1/PHYSICS_HZ);h.clutch.law.capacity=0.;h.clutch.law.drag=0.
+h=Hardware(emb._base.sim.stage,1/PHYSICS_HZ);h.clutch.enabled=False;emb._base.sim.stage.RemovePrim('/World/envs/env_0/PawlGate')
 rows=[]
 for load in [.1,.3,.5,.7]:
  samples=[]

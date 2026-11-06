@@ -23,7 +23,7 @@ for n,p in FEEDBACK['poses'].items():
     prim=e._base.sim.stage.GetPrimAtPath('/World/envs/env_0/'+n)
     bound=cache.ComputeWorldBound(prim).ComputeAlignedBox()
     extra={}
-    if n in ['bolt','handle','drive']:
+    if n in ['bolt','handle','drive','pawl']:
         body=e._base.scene[n];extra=dict(mass_kg=array(body.data.default_mass).tolist(),inertia_kg_m2=array(body.data.default_inertia).tolist())
     objects[n]=dict(position=p.tolist(),rotation=FEEDBACK['rotations'][n].tolist(),**extra,drift_m=float(np.linalg.norm(p-initial[n])),bbox_size_m=list(bound.GetSize()))
 json.dump(dict(objects=objects,revision=e.info.environment_revision,physics_hz=e.physics_hz,native_cameras={n:[e._base.scene[n].cfg.width,e._base.scene[n].cfg.height] for n in ['top_cam','left_cam','right_cam']}),open(out/'assets-result.json','w'),indent=2)

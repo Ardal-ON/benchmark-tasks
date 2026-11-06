@@ -9,7 +9,7 @@ def Xform "Asset" (
     prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI", "PhysxRigidBodyAPI"]
 )
 {
-    float physics:mass = 0.378
+    float physics:mass = 0.39940527
     custom bool physxRigidBody:enableCCD = 1
 
     def Xform "Visual" (
@@ -523,5 +523,76 @@ def Xform "Asset" (
             uniform token subdivisionScheme = "none"
             token visibility = "invisible"
         }
+    }
+
+    def "Materials"
+    {
+        def Material "GripPadRubber"
+        {
+            token outputs:surface.connect = </Asset/Materials/GripPadRubber/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.035, 0.11, 0.19)
+                float inputs:metallic = 0
+                float inputs:roughness = 0.78
+                token outputs:surface
+            }
+        }
+
+        def Material "GripPadNegative"
+        {
+            token outputs:surface.connect = </Asset/Materials/GripPadNegative/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.035, 0.11, 0.19)
+                float inputs:metallic = 0.35
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+
+        def Material "GripPadPositive"
+        {
+            token outputs:surface.connect = </Asset/Materials/GripPadPositive/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.035, 0.11, 0.19)
+                float inputs:metallic = 0.35
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+    }
+
+    def Cube "GripPadNegative" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/GripPadRubber>
+        bool physics:collisionEnabled = 1
+        color3f[] primvars:displayColor = [(0.035, 0.11, 0.19)]
+        double size = 1
+        float3 xformOp:scale = (0.045, 0.003, 0.023)
+        double3 xformOp:translate = (-0.13, -0.0145, 0.0132)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "GripPadPositive" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/GripPadRubber>
+        bool physics:collisionEnabled = 1
+        color3f[] primvars:displayColor = [(0.035, 0.11, 0.19)]
+        double size = 1
+        float3 xformOp:scale = (0.045, 0.003, 0.023)
+        double3 xformOp:translate = (-0.13, 0.0145, 0.0132)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
     }
 }

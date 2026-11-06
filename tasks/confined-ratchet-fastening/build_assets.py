@@ -127,14 +127,28 @@ if __name__=='__main__':build()
 
 def build_tool():
     """Two-body ratchet. Socket is the drive body's permanently assembled tool."""
-    s=stage('handle',.378)
+    s=stage('handle',HANDLE_MASS)
     p=UsdGeom.Xform.Define(s,'/Asset/Visual').GetPrim();p.GetReferences().AddReference('ratchet_visual.usda','/RatchetVisual/Handle')
     from asset_geometry import add_handle_colliders
     report,_=add_handle_colliders(s,ROOT/'assets/ratchet_visual.usda')
+    # Flat rubber side pads spread the finger contact over the rounded grip.
+    # They overlap the original shell by 1 mm and share this rigid body.
+    pad_color=(.035,.11,.19)
+    rubber=material(s,'GripPadRubber',pad_color,metal=0.,rough=.78)
+    for sign,name in [(-1,'GripPadNegative'),(1,'GripPadPositive')]:
+        pad=box(s,name,[-.13,sign*.0145,.0132],[.045,.003,.023],pad_color)
+        UsdShade.MaterialBindingAPI.Apply(pad.GetPrim()).Bind(rubber)
+    report['grip_pads']={'source':'Original flat rubber grip pads',
+        'center_x_m':-.13,'center_y_magnitude_m':.0145,'center_z_m':.0132,
+        'size_m':[.045,.003,.023],'added_mass_kg':.004}
     (ROOT/'assets/handle-collision-provenance.json').write_text(json.dumps(report,indent=2)+'\n')
     s.GetRootLayer().Save()
-    s=stage('drive',.086)
+    s=stage('pawl',PAWL_MASS)
     p=UsdGeom.Xform.Define(s,'/Asset/DriveVisual').GetPrim();p.GetReferences().AddReference('ratchet_visual.usda','/RatchetVisual/Drive')
+    c=UsdGeom.Cylinder.Define(s,'/Asset/BearingContact');c.CreateRadiusAttr(.007283);c.CreateHeightAttr(.012081);c.CreateAxisAttr('Z');c.AddTranslateOp().Set(Gf.Vec3d(0,0,.000632));c.CreateVisibilityAttr('invisible');UsdPhysics.CollisionAPI.Apply(c.GetPrim()).CreateCollisionEnabledAttr(False)
+    inertia=UsdPhysics.MassAPI(s.GetDefaultPrim());inertia.CreateCenterOfMassAttr(Gf.Vec3f(0,0,.000632));inertia.CreateDiagonalInertiaAttr(Gf.Vec3f(*[PAWL_MASS*(3*.007283**2+.012081**2)/12]*2,PAWL_MASS*.007283**2/2))
+    s.GetRootLayer().Save()
+    s=stage('drive',SOCKET_MASS)
     socket=UsdGeom.Xform.Define(s,'/Asset/Socket');socket.GetPrim().GetReferences().AddReference('socket.usda','/Asset');socket.AddTranslateOp().Set(Gf.Vec3d(0,0,-.028))
     # The socket is permanently part of this rigid drive; strip nested body schemas.
     socket.GetPrim().RemoveAPI(UsdPhysics.RigidBodyAPI);socket.GetPrim().RemoveAPI(UsdPhysics.MassAPI)

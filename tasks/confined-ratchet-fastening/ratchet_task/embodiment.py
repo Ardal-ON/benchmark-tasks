@@ -10,20 +10,20 @@ def array(v):
     v=v.torch if hasattr(v,'torch') else v
     return v.detach().cpu().numpy() if hasattr(v,'detach') else np.asarray(v)
 class RatchetEmbodiment(YamArenaEmbodiment):
-    def __init__(self,walls=False,mechanisms=False,physics_hz=PHYSICS_HZ,**kwargs):
+    def __init__(self,walls=False,mechanisms=False,physics_hz=PHYSICS_HZ,solver_type=1,solver_velocity=SOLVER_VELOCITY,**kwargs):
         kwargs.setdefault('object_jitter',0.)
         super().__init__(**kwargs)
         if self.object_jitter:raise ValueError('Joint-consistent layout requires object_jitter=0')
-        self.walls=bool(walls);self.mechanisms=bool(mechanisms);self.physics_hz=int(physics_hz)
+        self.walls=bool(walls);self.mechanisms=bool(mechanisms);self.physics_hz=int(physics_hz);self.solver_type=int(solver_type);self.solver_velocity=int(solver_velocity)
         self.hardware=None;self._hardware_active=False;self._raw_physics_step=None
         if self.walls:
             from yam_arena.task_file import Box
-            self.task=replace(self.task,objects=self.task.objects+(Box('walls',pos=(float(AXIS[0]),float(AXIS[1]),TABLE),size=(.09,.12,.165)),))
+            self.task=replace(self.task,objects=self.task.objects+(Box('walls',pos=(float(AXIS[0]),float(AXIS[1]),TABLE),size=(.09,.12,.162)),))
         h=hashlib.sha256()
         for p in sorted(ROOT.rglob('*')):
             if p.is_file() and p.suffix in ('.py','.usda','.toml','.png') and not (len(p.relative_to(ROOT).parts)>2 and p.relative_to(ROOT).parts[:2]==('assets','vendor') and p.relative_to(ROOT).parts[2].startswith('handTool_')):h.update(p.relative_to(ROOT).as_posix().encode()+b'\0'+p.read_bytes())
         import json
-        h.update(json.dumps(dict(walls=self.walls,mechanisms=self.mechanisms,physics_hz=self.physics_hz,control_hz=self.info.control_hz,camera=[self.cam_width,self.cam_height]),sort_keys=True).encode())
+        h.update(json.dumps(dict(walls=self.walls,mechanisms=self.mechanisms,physics_hz=self.physics_hz,solver_type=self.solver_type,solver_velocity=self.solver_velocity,control_hz=self.info.control_hz,camera=[self.cam_width,self.cam_height]),sort_keys=True).encode())
         self.info=replace(self.info,name='yam_confined_ratchet',environment_revision=h.hexdigest())
     def _ensure_sim(self,goal):
         if self._env is not None:return
@@ -42,12 +42,13 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         def spawn(spec):
             if spec.name not in self.task.names:return old_object(spec)
             props=dict(collision_props=sim.CollisionPropertiesCfg(contact_offset=.0001,rest_offset=0.),physics_material=sim.RigidBodyMaterialCfg(static_friction=.55,dynamic_friction=.4))
-            if spec.free:props['rigid_props']=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=SOLVER_POSITION,solver_velocity_iteration_count=SOLVER_VELOCITY,max_depenetration_velocity=.2,linear_damping=.02,angular_damping=.02)
+            if spec.name=='handle':props['physics_material']=sim.RigidBodyMaterialCfg(static_friction=.9,dynamic_friction=.7)
+            if spec.free:props['rigid_props']=sim.RigidBodyPropertiesCfg(solver_position_iteration_count=SOLVER_POSITION,solver_velocity_iteration_count=self.solver_velocity,max_depenetration_velocity=.2,linear_damping=.02,angular_damping=.02)
             return Object(name=spec.name,usd_path=str(ROOT/'assets'/f'{spec.name}.usda'),object_type=ObjectType.RIGID if spec.free else ObjectType.BASE,initial_pose=Pose(position_xyz=tuple(map(float,spec.pos))),spawn_cfg_addon=props)
         def callback(hz=None):
             original=old_callback(hz)
             def configure(cfg):
-                cfg=original(cfg);cfg.sim.dt=1/self.physics_hz;cfg.decimation=round(self.physics_hz/self.info.control_hz);cfg.sim.render_interval=cfg.decimation;cfg.sim.physics.enable_ccd=True
+                cfg=original(cfg);cfg.sim.dt=1/self.physics_hz;cfg.decimation=round(self.physics_hz/self.info.control_hz);cfg.sim.render_interval=cfg.decimation;cfg.sim.physics.enable_ccd=True;cfg.sim.physics.solver_type=self.solver_type;cfg.episode_length_s=MAX_STEPS/CONTROL_HZ+10.
                 return cfg
             return configure
         owner=self
@@ -61,11 +62,15 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         import carb
         carb.settings.get_settings().set_bool('/physics/disableContactProcessing',False)
         from pxr import UsdPhysics,Sdf
-        self.drive_joint=UsdPhysics.RevoluteJoint.Define(self._base.sim.stage,'/World/envs/env_0/RatchetDriveJoint')
-        self.drive_joint.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/handle')])
+        self.drive_joint=UsdPhysics.FixedJoint.Define(self._base.sim.stage,'/World/envs/env_0/RatchetDriveJoint')
+        self.drive_joint.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/pawl')])
         self.drive_joint.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/drive')])
-        self.drive_joint.CreateAxisAttr('Z');self.drive_joint.CreateCollisionEnabledAttr(False)
+        self.drive_joint.CreateCollisionEnabledAttr(False)
         self.drive_joint.CreateExcludeFromArticulationAttr(True)
+        self.pawl_joint=UsdPhysics.RevoluteJoint.Define(self._base.sim.stage,'/World/envs/env_0/PawlPivot')
+        self.pawl_joint.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/handle')]);self.pawl_joint.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/pawl')]);self.pawl_joint.CreateAxisAttr('Z');self.pawl_joint.CreateCollisionEnabledAttr(False);self.pawl_joint.CreateExcludeFromArticulationAttr(True)
+        pair=UsdPhysics.Joint.Define(self._base.sim.stage,'/World/envs/env_0/ToolInternalFilter')
+        pair.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/pawl')]);pair.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/drive')]);pair.CreateCollisionEnabledAttr(False);pair.CreateExcludeFromArticulationAttr(True)
         if self.mechanisms:
             self._raw_physics_step=self._base.sim.step
             def hardware_step(*args,**kwargs):
@@ -94,7 +99,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             drive=UsdPhysics.DriveAPI.Get(self.drive_joint.GetPrim(),'angular')
             if drive:drive.GetMaxForceAttr().Set(0.)
             self.drive_joint.CreateLocalRot0Attr().Set(Gf.Quatf(1.))
-            for name in ['ThreadPitch','ThreadRotation','ThreadTranslation','ThreadGuide','ThreadAngleReference','SeatStop','ThreadCarrier']:
+            for name in ['ThreadPitch','ThreadRotation','ThreadTranslation','ThreadGuide','ThreadAngleReference','SeatStop','ThreadCarrier','PawlSpring','PawlGate']:
                 self._base.sim.stage.RemovePrim('/World/envs/env_0/'+name)
         if self._env is not None:
             for p in self._base.sim.stage.Traverse():
@@ -115,7 +120,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             f=self.hardware.telemetry;f.update(self.hardware.contact_summary());f['interface_torque']=f['socket_torque_nm'] if f['socket_engaged'] else 0.;FEEDBACK['hardware']=f
             bounds=hand_bounds(self._base,self._hand_geometry)
             objbounds=[]
-            for name in ['bolt','handle','drive']:
+            for name in ['bolt','handle','drive','pawl']:
                 aabb=self._base.arena_world.get_aabb_w(name)
                 objbounds.append((array(aabb.min_point)[0],array(aabb.max_point)[0]))
             clear=True
@@ -123,9 +128,9 @@ class RatchetEmbodiment(YamArenaEmbodiment):
                 for blo,bhi in objbounds:
                     if np.linalg.norm(np.maximum(0,np.maximum(alo-bhi,blo-ahi)))<.005:clear=False
             opened=all(-np.mean(h['fingers'])/.04695>=.85 for h in FEEDBACK['hands'].values())
-            tcp_clear=all(min(np.linalg.norm(h['tcp']-p) for n,p in FEEDBACK['poses'].items() if n in ['bolt','handle','drive'])>=.08 for h in FEEDBACK['hands'].values())
+            tcp_clear=all(min(np.linalg.norm(h['tcp']-p) for n,p in FEEDBACK['poses'].items() if n in ['bolt','handle','drive','pawl'])>=.08 for h in FEEDBACK['hands'].values())
             still=True
-            for name in ['bolt','handle','drive']:
+            for name in ['bolt','handle','drive','pawl']:
                 v=array(self._base.arena_world.get_root_linear_velocity_w(name))[0]
                 w=array(self._base.arena_world.get_root_angular_velocity_w(name))[0]
                 still &= np.linalg.norm(v)<=.01 and np.linalg.norm(w)<=.1

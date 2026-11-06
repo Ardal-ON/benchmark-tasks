@@ -25,9 +25,9 @@ class BoltStartPolicy(YamScriptedPolicy):
         t=float(observation.state_time)+self._dt
         if self.phase=='insert':
             hw=f.get('hardware',{});b=f['poses']['bolt'];br=f['rotations']['bolt'];depth=THREAD_ENTRY_Z-(b-br[:,2]*BOLT_LENGTH)[2]
-            good=hw.get('capture_eligible',False) and hw.get('radial_error',1)<.0003 and .0013<depth<.0022
+            good=hw.get('capture_eligible',False) and hw.get('radial_error',1)<.0006 and .0011<depth<.0028
             self.insert_stable=self.insert_stable+self._dt if good else 0.
-            if t>=self.end and self.insert_stable<.5:
+            if t>=self.end and self.insert_stable<.25:
                 self.insert_waits+=1
                 if self.insert_waits>5:raise RuntimeError('Bolt entry pose did not stabilize')
                 self.end=t+2.;print('BOLT_WAIT_GEOMETRY',depth,hw.get('radial_error'),flush=True)
@@ -40,7 +40,7 @@ class BoltStartPolicy(YamScriptedPolicy):
                 if b[2]-self.initial_bolt[2]<.06:raise RuntimeError('Bolt head grasp failed to lift the loose bolt')
                 self.offset=br.T@(hand['tcp']-b);self.relative=hand['rotation'].T@br
                 self.bolt_rotation=rz(float(np.arctan2(br[1,0],br[0,0])))
-                self.begin('align',[self.body_target(3,AXIS+[0,0,.020],self.bolt_rotation,'align bolt above bore'),self.body_target(1,AXIS+[0,0,.020],self.bolt_rotation,'settle bolt alignment')],t,f)
+                self.begin('align',[self.body_target(3,np.array([AXIS[0],.12,AXIS[2]+.030]),self.bolt_rotation,'carry outside wall'),self.body_target(1.5,np.array([AXIS[0],.12,AXIS[2]+.020]),self.bolt_rotation,'lower outside wall'),self.body_target(3,AXIS+[0,0,.020],self.bolt_rotation,'approach bore from open side'),self.body_target(1,AXIS+[0,0,.020],self.bolt_rotation,'settle bolt alignment')],t,f)
             elif self.phase=='align':
                 self.offset=br.T@(hand['tcp']-b)
                 self.begin('insert',[self.body_target(3,AXIS+[0,0,START_GAP],self.bolt_rotation,'insert bolt tip'),self.body_target(1,AXIS+[0,0,START_GAP],self.bolt_rotation,'settle inserted tip')],t,f)
@@ -54,7 +54,8 @@ class BoltStartPolicy(YamScriptedPolicy):
                 if not f.get('hardware',{}).get('captured',False):raise RuntimeError('Bolt did not physically establish threaded engagement')
                 p,r=hand['tcp'],hand['rotation']
                 ready_p,ready_r=ik.tcp_pose(np.array(READY),station.BASES['left'])
-                self.begin('release',[Target(1,p,r,1.,'open after thread capture'),Target(1.5,p+[0,0,.010],r,1.,'clear bolt head'),Target(2,p+[-.08,.04,.040],r,1.,'withdraw from bolt'),Target(3,ready_p,ready_r,1.,'left arm ready'),Target(2,ready_p,ready_r,1.,'observe released started bolt')],t,f)
+                down=np.diag([-1.,1.,-1.])
+                self.begin('release',[Target(1,p,r,.18,'release bolt head'),Target(1.5,p+[0,0,.010],r,.18,'clear bolt head'),Target(1.5,p+[0,0,.010],down,.18,'straighten open fingers'),Target(2.5,np.array([AXIS[0],.12,p[2]+.010]),down,.18,'withdraw beside wall'),Target(3,ready_p,ready_r,1.,'left arm ready'),Target(1,ready_p,ready_r,1.,'observe started bolt')],t,f)
             elif self.phase=='release':
                 self.after_bolt(t,f)
         a,label=self.plan.action7(t-self.start)
@@ -101,8 +102,8 @@ class FastenPolicy(BoltStartPolicy):
     def after_bolt(self,t,f):
         self.side='right';self.plan=None;self.stop=False
         h=f['poses']['handle'];hr=f['rotations']['handle'];self.initial_tool=h.copy()
-        p=h+hr@np.array([-.13,0,.0145]);r=hr@np.array([[0,-1,0],[-1,0,0],[0,0,-1.]])
-        self.begin('tool_pickup',[Target(3,p+[0,0,.08],r,.65,'above ratchet'),Target(2.5,p,r,.65,'descend around grip'),Target(1.5,p,r,0.,'pinch handle'),Target(3,p+[0,0,.10],r,0.,'lift ratchet'),Target(1,p+[0,0,.10],r,0.,'settle lifted ratchet')],t,f)
+        p=h+hr@np.array([-.13,0,.0185]);r=hr@np.array([[0,-1,0],[-1,0,0],[0,0,-1.]])
+        self.begin('tool_pickup',[Target(3,p+[0,0,.08],r,.65,'above ratchet'),Target(2.5,p,r,.65,'descend around grip'),Target(1.5,p,r,0.,'pinch handle'),Target(5,p+[0,0,.10],r,0.,'lift ratchet'),Target(1,p+[0,0,.10],r,0.,'settle lifted ratchet')],t,f)
     def tool_calibration(self,f):
         h=f['poses']['handle'];hr=f['rotations']['handle'];hand=f['hands']['right']
         self.offset=hr.T@(hand['tcp']-h);self.relative=hand['rotation'].T@hr
@@ -122,13 +123,13 @@ class FastenPolicy(BoltStartPolicy):
             self.hold_angle=float(np.clip(self.hold_angle,-np.deg2rad(14),np.deg2rad(14)))
             theta=self.hold_angle
             if (theta<=-np.deg2rad(13.99) and torque<.35) or t-self.proof_start>12.:
-                self.phase='ratchet';self.stroke_start=t;self.first_angle=theta
+                self.phase='ratchet';self.stroke_start=t;self.first_angle=theta;self.stroke_from=theta;self.stroke_to=np.deg2rad(14);self.stroke_duration=.6
         else:
             elapsed=t-self.stroke_start
-            if elapsed<.6:theta=self.first_angle+(np.deg2rad(14)-self.first_angle)*ik.smoothstep(elapsed/.6)
-            else:
-                u=(elapsed-.6)%1.2
-                theta=np.deg2rad(14-28*ik.smoothstep(u/.6)) if u<.6 else np.deg2rad(-14+28*ik.smoothstep((u-.6)/.6))
+            if elapsed>=self.stroke_duration:
+                self.stroke_from=self.stroke_to;self.stroke_to=-self.stroke_to;self.stroke_start=t;elapsed=0.
+                self.stroke_duration=2. if self.stroke_to<0 and hw['gap']<.0005 else .6
+            theta=self.stroke_from+(self.stroke_to-self.stroke_from)*ik.smoothstep(elapsed/self.stroke_duration)
         self.command_angle=float(theta)
         goal=b+np.array([0,0,.0305]);h=f['poses']['handle']
         body=goal
@@ -171,7 +172,7 @@ class FastenPolicy(BoltStartPolicy):
                         self.tool_plan('tool_seat',[(3.,b+[0,0,.0305],rz(angle),'lower socket onto bolt head',0.),(2.,b+[0,0,.0305],rz(angle),'verify hex engagement',0.)],t,f)
                 elif self.phase=='tool_seat':
                     if not f['hardware']['socket_engaged']:raise RuntimeError('Socket did not physically engage bolt')
-                    self.tool_calibration(f);self.phase='ratchet';self.stroke_start=t;self.first_angle=float(np.arctan2(f['rotations']['handle'][1,0],f['rotations']['handle'][0,0]));self.command_angle=self.first_angle;self.command_q=hand['joints'].copy();self.missing=0.;self.last_report=-100.
+                    self.tool_calibration(f);self.phase='ratchet';self.stroke_start=t;self.first_angle=float(np.arctan2(f['rotations']['handle'][1,0],f['rotations']['handle'][0,0]));self.stroke_from=self.first_angle;self.stroke_to=np.deg2rad(14);self.stroke_duration=.6;self.command_angle=self.first_angle;self.command_q=hand['joints'].copy();self.missing=0.;self.last_report=-100.
                 elif self.phase=='tool_remove':
                     self.tool_calibration(f)
                     park=TOOL_START+np.array([0,0,.002])

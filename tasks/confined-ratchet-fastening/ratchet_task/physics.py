@@ -5,7 +5,7 @@ programs; policy actions cannot invoke the force API or change this hardware.
 """
 import math
 import numpy as np
-from ratchet_task.mechanics import Clutch,Screw
+from ratchet_task.mechanics import Screw
 from ratchet_task.config import *
 class Hardware:
     def __init__(self,stage,dt,pitch_sign=1,reverse_hinge=False):
@@ -13,7 +13,7 @@ class Hardware:
         import omni.physx
         self.stage=stage;self.dt=dt;self.pitch_sign=pitch_sign;self.reverse_hinge=reverse_hinge;self.native=omni.physx.get_physx_interface();self.sim=omni.physx.get_physx_simulation_interface()
         self.stageid=UsdUtils.StageCache.Get().GetId(stage).ToLongInt()
-        self.ids={n:PhysicsSchemaTools.sdfPathToInt('/World/envs/env_0/'+n) for n in ['handle','drive','bolt']}
+        self.ids={n:PhysicsSchemaTools.sdfPathToInt('/World/envs/env_0/'+n) for n in ['handle','drive','bolt','pawl']}
         from ratchet_task.native_clutch import NativeClutch
         self.clutch=NativeClutch(stage);self.screw=Screw();self.last={};self.angles={};self.candidate=None;self.thread_joint=None
         self.cycles=0;self.return_start=None;self.drive_start=None;self.telemetry={};self.enabled=True;self.carrier_wait=0;self.seated_stop=False;self.contact_samples=[];self.contact_peak=0.;self.contact_header_count=0
@@ -119,15 +119,16 @@ class Hardware:
         if not self.enabled:return
         h,hr,hq,ha,hw,hv=self.pose('handle');d,dr,dq,da,dw,dv=self.pose('drive');b,br,bq,ba,bw,bv=self.pose('bolt')
         # Relative drive-minus-handle rotation: positive extension is a clockwise handle drive.
-        torque,drag=self.clutch.step(hr,dr,hq,dq,self.dt)
+        _,drag=self.clutch.step(hr,dr,hq,dq,self.dt)
+        torque=float(self.telemetry.get('socket_torque_nm',0.))
         from pxr import Gf
         axis=hr[:,2]
-        for name,sign in [('drive',-1.),('handle',1.)]:
-            self.sim.apply_torque(self.stageid,self.ids[name],Gf.Vec3f(*map(float,axis*(sign*drag))))
+        for name,sign in [('pawl',-1.),('handle',1.)]:
+            if abs(drag)>1.e-15:self.sim.apply_torque(self.stageid,self.ids[name],Gf.Vec3f(*map(float,axis*(sign*drag))))
         tip=b-br[:,2]*BOLT_LENGTH
         radial=float(np.linalg.norm(tip[:2]-AXIS[:2]));tilt=float(math.acos(np.clip(br[2,2],-1,1)))
         depth=THREAD_ENTRY_Z-tip[2]
-        inserted=radial<=CAPTURE_OFFSET and tilt<=CAPTURE_TILT and .001<=depth<=.0025
+        inserted=radial<=CAPTURE_OFFSET and tilt<=CAPTURE_TILT and .001<=depth<=.003
         if not self.screw.captured:
             if inserted:
                 if self.candidate is None:self.candidate=ba
@@ -150,7 +151,8 @@ class Hardware:
         engagement=float(np.linalg.norm(bottom[:2]-b[:2]))<.0005 and .001<bottom[2]-b[2]<HEAD_HEIGHT-.001 and abs(mismatch)<.07 and dr[2,2]>.996
         if engagement:
             if self.drive_start is None:self.drive_start=ha
-            if torque>.01 and ha<self.drive_start-.1:self.return_start=ha
+            if self.return_start is None:self.drive_start=max(self.drive_start,ha)
+            if torque>.01 and ha<self.drive_start-.1:self.return_start=ha if self.return_start is None else min(self.return_start,ha)
             if self.return_start is not None and torque<=.005 and ha>self.return_start+.1:
                 self.cycles+=1;self.return_start=None;self.drive_start=ha
         else:self.drive_start=None;self.return_start=None
@@ -164,6 +166,6 @@ class Hardware:
                 if self.carrier_wait>5:raise
             pitch_error=float(b[2]-self.screw.expected_z(ba))
         bypass=not self.screw.captured and radial<.002 and tilt<.15 and depth>.0035
-        valid=np.all(np.isfinite(np.r_[h,d,b,ha,da,ba])) and not bypass
-        self.telemetry=dict(captured=self.screw.captured,capture_eligible=bool(inserted),entry_depth_m=float(depth),capture_rotation_rad=0. if self.candidate is None else self.candidate-ba,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,clutch_torque=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
+        valid=np.all(np.isfinite(np.r_[h,d,b,ha,da,ba,torque,drag,self.clutch.gate_relative])) and not bypass
+        self.telemetry=dict(captured=self.screw.captured,capture_eligible=bool(inserted),entry_depth_m=float(depth),capture_rotation_rad=0. if self.candidate is None else self.candidate-ba,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,output_torque_nm=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
         return self.telemetry

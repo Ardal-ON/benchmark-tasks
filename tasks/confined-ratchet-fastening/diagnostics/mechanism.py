@@ -26,7 +26,7 @@ class Bench(RatchetEmbodiment):
             j.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/'+name)])
             j.CreateLocalPos0Attr(Gf.Vec3f(.55,0,1.12));j.CreateLocalPos1Attr(Gf.Vec3f(0));j.CreateAxisAttr('Z');j.CreateExcludeFromArticulationAttr(True)
 emb=Bench(task=str(ROOT/'task.py'),device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360,physics_hz=hz)
-emb.task=replace(emb.task,objects=tuple(replace(o,pos=(.55,0.,1.12)) if o.name in ['handle','drive'] else o for o in emb.task.objects))
+emb.task=replace(emb.task,objects=tuple(replace(o,pos=(.55,0.,1.12)) if o.name in ['handle','drive','pawl'] else o for o in emb.task.objects))
 emb.reset(Scene(id='mechanism-calibration',instruction='Diagnostic only'),seed=17)
 from pxr import UsdPhysics
 stage=emb._base.sim.stage
@@ -55,7 +55,7 @@ for cycle in range(10):
     samples=clutch_rows[cycle*80*(hz//20):(cycle+1)*80*(hz//20)]
     start=samples[0]['angles'];middle=samples[len(samples)//2]['angles'];end=samples[-1]['angles']
     summary.append(dict(forward_drive_deg=math.degrees(middle['drive']-start['drive']),return_backtrack_deg=math.degrees(end['drive']-middle['drive']),handle_forward_deg=math.degrees(middle['handle']-start['handle'])))
-result={'fixture':'two pinned shafts with passive clutch and 0.04 N m output brake','physics_hz':hz,'clutch_cycles':summary,'max_clutch_torque':max(abs(r['clutch_torque']) for r in clutch_rows),'clutch_pass':all(s['forward_drive_deg']<-10 and abs(s['return_backtrack_deg'])<2 for s in summary),'revision':emb.info.environment_revision}
+result={'fixture':'two pinned shafts with passive clutch and 0.04 N m output brake','physics_hz':hz,'clutch_cycles':summary,'output_brake_nm':.04,'clutch_pass':all(s['forward_drive_deg']<-10 and abs(s['return_backtrack_deg'])<2 for s in summary),'revision':emb.info.environment_revision}
 json.dump(result,open(out/'mechanism-result.json','w'),indent=2)
 json.dump(clutch_rows,open(out/'clutch-trace.json','w'))
 print('MECHANISM_COMPLETE',json.dumps(result),flush=True)

@@ -6,7 +6,7 @@
   "bolt_underhead_length_m": 0.016,
   "bolt_head_across_flats_m": 0.013,
   "simplifications": [
-    "Thread ridge is visual; calibrated compliant helical constraint supplies force behavior",
+    "Thread ridge is visual; native PhysX helical constraint supplies force behavior",
     "Smooth minor-diameter shank collider",
     "Socket/receiver holes preserved by compound convex pieces"
   ]

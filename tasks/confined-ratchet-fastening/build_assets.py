@@ -62,7 +62,7 @@ def bolt():
     for z,scale in [(0,.92),(.0004,1),(HEAD_HEIGHT-.0005,1),(HEAD_HEIGHT,.90)]:verts.extend([(*p*scale,z) for p in xy])
     faces=[list(reversed(range(6))),list(range(18,24))]+[[j*6+i,j*6+(i+1)%6,(j+1)*6+(i+1)%6,(j+1)*6+i] for j in range(3) for i in range(6)]
     mesh(s,'MachinedHead',verts,faces)
-    # Smooth minor-diameter collider; helical ridge is visual. Physical thread uses a force constraint.
+    # Smooth minor-diameter collider; helical ridge is visual. Physical thread uses a native PhysX joint constraint.
     angles=np.arange(48)*2*np.pi/48
     prism(s,'ShankContact',.00365*np.c_[np.cos(angles),np.sin(angles)],-BOLT_LENGTH,-.00005,STEEL,True,False)
     # Continuous thread surface profile sampled axially, with a real spiral crest.
@@ -99,11 +99,8 @@ def build():
     box(s,'DriveRight',[-(outer+inner)/2,0,.025],[outer-inner,2*inner,.006],STEEL)
     s.GetRootLayer().Save()
     s=stage('walls')
-    # Wedge sides constrain a handle pointing toward -X to about +-15deg.
-    for sign in [-1,1]:
-        angle=sign*np.deg2rad(15)
-        o=box(s,'Wall'+str(sign).replace('-','N'),[-.125,sign*(.012+.125*np.tan(np.deg2rad(15))),.090],[.18,.009,.18],BRACKET)
-        rotate=o.AddRotateZOp();rotate.Set(float(-sign*15));ops=o.GetOrderedXformOps();o.SetXformOpOrder([ops[0],ops[2],ops[1]])
+    from asset_geometry import add_neck_walls
+    add_neck_walls(s)
     s.GetRootLayer().Save()
     s=stage('tool_cradle');box(s,'Foot',[0,0,.004],[.23,.065,.008]);
     for x in [-.12,0]:
@@ -111,19 +108,16 @@ def build():
     s.GetRootLayer().Save()
     hashes={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT/'assets').glob('*.usda'))}
     (ROOT/'assets/generated-hashes.json').write_text(json.dumps(hashes,indent=2)+'\n')
-    (ROOT/'assets/generated-provenance.json').write_text(json.dumps({'source':'Original parametric geometry','builder':'build_assets.py','units':'m, kg','thread_pitch_m':PITCH,'bolt_underhead_length_m':BOLT_LENGTH,'bolt_head_across_flats_m':HEAD_AF,'simplifications':['Thread ridge is visual; calibrated compliant helical constraint supplies force behavior','Smooth minor-diameter shank collider','Socket/receiver holes preserved by compound convex pieces']},indent=2)+'\n')
+    (ROOT/'assets/generated-provenance.json').write_text(json.dumps({'source':'Original parametric geometry','builder':'build_assets.py','units':'m, kg','thread_pitch_m':PITCH,'bolt_underhead_length_m':BOLT_LENGTH,'bolt_head_across_flats_m':HEAD_AF,'simplifications':['Thread ridge is visual; native PhysX helical constraint supplies force behavior','Smooth minor-diameter shank collider','Socket/receiver holes preserved by compound convex pieces']},indent=2)+'\n')
 if __name__=='__main__':build()
 
 def build_tool():
     """Two-body ratchet. Socket is the drive body's permanently assembled tool."""
     s=stage('handle',.378)
     p=UsdGeom.Xform.Define(s,'/Asset/Visual').GetPrim();p.GetReferences().AddReference('ratchet_visual.usda','/RatchetVisual/Handle')
-    ring(s,'Housing',.008,.018,.0012,.025,n=32,rgb=STEEL,collide=True)
-    # Collision proxies hidden; original 24K-face forged shell is the rendered surface.
-    for prim in s.Traverse():
-        if prim.GetPath().pathString.startswith('/Asset/Housing/'):UsdGeom.Imageable(prim).CreateVisibilityAttr('invisible')
-    for i,(x,length,w,z,h) in enumerate([(-.027,.026,.020,.013,.016),(-.060,.040,.014,.012,.013),(-.110,.060,.014,.012,.013),(-.163,.047,.019,.012,.016)]):
-        o=box(s,'GripContact'+str(i),[x,0,z],[length,w,h],STEEL);o.CreateVisibilityAttr('invisible')
+    from asset_geometry import add_handle_colliders
+    report,_=add_handle_colliders(s,ROOT/'assets/ratchet_visual.usda')
+    (ROOT/'assets/handle-collision-provenance.json').write_text(json.dumps(report,indent=2)+'\n')
     s.GetRootLayer().Save()
     s=stage('drive',.086)
     p=UsdGeom.Xform.Define(s,'/Asset/DriveVisual').GetPrim();p.GetReferences().AddReference('ratchet_visual.usda','/RatchetVisual/Drive')

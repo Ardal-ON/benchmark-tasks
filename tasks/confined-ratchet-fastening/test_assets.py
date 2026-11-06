@@ -165,6 +165,26 @@ class AssetGeometryTests(unittest.TestCase):
                     self.assertGreater(mesh_count, 0)
                     self.assertEqual(texture_count, 3)
 
+    def test_handle_colliders_cover_actual_grip_surface(self):
+        visual=open_asset('ratchet_visual');cache=UsdGeom.XformCache()
+        prim=visual.GetPrimAtPath('/RatchetVisual/Handle/mesh_2')
+        pts=np.asarray(UsdGeom.Mesh(prim).GetPointsAttr().Get(),dtype=float)
+        pts=(np.c_[pts,np.ones(len(pts))]@np.asarray(cache.GetLocalToWorldTransform(prim)))[:,:3]
+        pts=pts[(pts[:,0]>-.131)&(pts[:,0]<-.129)]
+        self.assertGreater(len(pts),10)
+        masks=[solid.contains(pts,tolerance=2e-7) for solid in colliders(open_asset('handle'))]
+        self.assertTrue(np.logical_or.reduce(masks).all(),'Handle grip collider underfills the rendered surface')
+        self.assertGreater(np.ptp(pts[:,1]),.027)
+        self.assertGreater(np.ptp(pts[:,2]),.023)
+
+    def test_dynamic_assets_have_one_body_and_cookable_hulls(self):
+        for name in ['bolt','handle','drive']:
+            stage=open_asset(name)
+            self.assertEqual(sum(p.HasAPI(UsdPhysics.RigidBodyAPI) for p in stage.Traverse()),1)
+            for p in stage.Traverse():
+                if p.HasAPI(UsdPhysics.CollisionAPI) and p.IsA(UsdGeom.Mesh):
+                    self.assertLessEqual(len(UsdGeom.Mesh(p).GetPointsAttr().Get()),255)
+
     def test_walls_leave_neutral_vendor_ratchet_clear(self):
         walls = colliders(open_asset("walls"))
         stage = open_asset("ratchet_visual")

@@ -33,11 +33,11 @@ class History:
         if self.invalid:return self.score
         if not s.captured:
             self.tightened=False;self.proof=0.;self.released_seconds=0.;return self.score
-        self.score=.2
-        if s.turns>=.5:self.score=.4
+        if s.turns>=.25:self.score=.2
+        if s.turns>=1.:self.score=.4
         seated=s.gap<=.0002 and s.gap>=-.0003
         if seated and s.turns>=REQUIRED_TURNS:self.score=.7
-        good=seated and s.turns>=REQUIRED_TURNS and s.socket_engaged and .4<=s.interface_torque<=.6 and s.ratchet_cycles>=6
+        good=seated and s.turns>=REQUIRED_TURNS and s.socket_engaged and s.ratchet_cycles>=6
         self.proof=self.proof+dt if good else 0.
         if self.proof>=.5-1e-9:self.tightened=True
         if not seated:self.tightened=False

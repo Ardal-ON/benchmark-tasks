@@ -56,9 +56,22 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             def __init__(robot,**options):
                 options.update(cam_width=owner.cam_width,cam_height=owner.cam_height,robot_contact_offset=.0002)
                 super().__init__(**options)
+                from yam_arena import ik,station
+                from yam_arena.constants import READY,FINGER_JOINTS
+                r=np.array([[0,-1,0],[-1,0,0],[0,0,-1.]])
+                p=TOOL_WORK_START+np.array([-.13,0,.0185])
+                q,pe,re=ik.solve(p,ik.matrix_to_quat_xyzw(r),np.array(READY),base_pos=station.BASES['right'])
+                if pe>.001 or re>.01:raise RuntimeError(f'Initial held-tool IK: {pe}, {re}')
+                owner.initial_right_q=q
+                cfg=robot.scene_config.right_robot
+                cfg.init_state.joint_pos.update({f'joint{i+1}':float(v) for i,v in enumerate(q)})
+                cfg.init_state.joint_pos.pop('joint[7-8]',None)
+                cfg.init_state.joint_pos.update({name:-.016 for name in FINGER_JOINTS})
         scene.task_object,scene.env_cfg_callback,robots.BimanualYamEmbodiment=spawn,callback,NativeResolutionRobot
         try:super()._ensure_sim(goal)
         finally:scene.task_object,scene.env_cfg_callback,robots.BimanualYamEmbodiment=old_object,old_callback,old_robot
+        from yam_arena.constants import READY
+        self._ready=self._torch.tensor([[*READY,1.,*self.initial_right_q,0.]],dtype=self._torch.float32,device=self._base.device)
         import carb
         carb.settings.get_settings().set_bool('/physics/disableContactProcessing',False)
         from pxr import UsdPhysics,Sdf
@@ -71,6 +84,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         self.pawl_joint.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/handle')]);self.pawl_joint.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/pawl')]);self.pawl_joint.CreateAxisAttr('Z');self.pawl_joint.CreateCollisionEnabledAttr(False);self.pawl_joint.CreateExcludeFromArticulationAttr(True)
         pair=UsdPhysics.Joint.Define(self._base.sim.stage,'/World/envs/env_0/ToolInternalFilter')
         pair.CreateBody0Rel().SetTargets([Sdf.Path('/World/envs/env_0/pawl')]);pair.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/drive')]);pair.CreateCollisionEnabledAttr(False);pair.CreateExcludeFromArticulationAttr(True)
+        self._reset_supports(True)
         if self.mechanisms:
             self._raw_physics_step=self._base.sim.step
             def hardware_step(*args,**kwargs):
@@ -81,6 +95,17 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             self._base.sim.step=hardware_step
             from ratchet_task.sensors import hand_geometry
             self._hand_geometry=hand_geometry()
+    def _reset_supports(self,enabled):
+        # Reset-only placement jigs keep the preassembled initial condition fixed
+        # while the base environment settles. Both are removed before actions.
+        from pxr import UsdPhysics,Sdf,Gf
+        for name,position in [('bolt',BOLT_START),('handle',TOOL_WORK_START)]:
+            path='/World/envs/env_0/ResetSupport_'+name
+            if not enabled:self._base.sim.stage.RemovePrim(path);continue
+            j=UsdPhysics.FixedJoint.Define(self._base.sim.stage,path)
+            j.CreateBody1Rel().SetTargets([Sdf.Path('/World/envs/env_0/'+name)])
+            j.CreateLocalPos0Attr(Gf.Vec3f(*map(float,position)))
+            j.CreateExcludeFromArticulationAttr(True)
     def _read(self):
         from yam_arena import ik,station
         from yam_arena.urdf import quat_xyzw_to_matrix
@@ -104,14 +129,21 @@ class RatchetEmbodiment(YamArenaEmbodiment):
         if self._env is not None:
             for p in self._base.sim.stage.Traverse():
                 if str(p.GetPath()).startswith('/World/envs/env_0/entry_stop') and p.HasAPI(UsdPhysics.CollisionAPI):UsdPhysics.CollisionAPI(p).GetCollisionEnabledAttr().Set(True)
+        if self._env is not None:self._reset_supports(True)
         obs=super().reset(scene,seed=seed)
         from ratchet_task.scoring import History
         self.history=History();self.task.module.HISTORY=self.history
         if self.mechanisms:
             from ratchet_task.physics import Hardware
             self.hardware=Hardware(self._base.sim.stage,1/self.physics_hz)
+            b=self.hardware.pose('bolt')
+            self.hardware.capture(b[0],b[2],b[3])
             self._hardware_active=True
-        FEEDBACK.clear();self._read();return obs
+        self._reset_supports(False)
+        FEEDBACK.clear();self._read()
+        if self.mechanisms:
+            self.hardware.step();FEEDBACK['hardware']=self.hardware.telemetry
+        return obs
     def _task_step(self):
         self._read()
         if self.mechanisms and self.hardware is not None and self.hardware.telemetry:
@@ -134,7 +166,7 @@ class RatchetEmbodiment(YamArenaEmbodiment):
                 v=array(self._base.arena_world.get_root_linear_velocity_w(name))[0]
                 w=array(self._base.arena_world.get_root_angular_velocity_w(name))[0]
                 still &= np.linalg.norm(v)<=.01 and np.linalg.norm(w)<=.1
-            parked=np.linalg.norm(FEEDBACK['poses']['drive']-TOOL_START)<.035
+            parked=np.linalg.norm(FEEDBACK['poses']['drive']-TOOL_PARK)<.035
             fixture=float(np.linalg.norm(FEEDBACK['poses']['fixture']-[AXIS[0],AXIS[1],TABLE]))
             valid=bool(f['valid']) and abs(f.get('pitch_error_m',0.))<=.0002
             state=State(captured=f['captured'],valid=valid,turns=f['turns'],gap=f['gap'],interface_torque=f['interface_torque'],socket_engaged=f['socket_engaged'],ratchet_cycles=f['ratchet_cycles'],released=bool(clear and opened and tcp_clear and parked),still=bool(still),fixture_displacement=fixture)

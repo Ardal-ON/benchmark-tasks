@@ -1,11 +1,11 @@
-"""Normal-action insertion, pickup check, and full task demo runner."""
+"""Record a full normal-action confined-ratchet demo on three native cameras."""
 import sys,json,traceback,time,subprocess
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import numpy as np
 import imageio.v3 as iio
 from ratchet_task.embodiment import RatchetEmbodiment,FEEDBACK,ROOT
-from ratchet_task.policy import BoltStartPolicy,FastenPolicy
+from ratchet_task.policy import FastenPolicy
 from ratchet_task.config import INSTRUCTION,MAX_STEPS
 from inspect_robots import Scene
 out=Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=True)
@@ -16,14 +16,13 @@ def serial(v):
  if isinstance(v,(list,tuple)):return [serial(x) for x in v]
  return v
 emb=RatchetEmbodiment(task=str(ROOT/'task.py'),mechanisms=True,walls=bool(int(sys.argv[2])) if len(sys.argv)>2 else False,device='cpu',top_cam='demo',control_hz=20,cam_width=640,cam_height=360)
-scene=Scene(id='loose-bolt-robot-milestone',instruction=INSTRUCTION)
-full=len(sys.argv)>3 and sys.argv[3]=='full'
-tool_only=len(sys.argv)>3 and sys.argv[3]=='tool'
-rows=[];error=None;started=time.monotonic();last_phase=None;last_label=None;policy=FastenPolicy() if full or tool_only else BoltStartPolicy()
+scene=Scene(id='confined-ratchet-demo',instruction=INSTRUCTION)
+full=True
+tool_only=False
+rows=[];error=None;started=time.monotonic();last_phase=None;last_label=None;policy=FastenPolicy()
 writers={}
 try:
  obs=emb.reset(scene,seed=17);policy.bind(emb.info);policy.reset(scene)
- if tool_only:policy.after_bolt(float(obs.state_time),FEEDBACK)
  if full:
   for name,im in obs.images.items():
    height,width=im.shape[:2]
@@ -46,4 +45,4 @@ finally:
  for writer in writers.values():
   writer.stdin.close();writer.wait(timeout=30)
  result=dict(milestone_only=not full,full_task_demo=full,pickup_check=tool_only,completed=bool(error is None and (emb.history.score==1. if full else (policy.phase=='tool_approach' if tool_only else policy.stop))),error=error,score=getattr(getattr(emb,"history",None),"score",0.),elapsed_seconds=time.monotonic()-started,steps=len(rows),revision=emb.info.environment_revision,last=rows[-1] if rows else None)
- json.dump(result,open(out/'milestone-result.json','w'),indent=2);json.dump(rows,open(out/'milestone-trace.json','w'));print('BOLT_MILESTONE_COMPLETE',json.dumps(result),flush=True);emb.close()
+ json.dump(result,open(out/'demo-result.json','w'),indent=2);json.dump(rows,open(out/'demo-trace.json','w'));print('RATCHET_DEMO_COMPLETE',json.dumps(result),flush=True);emb.close()

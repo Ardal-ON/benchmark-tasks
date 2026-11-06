@@ -16,7 +16,7 @@ class Hardware:
         self.ids={n:PhysicsSchemaTools.sdfPathToInt('/World/envs/env_0/'+n) for n in ['handle','drive','bolt','pawl']}
         from ratchet_task.native_clutch import NativeClutch
         self.clutch=NativeClutch(stage);self.screw=Screw();self.last={};self.angles={};self.candidate=None;self.thread_joint=None
-        self.cycles=0;self.return_start=None;self.drive_start=None;self.telemetry={};self.enabled=True;self.carrier_wait=0;self.seated_stop=False;self.contact_samples=[];self.contact_peak=0.;self.contact_header_count=0
+        self.cycles=0;self.return_start=None;self.drive_start=None;self.bolt_cycle_start=None;self.telemetry={};self.enabled=True;self.carrier_wait=0;self.seated_stop=False;self.contact_samples=[];self.contact_peak=0.;self.contact_header_count=0
         from pxr import PhysxSchema
         PhysxSchema.PhysxContactReportAPI.Apply(stage.GetPrimAtPath('/World/envs/env_0/bolt')).CreateThresholdAttr(0.)
         self.contact_subscription=self.sim.subscribe_full_contact_report_events(lambda *args:None)
@@ -141,7 +141,7 @@ class Hardware:
             if not self.seated_stop and gap<=.0005:self.install_seat_stop(ba,bq)
             if self.seated_stop and gap>.0006:
                 self.stage.RemovePrim('/World/envs/env_0/SeatStop');self.seated_stop=False
-            if b[2]>self.screw.z0+.0001 and ba>self.screw.angle0+.15:self.release_thread()
+            if tip[2]>THREAD_ENTRY_Z+.0001 and ba>self.screw.angle0+.15:self.release_thread()
             # Pitch and axial reactions are solved by PhysX. Contact between the
             # head and bracket supplies seating resistance; no progress animation.
             preload=0.
@@ -153,12 +153,13 @@ class Hardware:
         hex_overlap=min(bottom[2]+.009,b[2]+HEAD_HEIGHT)-max(bottom[2]+.0015,b[2])
         engagement=float(np.linalg.norm(bottom[:2]-b[:2]))<.0005 and hex_overlap>=.001 and abs(mismatch)<.07 and dr[2,2]>.996
         if engagement:
-            if self.drive_start is None:self.drive_start=ha
-            if self.return_start is None:self.drive_start=max(self.drive_start,ha)
-            if torque>.01 and ha<self.drive_start-.1:self.return_start=ha if self.return_start is None else min(self.return_start,ha)
-            if self.return_start is not None and torque<=.005 and ha>self.return_start+.1:
-                self.cycles+=1;self.return_start=None;self.drive_start=ha
-        else:self.drive_start=None;self.return_start=None
+            if self.drive_start is None:self.drive_start=ha;self.bolt_cycle_start=ba
+            if self.return_start is None and ha>self.drive_start:self.drive_start=ha;self.bolt_cycle_start=ba
+            if ha<self.drive_start-.1 and ba<self.bolt_cycle_start-.02:
+                self.return_start=ha if self.return_start is None else min(self.return_start,ha)
+            if self.return_start is not None and ha>self.return_start+.1:
+                self.cycles+=1;self.return_start=None;self.drive_start=ha;self.bolt_cycle_start=ba
+        else:self.drive_start=None;self.return_start=None;self.bolt_cycle_start=None
         carrier_pose=None;pitch_error=0.
         if self.screw.captured:
             self.carrier_wait+=1

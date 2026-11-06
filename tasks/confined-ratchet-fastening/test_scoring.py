@@ -1,6 +1,7 @@
 import unittest
 from ratchet_task.scoring import State,History
 class Scoring(unittest.TestCase):
+    def test_initial_assembly_has_no_progress_credit(self):self.assertEqual(History().update(State(captured=True,turns=0),.05),0)
     def test_push_without_thread_has_no_score(self):self.assertEqual(History().update(State(gap=0),.05),0)
     def test_wall_torque_cannot_tighten(self):
         h=History();s=State(captured=True,turns=11,gap=0,interface_torque=.5,ratchet_cycles=6)
@@ -25,5 +26,5 @@ class Scoring(unittest.TestCase):
     def test_nearly_seated_short_thread_cannot_complete(self):
         h=History();s=State(captured=True,turns=.8,gap=0,interface_torque=.5,socket_engaged=True,ratchet_cycles=20,released=True,still=True)
         for _ in range(50):h.update(s,.05)
-        self.assertFalse(h.tightened);self.assertEqual(h.score,.4)
+        self.assertFalse(h.tightened);self.assertEqual(h.score,.2)
 if __name__=='__main__':unittest.main()

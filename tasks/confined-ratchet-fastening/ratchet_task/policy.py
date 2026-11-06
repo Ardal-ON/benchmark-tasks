@@ -76,7 +76,11 @@ class BoltStartPolicy(YamScriptedPolicy):
             delta=desired_rotation@f['rotations'][tracked].T
             # Convert the desired object pose through the CURRENT measured grasp,
             # so physical pad compliance/slip does not become a persistent bias.
-            position=desired+delta@(hand['tcp']-f['poses'][tracked])
+            # Tool translation follows the measured grasp directly. Applying the
+            # full orientation error here while commanding only a bounded angular
+            # correction creates a lever-arm position bias.
+            grasp=hand['tcp']-f['poses'][tracked]
+            position=desired+grasp if tracked=='handle' else desired+delta@grasp
             if self.phase not in ['ratchet','proof']:
                 error=ik._rot_error(desired_rotation,f['rotations'][tracked]);n=np.linalg.norm(error)
                 if n>1.e-8:

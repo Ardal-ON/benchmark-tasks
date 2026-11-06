@@ -148,7 +148,10 @@ class Hardware:
         bottom=d+dr@np.array([0.,0.,-.028])
         # Geometric contact eligibility supplements, never replaces, physical hex contact.
         mismatch=math.atan2(math.sin(6*(da-ba)),math.cos(6*(da-ba)))/6
-        engagement=float(np.linalg.norm(bottom[:2]-b[:2]))<.0005 and .001<bottom[2]-b[2]<HEAD_HEIGHT-.001 and abs(mismatch)<.07 and dr[2,2]>.996
+        # The straight hex bore spans 1.5--9 mm above its mouth. A socket
+        # that fully swallows the head remains engaged below the head's base.
+        hex_overlap=min(bottom[2]+.009,b[2]+HEAD_HEIGHT)-max(bottom[2]+.0015,b[2])
+        engagement=float(np.linalg.norm(bottom[:2]-b[:2]))<.0005 and hex_overlap>=.001 and abs(mismatch)<.07 and dr[2,2]>.996
         if engagement:
             if self.drive_start is None:self.drive_start=ha
             if self.return_start is None:self.drive_start=max(self.drive_start,ha)
@@ -167,5 +170,5 @@ class Hardware:
             pitch_error=float(b[2]-self.screw.expected_z(ba))
         bypass=not self.screw.captured and radial<.002 and tilt<.15 and depth>.0035
         valid=np.all(np.isfinite(np.r_[h,d,b,ha,da,ba,torque,drag,self.clutch.gate_relative])) and not bypass
-        self.telemetry=dict(captured=self.screw.captured,capture_eligible=bool(inserted),entry_depth_m=float(depth),capture_rotation_rad=0. if self.candidate is None else self.candidate-ba,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,output_torque_nm=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
+        self.telemetry=dict(captured=self.screw.captured,capture_eligible=bool(inserted),entry_depth_m=float(depth),capture_rotation_rad=0. if self.candidate is None else self.candidate-ba,turns=0. if not self.screw.captured else -(ba-self.screw.angle0)/(2*math.pi),gap=gap,output_torque_nm=torque,preload=preload,interface_torque=max(0.,torque) if engagement else 0.,socket_engaged=bool(engagement),hex_overlap_m=float(hex_overlap),ratchet_cycles=self.cycles,valid=bool(valid),angles=dict(handle=ha,drive=da,bolt=ba),positions=dict(handle=h.tolist(),drive=d.tolist(),bolt=b.tolist()),thread_force_applied_by_python=force,seated_stop=self.seated_stop,radial_error=radial,tilt=tilt,carrier=carrier_pose,pitch_error_m=pitch_error)
         return self.telemetry

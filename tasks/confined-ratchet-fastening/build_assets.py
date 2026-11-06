@@ -12,6 +12,7 @@ def stage(name,mass=None):
     p=UsdGeom.Xform.Define(s,'/Asset').GetPrim();s.SetDefaultPrim(p)
     if mass is not None:
         UsdPhysics.RigidBodyAPI.Apply(p);UsdPhysics.MassAPI.Apply(p).CreateMassAttr(mass)
+        p.AddAppliedSchema('PhysxRigidBodyAPI');p.CreateAttribute('physxRigidBody:enableCCD',Sdf.ValueTypeNames.Bool).Set(True)
     return s
 
 def material(s,name,rgb,metal=.0,rough=.4):
@@ -54,6 +55,8 @@ def box(s,name,p,size,rgb=DARK,collide=True):
 
 def bolt():
     s=stage('bolt',BOLT_MASS)
+    s.GetDefaultPrim().AddAppliedSchema('PhysxContactReportAPI')
+    s.GetDefaultPrim().CreateAttribute('physxContactReport:threshold',Sdf.ValueTypeNames.Float).Set(0.)
     # Bevelled hex head; collision uses the exact head envelope.
     n=6;r=HEAD_AF/np.sqrt(3)
     xy=r*np.array([[np.cos(a),np.sin(a)] for a in np.arange(n)*np.pi/3+np.pi/6])
@@ -64,7 +67,10 @@ def bolt():
     mesh(s,'MachinedHead',verts,faces)
     # Smooth minor-diameter collider; helical ridge is visual. Physical thread uses a native PhysX joint constraint.
     angles=np.arange(48)*2*np.pi/48
-    prism(s,'ShankContact',.00365*np.c_[np.cos(angles),np.sin(angles)],-BOLT_LENGTH,-.00005,STEEL,True,False)
+    prism(s,'ShankContact',.00365*np.c_[np.cos(angles),np.sin(angles)],-BOLT_LENGTH+.001,-.00005,STEEL,True,False)
+    tipverts=[(radius*np.cos(a),radius*np.sin(a),z) for z,radius in [(-BOLT_LENGTH,.0029),(-BOLT_LENGTH+.001,.00365)] for a in angles]
+    tipfaces=[list(reversed(range(48))),list(range(48,96))]+[[i,(i+1)%48,(i+1)%48+48,i+48] for i in range(48)]
+    mesh(s,'TipContact',tipverts,tipfaces,STEEL,True,False)
     # Continuous thread surface profile sampled axially, with a real spiral crest.
     rings=256;n=64;verts=[]
     for z in np.linspace(-BOLT_LENGTH,0,rings):
@@ -82,6 +88,7 @@ def build():
     ring(s,'Receiver',.00435,.045,.012,.090,n=48,rgb=DARK,rect=(.045,.04))
     ring(s,'Bracket',.0046,.06,.090,.093,n=48,rgb=BRACKET,rect=(.07,.045))
     s.GetRootLayer().Save()
+    s=stage('entry_stop');ring(s,'ThreadEntry',.0034,.00435,.0895,.090,n=32,rgb=DARK);s.GetRootLayer().Save()
     s=stage('bolt_holder');ring(s,'Holder',.0044,.014,0,.022,n=32,rgb=BRACKET);box(s,'Foot',[0,0,.002],[.044,.044,.004]);s.GetRootLayer().Save()
     s=stage('socket',.040)
     # Hexagonal physical cavity: inner AF 13.4mm, 0.2mm clearance per face.

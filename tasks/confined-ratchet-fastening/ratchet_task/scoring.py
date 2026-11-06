@@ -35,8 +35,8 @@ class History:
         self.score=.2
         if s.turns>=.5:self.score=.4
         seated=s.gap<=.0002 and s.gap>=-.0003
-        if seated and s.turns>=.5:self.score=.7
-        good=seated and s.socket_engaged and .4<=s.interface_torque<=.6 and s.ratchet_cycles>=6
+        if seated and s.turns>=10.:self.score=.7
+        good=seated and s.turns>=10. and s.socket_engaged and .4<=s.interface_torque<=.6 and s.ratchet_cycles>=6
         self.proof=self.proof+dt if good else 0.
         if self.proof>=.5-1e-9:self.tightened=True
         if not seated:self.tightened=False

@@ -52,16 +52,34 @@ python diagnostics/assets.py /absolute/path/outside/source/assets-check
 
 This creates native top and wrist camera images and measured settled poses.
 The open-bench check used 480 Hz CPU PhysX, 20 Hz control, L40S RTX rendering,
-64/16 solver iterations and 0.1 mm contact offsets. Five seconds of settled
+128/64 solver iterations (the earlier asset-only run used 64/16) and 0.1 mm contact offsets. Five seconds of settled
 observation showed approximately 0.012 mm ratchet-body drift and zero bolt
 holder drift. The robot did not manipulate the tool in that check.
 
-The intended clutch is a calibrated passive one-way torsional model. The bolt
-thread uses a compliant helical force law, not colliding microscopic thread
-ridges; the helical ridge is visual. Tightening is a low-torque bench task,
-not an M8 service-load or damage prediction. These models require live
-calibration before any demo or Dream trial can count as valid.
+The mechanism now uses a bounded native torsional spring with 5 degree take-up,
+100 N m/rad engaged stiffness, 1.2 N m capacity, and passive return drag. Its
+free-axis reference follows return travel. The M8 thread uses a native PhysX
+prismatic carrier, revolute bolt and rack/pinion pitch coupling; microscopic
+thread ridges are visual. An auxiliary native twist-only terminal constraint
+models hard seating. It carries seating torque without claiming clamp preload.
+A 14 g numerical carrier adds translational inertia; it is invisible and has
+no collisions. A 0.015 N m bounded angular bearing resists return backdrive.
+
+A separate annular entry stop blocks pushing an unstarted bolt fully into the
+receiver. Capture requires 1–2.5 mm tip insertion, 0.5 mm radial error or less,
+5 degrees tilt or less, and 30 degrees clockwise starting rotation. The native
+helix is installed before the entry stop is disabled. Reverse removal restores
+the stop only after the actual bolt has cleared it. Task policies have no pose,
+force or constraint mutation API.
+
+The socket-to-bolt torque meter integrates actual normal-contact and friction
+anchor impulses about the bolt axis every physics substep. A separate fixture
+validated known external spindle loads of 0.1, 0.3, 0.5 and 0.7 N m to within
+0.000006 N m mean error. Torque proof uses a control-period mean, not the spring
+deflection estimate. Loaded free-running thread error was below 1 micrometre.
+The complete mechanism gate is still under development; bench fixtures never
+count as normal-action robot demos.
 
 Dream remains gated on two identical frozen full-score robot demos and full
-video review. The provisional limit is 7,200 actions at 20 Hz. No media ID is
-assigned and no measured demo/Dream score is claimed.
+video review. The action limit will be frozen after timing the normal robot
+demo. No media ID is assigned and no measured demo/Dream score is claimed.

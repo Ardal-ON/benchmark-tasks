@@ -1,0 +1,16 @@
+{
+  "status": "assets_loaded_mechanism_unqualified",
+  "asset_preflight": {
+    "run": "assets-003",
+    "source_revision": "8282283c2ebc39d1eee21b23dcf62f75603d8a5d0f1ff4ca6e4581ddc7e41963",
+    "physics_hz": 480,
+    "settled_observation_seconds": 5,
+    "tool_drift_m": 1.2324944691499695e-05
+  },
+  "offline_tests": 19,
+  "mechanism_qualified": false,
+  "demo": null,
+  "dream": null,
+  "pushed": false,
+  "uploaded": false
+}

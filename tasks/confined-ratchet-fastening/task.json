@@ -1,0 +1,16 @@
+{
+  "title": "Fasten a bracket bolt with a ratchet in confined access",
+  "category": "Impact on jobs",
+  "keywords": [
+    "ratchet",
+    "tool use",
+    "confined access",
+    "fastening"
+  ],
+  "instruction": "Insert and start the loose bracket bolt, then tighten it with the socket ratchet using short strokes inside the walls. Remove the tool, return it to its cradle and release both hands.",
+  "setup": "Development configuration: one loose M8x16 bolt, holder, steel bracket and threaded receiver, a 203 mm ratchet with permanently assembled metric socket, and tool cradle on a dual-YAM station. Restricting walls disabled until mechanism qualification. Exact SI geometry in config.py and build_assets.py.",
+  "scoring": "Planned current-state tiers: 0.2 thread captured; 0.4 at half a turn; 0.7 bracket seated; 1.0 seated, ratcheted to 0.4-0.6 N m and released for 2 s after tool removal. Live scorer integration is not yet qualified.",
+  "run_limit": "7200 steps (360 seconds at 20 Hz), provisional pending demo",
+  "fidelity": "Detailed CC-BY NVIDIA ratchet visuals; original metric bolt/socket CAD. Open compound collision bores. Passive one-way clutch and compliant screw model under development; visual threads are not microscopic contact geometry. Low-torque bench analogue, not service torque.",
+  "scores": "Demo: not run; Dream: not run"
+}

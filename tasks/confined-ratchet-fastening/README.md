@@ -8,7 +8,7 @@ clear. Completion is the seated bolt after verified ratchet cycles.
 The fixed layout contains an M8x16 bolt (1.25 mm pitch, 13 mm AF head, 14 g), a
 3 mm bracket on a 93 mm receiver stand, a 203 mm ratchet and 13.4 mm AF
 socket, and two 162 mm tall walls. The walls limit the ratchet swing to
-about ±16 degrees; the reference controller uses ±14 degrees. The ratchet has
+about ±16 degrees; the reference controller commands ±14 degrees (measured extrema ±15.5 degrees). The ratchet has
 two small visible flat rubber grip pads, allowing the rigid fingertips to hold
 its otherwise rounded grip. Dimensions and starting poses are in
 `ratchet_task/config.py`, `asset_geometry.py` and `build_assets.py`.
@@ -97,8 +97,13 @@ It completed 31 drive/return cycles and 1.843 clockwise bolt turns, ending at a
 0.197 mm gap. Maximum pitch error was 14.2 micrometres. Socket engagement held
 throughout the trial and no integrity fault was reported.
 
-Dream-1 evaluation is pending. Both evaluations use seed 17 and identical
-physical sources. Runtime evidence revision:
+Dream-1 completed all 4,000 actions with **0.0** task score, ending at the
+action limit (200 simulated seconds; 1,087.7 wall seconds). It made 83 inference
+requests. The client automatically recovered from 82 session-expiry responses;
+no trial error was reported. This result describes that single completed run.
+
+Both evaluations use seed 17 and identical physical sources. Runtime evidence
+revision:
 `1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f`.
 
 Sources and evidence are retained locally. Media has not been uploaded and no

@@ -1,5 +1,5 @@
 {
-  "status": "reviewed_confined_demo_passed_dream_pending",
+  "status": "complete_local_only",
   "offline_tests": 26,
   "demo": {
     "completed": true,
@@ -25,9 +25,35 @@
     "seated_hold_seconds": 0.49999999999999994
   },
   "demo_video_review": true,
-  "dream": null,
+  "dream": {
+    "status": "success",
+    "task_score": 0.0,
+    "steps": 4000,
+    "simulated_seconds": 200.0,
+    "wall_seconds": 1087.6684169536456,
+    "mean_inference_latency_s": 0.5094119727005622,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "errored_trials": 0,
+    "environment_revision": "1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f",
+    "seed": 17,
+    "max_steps": 4000,
+    "model": "dreamlabs/dream-1-beta",
+    "automatic_session_expiry_retries": 82,
+    "private_credentials_removed": true,
+    "preroll_steps": 32,
+    "rows_per_request": 48,
+    "inference_requests": 83,
+    "request_attempts": 165,
+    "tracking_error_rad": {
+      "max": 0.07002574504571435,
+      "mean": 0.02268297399838407
+    }
+  },
   "pushed": false,
   "uploaded": false,
   "initial_condition": "Threaded bolt with 2.5 mm under-head gap; right gripper already holding fitted ratchet; left clear.",
-  "fidelity": "Physical socket contact and one-way clutch; native pitch coupling; no calibrated torque or preload requirement."
+  "fidelity": "Physical socket contact and one-way clutch; native pitch coupling; no calibrated torque or preload requirement.",
+  "private_credentials_removed": true
 }

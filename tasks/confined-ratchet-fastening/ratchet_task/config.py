@@ -27,5 +27,5 @@ MAX_STEPS = 4000
 BOLT_START = AXIS + np.array([0.,0.,.0025])
 TOOL_PARK = np.array([.30,-.21,TABLE+.036])
 TOOL_WORK_START = BOLT_START + np.array([0.,0.,.0285])
-INSTRUCTION = ('Use the fitted socket ratchet to tighten the started bracket bolt with short '
- 'back-and-forth strokes between the walls until the bolt is seated.')
+INSTRUCTION = ('Pick up the ratchet from its cradle, fit the socket onto the started bracket '
+ 'bolt, then tighten it with short back-and-forth strokes between the walls until the bolt is seated.')

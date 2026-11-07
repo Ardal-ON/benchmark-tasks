@@ -1,14 +1,15 @@
 # Fasten a bracket bolt with a ratchet in confined access
 
-The right gripper starts holding the fitted ratchet on a threaded bolt. Use
-short drive and return strokes to seat the bolt between the walls. All
-manipulation uses normal dual-YAM joint and gripper actions; the left hand stays
-clear. Completion is the seated bolt after verified ratchet cycles.
+Both arms start at their standard rest pose with open fingers. The ratchet
+rests in its physical cradle, separate from the started bolt. One arm must
+grasp and lift the ratchet, carry it to the bracket, fit the socket over the
+bolt head and then seat the bolt with short drive and return strokes. The
+reference demo uses the right arm while the left arm stays at rest.
 
 The fixed layout contains an M8x16 bolt (1.25 mm pitch, 13 mm AF head, 14 g), a
 3 mm bracket on a 93 mm receiver stand, a 203 mm ratchet and 13.4 mm AF
-socket, and two 162 mm tall walls. The walls limit the ratchet swing to
-about ±16 degrees; the reference controller commands ±14 degrees (measured extrema ±15.5 degrees). The ratchet has
+socket, a cradle, and two 162 mm tall walls. The walls limit the ratchet swing to
+about ±16 degrees; the reference controller commands ±14 degrees (measured extrema −15.735/+15.184 degrees). The ratchet has
 two small visible flat rubber grip pads, allowing the rigid fingertips to hold
 its otherwise rounded grip. Dimensions and starting poses are in
 `ratchet_task/config.py`, `asset_geometry.py` and `build_assets.py`.
@@ -39,7 +40,7 @@ inspect-robots run --embodiment yam_confined_ratchet \
   -E task=task.py -E top_cam=demo -E device=cpu -E control_hz=20 \
   -E cam_width=640 -E cam_height=360 -E object_jitter=0 \
   --policy dream -P model=dreamlabs/dream-1-beta \
-  --instruction "Use the fitted socket ratchet to tighten the started bracket bolt with short back-and-forth strokes between the walls until the bolt is seated." \
+  --instruction "Pick up the ratchet from its cradle, fit the socket onto the started bracket bolt, then tighten it with short back-and-forth strokes between the walls until the bolt is seated." \
   --seed 17 --max-steps 4000 --scorer task_score \
   --store-frames --no-rerun --no-prompt --grader none --log-dir /absolute/path/run
 ```
@@ -56,12 +57,12 @@ terminal seat. Thread ridges are visual, and microscopic tooth impacts,
 material deformation and fastener strength are omitted. The invisible 14 g
 carrier adds translational inertia and has no contact geometry.
 
-The bolt starts engaged in the receiver with a 2.5 mm under-head gap, and the
-socket starts fitted. Reset-only placement joints hold this assembled initial
-condition during environment settling; they are removed before the first
-policy action. The native thread stays active throughout manipulation. The
-socket is never attached to the bolt by a joint: its hex faces carry contact
-torque and it can lift off or fall away.
+The bolt starts engaged in the receiver with a 2.5 mm under-head gap. Both
+arms start at READY with open grippers, and the complete ratchet lies on its
+cradle. A reset-only placement joint holds the bolt while its native thread is
+created; it is removed before policy actions. The tool is supported by actual
+cradle contacts. There are no tool-to-hand or socket-to-bolt attachment joints.
+The native thread stays active while socket contact carries the applied torque.
 
 The current-state score is 0.2 after a quarter clockwise turn, 0.4 after one
 turn, 0.7 for seating within −0.3/+0.2 mm after at least 1.8 turns, and 1.0
@@ -91,20 +92,21 @@ and Pillow using `python fetch_assets.py --prepare` followed by
 
 ## Results
 
-The reviewed confined demo reached **1.0** in 1,393 actions
-(69.65 simulated seconds; 301.7 wall seconds on an L40S).
-It completed 31 drive/return cycles and 1.843 clockwise bolt turns, ending at a
-0.197 mm gap. Maximum pitch error was 14.2 micrometres. Socket engagement held
-throughout the trial and no integrity fault was reported.
+The full rest → pickup → placement → ratcheting demo (`rest-demo-002`)
+completed with score **1.0** in 2,229 actions (111.45 simulated seconds).
+The tool was physically lifted 93.65 mm; the left arm stayed at rest. It
+completed 32 drive/return cycles and 1.8452 clockwise turns, finishing with a
+0.1961 mm gap and a stable 0.5 s seated hold. Maximum pitch error was 19.88 µm.
+The socket stayed engaged throughout ratcheting. All three native camera views
+were reviewed, and 26 offline checks passed.
 
-Dream-1 completed all 4,000 actions with **0.0** task score, ending at the
-action limit (200 simulated seconds; 1,087.7 wall seconds). It made 83 inference
-requests. The client automatically recovered from 82 session-expiry responses;
-no trial error was reported. This result describes that single completed run.
+Environment revision: `f25d8f934652375d062d4940f0c66cdb8c2ed70537427d6d1b82c0f37aa04d49`.
+Dream evaluation of this revised sequence is pending; the earlier run is not
+reported as a result for the new initial condition.
 
-Both evaluations use seed 17 and identical physical sources. Runtime evidence
-revision:
-`1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f`.
+The earlier version started with the ratchet already held and fitted. Its
+sources and results are preserved as an earlier revision; they do not qualify
+the pickup-and-placement sequence documented here.
 
-Sources and evidence are retained locally. Media has not been uploaded and no
-branch has been pushed or submitted. No media identifier is assigned.
+Sources and evidence are retained locally. Nothing has been pushed, uploaded,
+or submitted. No media identifier is assigned.

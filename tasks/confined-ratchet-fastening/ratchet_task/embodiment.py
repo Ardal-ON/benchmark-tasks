@@ -56,22 +56,9 @@ class RatchetEmbodiment(YamArenaEmbodiment):
             def __init__(robot,**options):
                 options.update(cam_width=owner.cam_width,cam_height=owner.cam_height,robot_contact_offset=.0002)
                 super().__init__(**options)
-                from yam_arena import ik,station
-                from yam_arena.constants import READY,FINGER_JOINTS
-                r=np.array([[0,-1,0],[-1,0,0],[0,0,-1.]])
-                p=TOOL_WORK_START+np.array([-.13,0,.0185])
-                q,pe,re=ik.solve(p,ik.matrix_to_quat_xyzw(r),np.array(READY),base_pos=station.BASES['right'])
-                if pe>.001 or re>.01:raise RuntimeError(f'Initial held-tool IK: {pe}, {re}')
-                owner.initial_right_q=q
-                cfg=robot.scene_config.right_robot
-                cfg.init_state.joint_pos.update({f'joint{i+1}':float(v) for i,v in enumerate(q)})
-                cfg.init_state.joint_pos.pop('joint[7-8]',None)
-                cfg.init_state.joint_pos.update({name:-.016 for name in FINGER_JOINTS})
         scene.task_object,scene.env_cfg_callback,robots.BimanualYamEmbodiment=spawn,callback,NativeResolutionRobot
         try:super()._ensure_sim(goal)
         finally:scene.task_object,scene.env_cfg_callback,robots.BimanualYamEmbodiment=old_object,old_callback,old_robot
-        from yam_arena.constants import READY
-        self._ready=self._torch.tensor([[*READY,1.,*self.initial_right_q,0.]],dtype=self._torch.float32,device=self._base.device)
         import carb
         carb.settings.get_settings().set_bool('/physics/disableContactProcessing',False)
         from pxr import UsdPhysics,Sdf
@@ -94,10 +81,10 @@ class RatchetEmbodiment(YamArenaEmbodiment):
                 return result
             self._base.sim.step=hardware_step
     def _reset_supports(self,enabled):
-        # Reset-only placement jigs keep the preassembled initial condition fixed
-        # while the base environment settles. Both are removed before actions.
+        # Hold only the started bolt during reset, until its native thread exists.
+        # The tool rests in its physical cradle; both arms use the standard READY.
         from pxr import UsdPhysics,Sdf,Gf
-        for name,position in [('bolt',BOLT_START),('handle',TOOL_WORK_START)]:
+        for name,position in [('bolt',BOLT_START)]:
             path='/World/envs/env_0/ResetSupport_'+name
             if not enabled:self._base.sim.stage.RemovePrim(path);continue
             j=UsdPhysics.FixedJoint.Define(self._base.sim.stage,path)

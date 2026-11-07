@@ -1,59 +1,42 @@
 {
-  "status": "complete_local_only",
+  "status": "demo_qualified_dream_pending",
   "offline_tests": 26,
   "demo": {
     "completed": true,
     "score": 1.0,
     "walls": true,
     "mechanisms": true,
-    "steps": 1393,
-    "simulated_seconds": 69.65,
-    "wall_seconds": 301.69613697752357,
-    "environment_revision": "1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f",
-    "clockwise_turns": 1.8427277442241823,
-    "final_gap_mm": 0.19734811782834427,
-    "ratchet_cycles": 31,
-    "maximum_pitch_error_um": 14.184910312575738,
+    "steps": 2229,
+    "simulated_seconds": 111.45,
+    "wall_seconds": 418.03066229633987,
+    "environment_revision": "f25d8f934652375d062d4940f0c66cdb8c2ed70537427d6d1b82c0f37aa04d49",
+    "clockwise_turns": 1.8451905740550958,
+    "final_gap_mm": 0.19609642028806107,
+    "ratchet_cycles": 32,
+    "maximum_pitch_error_um": 19.878606412393474,
     "handle_yaw_range_deg": [
-      -15.450800270863565,
-      15.471514402550284
+      -15.734955520723734,
+      15.184108235844253
     ],
-    "maximum_control_mean_contact_torque_nm": 0.004788091991110892,
-    "socket_engaged_fraction": 1.0,
-    "maximum_bolt_step_um": 69.93505868501339,
+    "maximum_control_mean_contact_torque_nm": 0.005148547986073397,
+    "socket_engaged_fraction": 0.6617317182593091,
+    "maximum_bolt_step_um": 168.17381354916662,
     "any_integrity_failure": false,
-    "seated_hold_seconds": 0.49999999999999994
+    "seated_hold_seconds": 0.49999999999999994,
+    "start_from_rest": true,
+    "tool_starts_in_cradle": true,
+    "pickup_verified": true,
+    "socket_fit_verified": true,
+    "left_arm_max_deviation_rad": 7.952782115072665e-07,
+    "pickup_lift_mm": 93.65355968475342,
+    "ratcheting_socket_engaged_fraction": 1.0
   },
   "demo_video_review": true,
   "dream": {
-    "status": "success",
-    "task_score": 0.0,
-    "steps": 4000,
-    "simulated_seconds": 200.0,
-    "wall_seconds": 1087.6684169536456,
-    "mean_inference_latency_s": 0.5094119727005622,
-    "termination_reasons": [
-      "max_steps"
-    ],
-    "errored_trials": 0,
-    "environment_revision": "1cd38c2db0a77b52f15efa78c00f74834ccf7995dfa1f354601b659b17228d3f",
-    "seed": 17,
-    "max_steps": 4000,
-    "model": "dreamlabs/dream-1-beta",
-    "automatic_session_expiry_retries": 82,
-    "private_credentials_removed": true,
-    "preroll_steps": 32,
-    "rows_per_request": 48,
-    "inference_requests": 83,
-    "request_attempts": 165,
-    "tracking_error_rad": {
-      "max": 0.07002574504571435,
-      "mean": 0.02268297399838407
-    }
+    "status": "pending"
   },
   "pushed": false,
   "uploaded": false,
-  "initial_condition": "Threaded bolt with 2.5 mm under-head gap; right gripper already holding fitted ratchet; left clear.",
-  "fidelity": "Physical socket contact and one-way clutch; native pitch coupling; no calibrated torque or preload requirement.",
-  "private_credentials_removed": true
+  "initial_condition": "Both arms READY/open; ratchet in physical cradle, separate from started bolt with 2.5 mm under-head gap.",
+  "fidelity": "NVIDIA ratchet visuals plus original socket, bolt, grip pads, cradle and fixture. Physical contacts support pickup and transmit socket torque. A native one-way clutch and pitch joint drive rotation and axial travel. Thread ridges are visual; tooth impacts, deformation and fastener strength are omitted. Both arms start at rest and the tool is separate from the bolt. No hand/tool or socket/bolt attachments are used. Tightening is judged by seating and ratchet cycles."
 }

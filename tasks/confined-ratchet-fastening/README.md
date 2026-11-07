@@ -116,5 +116,7 @@ The earlier version started with the ratchet already held and fitted. Its
 sources and results are preserved as an earlier revision; they do not qualify
 the pickup-and-placement sequence documented here.
 
-Sources and evidence are retained locally. Nothing has been pushed, uploaded,
-or submitted. No media identifier is assigned.
+Reviewed submission media are attached as `M-KGU6MH`: the native top-camera
+Dream run, full scripted demo and setup screenshot. Sources and detailed
+evaluation evidence are retained locally; `validation.json` records the original
+validation state before submission media were uploaded.

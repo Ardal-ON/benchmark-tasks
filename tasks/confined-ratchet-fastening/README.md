@@ -93,7 +93,8 @@ and Pillow using `python fetch_assets.py --prepare` followed by
 ## Results
 
 The full rest → pickup → placement → ratcheting demo (`rest-demo-002`)
-completed with score **1.0** in 2,229 actions (111.45 simulated seconds).
+completed with score **1.0** in 2,229 actions (111.45 simulated seconds;
+418.03 wall seconds).
 The tool was physically lifted 93.65 mm; the left arm stayed at rest. It
 completed 32 drive/return cycles and 1.8452 clockwise turns, finishing with a
 0.1961 mm gap and a stable 0.5 s seated hold. Maximum pitch error was 19.88 µm.
@@ -101,8 +102,13 @@ The socket stayed engaged throughout ratcheting. All three native camera views
 were reviewed, and 26 offline checks passed.
 
 Environment revision: `f25d8f934652375d062d4940f0c66cdb8c2ed70537427d6d1b82c0f37aa04d49`.
-Dream evaluation of this revised sequence is pending; the earlier run is not
-reported as a result for the new initial condition.
+Dream-1 (`dream-rest-001`) completed all 4,000 actions (200 simulated
+seconds; 727.94 wall seconds) with score **0.0**, stopping at the action limit.
+The reviewed native views show no successful pickup or socket placement.
+There were no errored trials. It used the same environment revision, seed 17,
+instruction, camera resolution and action rate as the qualified demo. The
+client made 83 inference requests with 30 automatic request retries. Private
+credentials were removed at termination.
 
 The earlier version started with the ratchet already held and fitted. Its
 sources and results are preserved as an earlier revision; they do not qualify

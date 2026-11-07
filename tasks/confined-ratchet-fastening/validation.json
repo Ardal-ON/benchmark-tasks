@@ -1,5 +1,5 @@
 {
-  "status": "demo_qualified_dream_pending",
+  "status": "complete_local_only",
   "offline_tests": 26,
   "demo": {
     "completed": true,
@@ -33,10 +33,33 @@
   },
   "demo_video_review": true,
   "dream": {
-    "status": "pending"
+    "status": "success",
+    "task_score": 0.0,
+    "steps": 4000,
+    "simulated_seconds": 200.0,
+    "wall_seconds": 727.9440574906766,
+    "mean_inference_latency_s": 0.7610081334048545,
+    "termination_reasons": [
+      "max_steps"
+    ],
+    "errored_trials": 0,
+    "environment_revision": "f25d8f934652375d062d4940f0c66cdb8c2ed70537427d6d1b82c0f37aa04d49",
+    "seed": 17,
+    "max_steps": 4000,
+    "model": "dreamlabs/dream-1-beta",
+    "private_credentials_removed": true,
+    "inference_requests": 83,
+    "request_attempts": 113,
+    "rows_per_request": [
+      48
+    ],
+    "automatic_request_retries": 30,
+    "observed_outcome": "No successful ratchet pickup or socket placement; action limit reached."
   },
   "pushed": false,
   "uploaded": false,
   "initial_condition": "Both arms READY/open; ratchet in physical cradle, separate from started bolt with 2.5 mm under-head gap.",
-  "fidelity": "NVIDIA ratchet visuals plus original socket, bolt, grip pads, cradle and fixture. Physical contacts support pickup and transmit socket torque. A native one-way clutch and pitch joint drive rotation and axial travel. Thread ridges are visual; tooth impacts, deformation and fastener strength are omitted. Both arms start at rest and the tool is separate from the bolt. No hand/tool or socket/bolt attachments are used. Tightening is judged by seating and ratchet cycles."
+  "fidelity": "NVIDIA ratchet visuals plus original socket, bolt, grip pads, cradle and fixture. Physical contacts support pickup and transmit socket torque. A native one-way clutch and pitch joint drive rotation and axial travel. Thread ridges are visual; tooth impacts, deformation and fastener strength are omitted. Both arms start at rest and the tool is separate from the bolt. No hand/tool or socket/bolt attachments are used. Tightening is judged by seating and ratchet cycles.",
+  "private_credentials_removed": true,
+  "dream_video_review": true
 }

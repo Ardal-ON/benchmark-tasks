@@ -14,5 +14,5 @@
   "run_limit": "4,000 actions (200 simulated seconds at 20 Hz)",
   "reset_notes": "Reset restores both arms to READY with open fingers, the ratchet to its cradle and the started bolt to its receiver. Only the bolt uses a reset placement jig, which is removed before actions.",
   "fidelity": "NVIDIA ratchet visuals plus original socket, bolt, grip pads, cradle and fixture. Physical contacts support pickup and transmit socket torque. A native one-way clutch and pitch joint drive rotation and axial travel. Thread ridges are visual; tooth impacts, deformation and fastener strength are omitted. Both arms start at rest and the tool is separate from the bolt. No hand/tool or socket/bolt attachments are used. Tightening is judged by seating and ratchet cycles.",
-  "scores": "Rest-start full demo: 1.0. Dream evaluation of this revision pending."
+  "scores": "Dream-1 run: 0.0; full rest-start pickup/placement/ratcheting demo: 1.0"
 }

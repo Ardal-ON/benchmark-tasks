@@ -28,7 +28,9 @@ python diagnostics/demo.py /absolute/path/outside/source/demo
 ```
 
 The full demo runner records native top and wrist H.264 videos, per-step
-mechanism/scorer telemetry and `demo-result.json`. The registered reference policy is `confined_ratchet_scripted`.
+mechanism/scorer telemetry and `demo-result.json`. The review and handoff
+videos `demo.mp4` and `dream.mp4` use only the original native top camera
+(640×360 at 20 Hz). The registered reference policy is `confined_ratchet_scripted`.
 
 Dream evaluation uses the same physical scene, 480 Hz CPU PhysX, 20 Hz actions,
 native 640×360 top and wrist cameras, `top_cam=demo`, zero object jitter and seed

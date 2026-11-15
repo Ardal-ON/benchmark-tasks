@@ -8,12 +8,12 @@
     "pin insertion"
   ],
   "instruction": "Hold the loose pipe flange against the fixed flange and insert two pins horizontally in the top and bottom holes.",
-  "context": "Pipework assembly requires holding mating flanges in alignment while temporary locating pins are installed.",
-  "setup": "Fixed 150 mm diameter, 51 mm deep vertical CAD flange with 16 mm holes on a 55 mm bolt-circle radius, on a 100 × 54 mm pipe and 50 × 80 × 130 mm support. A 250 g loose flange, pipe stub, collar and side lug rest on supports of 60 × 80 × 56, 18 × 80 × 70 and 25 × 35 × 55 mm. Two 35 g pins have 50 × 14 mm shanks and 20 mm heads, lying parallel on two 50 × 28 × 185 mm supports. Parts are rigid steel-like solids; supports are rigid fixtures. Positions in task.py; no jitter; bimanual YAM station.",
+  "context": "A lightweight ABS fixture isolates the coordination needed to hold mating flange faces and bolt holes aligned with one arm while inserting horizontal locating pins with the other. It evaluates assembly alignment and insertion, without claiming industrial steel-load handling or pressure sealing.",
+  "setup": "Fixed-layout YAM station. Two printed ABS flanges: 150 mm OD, 51 mm overall depth, 16 mm plate, 54 mm bore, four 16 mm holes on a 55 mm radius. Loose ABS stub/collar/lug assembly: 250 g total using sparse infill; fixed ABS pipe: 100 x 54 mm OD. Two 35 g pins: 6061-T6 aluminum with 304 steel head inserts; 50 x 14 mm tapered shanks, 20 x 10 mm heads. All six mounting/staging/pin supports are fixed ABS. README specifies each support size, print/mass calibration, pin ballast and mounting; task.py/assets specify geometry and poses. No jitter.",
   "scoring": "At the end, alignment within 3 mm and axes within 7.25° of the pipe earn 0.4. Add 0.3 for a pin in each of the top and bottom holes, axis within 7.25°, center within 4.5 mm radially and between 5 mm toward the head and 8 mm toward the tip from the mating plane. Only one pin counts per hole; without alignment the score is zero. Poses are scored, including while held.",
   "run_limit": "2,700 control steps (135 seconds at 20 Hz).",
   "reset_notes": "Restore the fixed-layout object poses and both arms to the ready pose; no object jitter.",
-  "fidelity": "Rigid CAD visuals with perforated collision approximations, a pipe stub and side lifting lug; approximate friction. No gasket, threads, clips, preload, deformation or fluid seal. Final poses do not measure gripper contact or prove unsupported retention.",
+  "fidelity": "Lightweight ABS/aluminum physical specification; construction is proposed, not physically validated. Simulation uses rigid CAD/collider shapes with assigned 250 g assembly and 35 g pin masses; no infill, steel pin-head inserts, print/joint deformation or measured material friction. Metallic colors are visual styling. Fixed mounting details are idealized. No gasket, threads, clips, preload or seal; final poses do not prove grasp contact or unsupported retention.",
   "scores": "Dream-1: 0.0 (2,700 steps); scripted demo: 1.0 (2,231 steps).",
   "media": "M-SXH5C5"
 }

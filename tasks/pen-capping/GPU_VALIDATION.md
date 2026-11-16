@@ -1,71 +1,60 @@
-# Revised liner validation
+# Current original-asset validation
 
-The revised normal-camera demo completed with score **1.0**, 4,910 actions,
-245.5 simulated seconds and 613.21 seconds wall time, with no trial errors.
-Dream-1 beta completed with score **0.0**, 6,000 actions, 300 simulated
-seconds and 746.78 seconds wall time, with no trial errors. Its frozen source
-manifest and runtime revision exactly match the demo.
-Historical unlined-cap results remain in `historical-validation.json`.
+The current scripted demo scores **1.0** at **4,910 actions** in 600.33 seconds
+wall time (245.5 simulated seconds). All four capped pens are released in the
+correct marked areas and retain full credit through the final hold. The four
+measured engagement events occur at 39.35, 100.05, 158.70 and 220.05 seconds.
+There are no retention losses or trial errors. The maximum recorded joint
+position residual is 0.0277 mm; this is a numerical constraint residual, not a
+physical holding-force measurement.
 
-Runtime revision: `5a2dd63eb3e83960e357d96d51deec1d144bdf3ecdbbf71c5b780e96591e3520`.
+The matching Dream-1 beta run scores **0.0** at **6,000 actions** in 737.58 seconds
+wall time (300 simulated seconds), without trial errors. It manipulates loose
+caps and an uncapped pen but establishes no cap retention or capped placement.
 
-The geometry audit confirms four pen colliders, 49 cap colliders and 128 visible
-noncolliding liner pieces per cap, plus the actual 128/16 solver settings.
-Synthetic reset checks pass for joints, insertion/contact/scoring histories
-and the resolved-motion history. This audit is not force calibration.
-77 task tests and one separate approach-continuity regression pass.
+Both runs use this exact frozen runtime revision:
+`ee5269d7fc4721b5eaae64e4656608f4d8d1ce1748182df31957f008cc03f902`.
+Their complete frozen source manifests match, and the working runtime files
+match those tested inputs. Seed 0, no jitter, 20 Hz control, 240 Hz physics,
+CPU PhysX, three 640 × 360 cameras and a common 6,000-action budget are retained.
+Headless renderer scheduling is explicitly synchronous in this task process.
+Runtime versions, source commits and per-file hashes are in `validation.json`.
 
-The native top timeline was reviewed every two seconds through the final
-245.5-second frame. Both wrist views were sampled at one-second intervals
-around each engagement, alongside setup/final frames. All four matching caps
-seat and remain attached through support release; two red and two blue
-assemblies are released in their correct areas. The held objects partly
-occlude the wrist close-ups, so measured engagement records also support the
-geometry conclusion. No identifying text was found in the reviewed media.
+The GPU geometry/reset audit passed: four pen colliders, 49 cap colliders,
+128 visible noncolliding liner pieces per cap, actual 128/16 solver settings,
+joint/insertion/contact/scoring cleanup and resolved-motion-history reset.
+All **81 task tests pass**, with no skips. Regeneration tests confirm original
+analytic barrel geometry without an external source mesh or USD reference.
+The scan-derived barrels are no longer bundled. Authored collision shapes,
+masses, transforms and physics properties match the preceding lined-cap assets.
 
-## Reproduce checks
+Actual stored frames produced three native 20 fps H.264/yuv420p videos per run:
+4,911 frames per demo stream and 6,001 per Dream stream. Videos retain native
+640 × 360 observations. The recorded calibration and rig are retained; camera
+views are encoded from the same run without cropping or trajectory edits. All
+files meet the media size limits.
+Setup and final images come from those same recorded frames.
 
-Activate the documented Arena/YAM runtime and run from this task directory:
+Visual review covered the demo top timeline every two simulated seconds through
+245.5 seconds, plus both wrists at one-second intervals around all four engagement
+events. Dream review covered the top timeline every five seconds through 300
+seconds and both wrists in selected windows across the run. Wrist insertion
+interfaces are partly occluded; the measured fit records corroborate engagement.
+No identifying names, institutions or paths were visible in the sampled views.
 
-```sh
-uv pip install --no-deps -e .
-python -m pytest -q
-python audit_retention_runtime.py --scheduled --output liner-runtime-audit.json
-```
+The physical counterpart specifies PP parts, a named Shore A40 silicone and
+four mechanically captured headed keys, eliminating reliance on an unspecified
+PP/silicone adhesive bond. This remains an untested physical construction.
+The visible noncolliding inner silicone zone and geometrically gated fixed
+joint approximate compliance/retention. No physical force calibration,
+contact-only retention, adhesive performance or calibrated break force is
+claimed. See `PHYSICAL_REPRODUCTION.md` for dimensions and the explicitly
+unperformed physical qualification procedure.
 
-The CPU tests cover geometric engagement, closed-end clearance, wrong-color
-and held-object scoring, recovery, controller bounds and solver configuration.
-The runtime audit inspects actual cap geometry, solver settings and synthetic
-joint cleanup. It is not an insertion demonstration or force calibration.
-
-Use the README's normal camera-enabled command for the scripted demo. Use
-the same command with `--policy dream -P model=dreamlabs/dream-1-beta` for the
-model trial. Both must use identical final source, physical settings, cameras,
-seed 0, zero jitter, instruction and 6,000-action limit. Render their actual
-terminal JSONs with `inspect-robots video RESULT.json`.
-
-## Evidence retained
-
-- Record actual runtime versions and immutable source/asset hashes.
-- Verify runtime geometry: 49 cap colliders, four pen colliders, 128 visible
-  noncolliding liner pieces per cap, and actual solver settings.
-- Record accepted geometry at all four insertions and after support release;
-  verify no retention losses, all four released placements, score 1.0 and a
-  completed terminal result within the action limit.
-- Review native top and both wrist videos, and an actual initial setup image.
-- Complete Dream on matching source and record its actual score, steps,
-  runtime and media. No camera-free development run substitutes for these.
-- Verify reset removes retention joints and clears contact/insertion/scoring
-  histories, then rerun source checks and document the final evidence.
-
-The silicone zone and pose-preserving joint remain a disclosed approximation.
-No calibrated elasticity, physical holding force, insertion force or pull-off
-force is claimed. Synthetic reset testing does not validate those properties.
-
-Dream review covered the top timeline every five seconds and both wrist
-cameras at selected one-second windows across the run, including the final
-frame. It manipulates a red pen and loose caps but never establishes cap
-retention. The final uncapped pen in the left area correctly earns no credit.
-
-New media remains local. `task.json` retains the historical media ID until an
-authorized upload replaces it; it does not identify these revised videos.
+The old lined-cap/scan-visual results remain in `previous-lined-validation.json`
+and `PREVIOUS_GPU_VALIDATION.md`; the older unlined-cap results remain historical.
+They are not relabeled as current recordings. Current reviewed station-camera
+demo and Dream videos, plus the setup image from the same recorded layout, are
+uploaded as **M-CYJ5YA**, matching `task.json`. Their uploaded byte hashes
+are recorded in `validation.json`. All synchronized wrist videos and native
+evidence remain retained in the evidence package.

@@ -20,6 +20,14 @@ class PenEmbodiment(YamArenaEmbodiment):
   if base._APP is None:
    from isaaclab.app import AppLauncher
    os.environ.setdefault('OMNI_KIT_ACCEPT_EULA','YES');base._APP=AppLauncher(headless=self.headless,device=self.device,enable_cameras=True).app;atexit.register(base._close_app_at_exit)
+  if self.headless:
+   # Avoid asynchronous renderer synchronization during reset()/timeline.play().
+   # These settings are private to this simulator process, not task physics.
+   import carb
+   settings=carb.settings.get_settings()
+   for key in ('/exts/isaacsim.core.throttling/enable_async','/app/asyncRendering','/app/asyncRenderingLowLatency'):
+    settings.set(key,False)
+   print('PEN_HEADLESS_RENDER synchronous',flush=True)
   from yam_arena import scene
   from isaaclab_arena.assets.object import Object
   from isaaclab_arena.assets.object_type import ObjectType

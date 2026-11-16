@@ -1,11 +1,9 @@
-"""Adapt a catalog marker barrel; author separate hollow, physically insertable caps."""
+"""Build original analytic pen/cap assets without downloaded meshes."""
 from pathlib import Path
 import math,hashlib,json
-import numpy as np
 from pxr import Usd,UsdGeom,UsdPhysics,UsdShade,Gf,Sdf
 from pen_capping import retention as fit
 HERE=Path(__file__).resolve().parent
-SOURCE='https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.2/Isaac/Props/YCB/Axis_Aligned/040_large_marker.usd'
 
 def material(s,color):
  m=UsdShade.Material.Define(s,'/Asset/Material');sh=UsdShade.Shader.Define(s,'/Asset/Material/Surface');sh.CreateIdAttr('UsdPreviewSurface');sh.CreateInput('diffuseColor',Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(*color));sh.CreateInput('roughness',Sdf.ValueTypeNames.Float).Set(.6);m.CreateSurfaceOutput().ConnectToSource(sh.ConnectableAPI(),'surface');return m
@@ -17,19 +15,20 @@ def cylinder(s,name,x,r,h,mat,visible=True):
  c=UsdGeom.Cylinder.Define(s,'/Asset/'+name);c.CreateAxisAttr('X');c.CreateRadiusAttr(r);c.CreateHeightAttr(h);c.AddTranslateOp().Set(Gf.Vec3d(x,0,0));UsdPhysics.CollisionAPI.Apply(c.GetPrim());UsdShade.MaterialBindingAPI.Apply(c.GetPrim()).Bind(mat)
  if not visible:c.CreateVisibilityAttr('invisible')
 
-def build(source):
- (HERE/'assets').mkdir(exist_ok=True);src=Usd.Stage.Open(str(source));mesh=next(UsdGeom.Mesh(p) for p in src.Traverse() if p.IsA(UsdGeom.Mesh));xf=UsdGeom.XformCache().GetLocalToWorldTransform(mesh.GetPrim());pts=np.array([xf.Transform(p) for p in mesh.GetPointsAttr().Get()])[:,[1,0,2]]
- counts=[];faces=[];offset=0;indices=list(mesh.GetFaceVertexIndicesAttr().Get())
- for n in mesh.GetFaceVertexCountsAttr().Get():
-  f=indices[offset:offset+n];offset+=n
-  if np.all(np.abs(pts[f,0])<.043):counts.append(n);faces.extend(f)
- used=sorted(set(faces));lookup={old:new for new,old in enumerate(used)};pts=pts[used];pts[:,0]*=1.4;faces=[lookup[i] for i in faces]
+def build_pens():
+ (HERE/'assets').mkdir(exist_ok=True)
  for color,rgb in [('red',(.75,.045,.035)),('blue',(.035,.16,.80))]:
-  s=stage('pen-'+color+'.usdc',.035);mat=material(s,rgb);m=UsdGeom.Mesh.Define(s,'/Asset/CatalogBarrel');m.CreatePointsAttr([Gf.Vec3f(*p) for p in pts]);m.CreateFaceVertexCountsAttr(counts);m.CreateFaceVertexIndicesAttr(faces);m.CreateSubdivisionSchemeAttr('none');UsdShade.MaterialBindingAPI.Apply(m.GetPrim()).Bind(mat)
-  cylinder(s,'Barrel',0,.0097,.140,mat,False);cylinder(s,'Shoulder',-.0672,.007,.0168,mat);cylinder(s,'Nib',-.0826,.003,.0196,mat);cylinder(s,'End',.0686,.0097,.0084,mat)
+  s=stage('pen-'+color+'.usdc',.035);mat=material(s,rgb)
+  # The original analytic collider is now also the barrel visual. No scan or
+  # copied mesh is used; dimensions, four colliders and assigned mass persist.
+  cylinder(s,'Barrel',0,.0097,.140,mat);cylinder(s,'Shoulder',-.0672,.007,.0168,mat);cylinder(s,'Nib',-.0826,.003,.0196,mat);cylinder(s,'End',.0686,.0097,.0084,mat)
   s.GetRootLayer().Save()
-  build_cap(color,rgb)
- data={'source_url':SOURCE,'source_sha256':hashlib.sha256(Path(source).read_bytes()).hexdigest(),'terms_url':'https://www.nvidia.com/en-us/agreements/enterprise-software/isaac-sim-additional-software-and-materials-license/','changes':'Reuse central catalog barrel mesh, trim scan ends, axial scale1.4 and red/blue materials. Analytic pen ends/colliders,35g. Caps8g with16 rigid wall segments split axially around a recessed bonded silicone liner seat. Liner19.0mm free ID,25.8mm outer across flats,6mm grip length plus1.5mm tapered entrance to21mm ID. Visible compliant zone has no collider; rigid backing21.2mm across flats bounds clearance. Geometry-gated pose-preserving joint approximates uncalibrated retention; no physical elasticity or contact-only retention is simulated.'}
+
+def write_provenance():
+ data={'geometry_source':'Original task-authored analytic primitives in build_assets.py; no external meshes or catalog downloads.',
+       'pen_construction':'Four original cylinders per pen; 35g assigned mass. Barrel collider is also the visible barrel.',
+       'retention_revision':{'liner_free_id_m':2*fit.LINER_INNER_RADIUS,'liner_outer_across_flats_m':2*fit.LINER_OUTER_APOTHEM,'grip_interval_m':[fit.LINER_START,fit.LINER_END],'lead_in_interval_m':[fit.LINER_END,fit.MOUTH_X],'lead_in_id_m':2*fit.LEAD_IN_RADIUS,'backing_clearance_across_flats_m':2*fit.BACKING_INNER_RADIUS,'physical_capture':'Four radial 3mm silicone keys through PP shell flats at cap x=13mm, each with a 5mm diameter x0.6mm recessed outer head, finished flush. No adhesive assumed. Keys are omitted from rigid simulation.','silicone_grade':'Smooth-On SORTA-Clear 40; manufacturer nominal Shore A40, physical application untested.','approximation':'Visible silicone inner zone has no collision; outer backing is rigid. Geometry-gated fixed joint, uncalibrated compliance/forces.'},
+       'asset_sha256':{str(p.relative_to(HERE)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((HERE/'assets').iterdir()) if p.suffix in ('.usdc','.png')}}
  (HERE/'assets/provenance.json').write_text(json.dumps(data,indent=2)+'\n')
 def ring_segment(s,name,x0,x1,inner0,inner1,outer,angle0,angle1,mat,collision=False):
  # A convex trapezoidal prism per backing segment; visible silicone is separate.
@@ -46,7 +45,7 @@ def ring_segment(s,name,x0,x1,inner0,inner1,outer,angle0,angle1,mat,collision=Fa
 
 def build_cap(color,rgb):
  s=stage('cap-'+color+'.usdc',.008);mat=material(s,rgb)
- # Preserve outer dimensions; recess the last 7.5mm by 0.4mm for bonded liner.
+ # Preserve outer dimensions; recess the last 7.5mm by 0.4mm for the liner.
  for i in range(16):
   a=i*math.tau/16
   for suffix,x0,x1,inner in (('',-.0145,fit.LINER_START,fit.SHELL_APOTHEM),('Seat',fit.LINER_START,fit.MOUTH_X,fit.LINER_OUTER_APOTHEM)):
@@ -78,8 +77,14 @@ def build_areas():
   mat=material(s,(1,1,1));sh=UsdShade.Shader.Get(s,'/Asset/Material/Surface');tex=UsdShade.Shader.Define(s,'/Asset/Material/Texture');tex.CreateIdAttr('UsdUVTexture');tex.CreateInput('file',Sdf.ValueTypeNames.Asset).Set(Sdf.AssetPath('area-'+color+'.png'));reader=UsdShade.Shader.Define(s,'/Asset/Material/UV');reader.CreateIdAttr('UsdPrimvarReader_float2');reader.CreateInput('varname',Sdf.ValueTypeNames.Token).Set('st');tex.CreateInput('st',Sdf.ValueTypeNames.Float2).ConnectToSource(reader.ConnectableAPI(),'result');sh.GetInput('diffuseColor').ConnectToSource(tex.ConnectableAPI(),'rgb');UsdShade.MaterialBindingAPI.Apply(m.GetPrim()).Bind(mat);s.GetRootLayer().Save()
 
 if __name__=='__main__':
- import sys
- if sys.argv[1:] == ['--caps-only']:
+ import argparse
+ parser=argparse.ArgumentParser(description=__doc__)
+ group=parser.add_mutually_exclusive_group()
+ group.add_argument('--pens-only',action='store_true')
+ group.add_argument('--caps-only',action='store_true')
+ args=parser.parse_args()
+ if not args.caps_only:build_pens()
+ if not args.pens_only:
   for color,rgb in [('red',(.75,.045,.035)),('blue',(.035,.16,.80))]:build_cap(color,rgb)
-  data=json.loads((HERE/'assets/provenance.json').read_text());data['changes']='Central catalog barrel adaptation unchanged. Caps now include recessed liner seats, visible silicone grip/lead-in and rigid outer backing; see retention_revision for dimensions and approximation.';data['retention_revision']={'liner_free_id_m':2*fit.LINER_INNER_RADIUS,'liner_outer_across_flats_m':2*fit.LINER_OUTER_APOTHEM,'grip_interval_m':[fit.LINER_START,fit.LINER_END],'lead_in_interval_m':[fit.LINER_END,fit.MOUTH_X],'lead_in_id_m':2*fit.LEAD_IN_RADIUS,'backing_clearance_across_flats_m':2*fit.BACKING_INNER_RADIUS,'approximation':'Visible silicone inner zone has no collision; outer backing is rigid. Geometry-gated fixed joint, uncalibrated compliance/forces.'};(HERE/'assets/provenance.json').write_text(json.dumps(data,indent=2)+'\n')
- else:build(Path(sys.argv[1]));build_areas()
+ if not args.pens_only and not args.caps_only:build_areas()
+ write_provenance()

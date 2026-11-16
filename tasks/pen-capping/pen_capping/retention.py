@@ -1,7 +1,7 @@
 """Chosen liner dimensions and geometric eligibility; no elastomer force model.
 
-All lengths are metres. A silicone sleeve is primer-bonded into the PP
-shell's recessed seat. Only its stiff outer backing is a rigid collider. The
+All lengths are metres. The physical silicone sleeve is mechanically keyed
+into the PP shell's recessed seat. Only its stiff outer backing is a rigid collider. The
 interfering inner zone is visual and represented by the retention joint.
 """
 import math

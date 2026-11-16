@@ -1,13 +1,76 @@
 # Cap and sort four pens
 
 Fit each pen with a cap of the same color. Put the two red pens on the left
-and the two blue pens on the right. Pens rest flat in marked destination areas.
+and the two blue pens on the right. Leave the capped pens released and resting
+flat in their marked destination areas.
+
+## Relevance and evaluation scope
+
+Recapping markers before putting them away is a familiar object-care task:
+the closure must engage the barrel and stay attached during handling and
+storage. The robot must stabilize one part while aligning and advancing the
+other, then transfer and release the completed assembly. This task evaluates
+that coordinated insertion and handover, followed by color-correct placement.
+Sorting alone earns no credit for an uncapped pen. **Societal relatability**
+is the intended category, reflecting this everyday manipulation task.
+
+The central manipulation is cap seating with the opposite arm supporting the
+pen. Repeating it for four pens exercises consistent completion and correct
+placement in a fixed, reproducible layout.
+
+## Response to the review concerns
+
+The earlier review identified the oversized bare cap bore, missing material and
+retention specifications, catalog-asset attribution and category fit. The later
+review requested workable engagement, a matching validated simulation
+approximation, fresh demonstration/model evidence, and resolution of the
+unverified asset-redistribution issue. The current submission addresses those
+requests as follows:
+
+| Concern | Current specification and evidence |
+| --- | --- |
+| A 25 mm shell bore cannot grip a 19.4 mm barrel. | The shell now contains a silicone insert with a **19.0 mm free bore**. Inserting the 19.4 mm barrel creates **0.2 mm nominal radial interference** over **3.9 mm nominal straight overlap**. The original shell clearance is occupied by the insert; the bare shell is not the retaining interface. |
+| Physical materials and a reproducible retention feature were missing. | Specify PP bodies/shells, polyester felt nibs and **Smooth-On SORTA-Clear 40 silicone**. Four molded-through headed keys capture the liner without relying on a PP–silicone adhesive bond. Dimensions, tolerances, mass construction and the distinction between specified and tested properties are given below. |
+| A synthetic joint alone did not establish a functioning cap. | The joint now represents a **specified interference sleeve**, rather than unspecified retention across an empty gap. It is created only after actual measured approach, axial overlap, alignment, eccentricity and nib-clearance checks remain eligible for 0.2 s. It preserves the reached pose without snapping either object into place. The noncolliding compliant zone and uncalibrated force response are explicitly disclosed below. |
+| A new full-score demo and matching model run were required. | Both recordings use the revised lined-cap geometry and current original pen visuals: **demo 1.0, 4,910 actions; Dream-1 beta 0.0, 6,000 actions**. They use identical frozen runtime inputs and the same 6,000-action budget. The demo records four engagements, no retention losses and four correct released placements. |
+| Redistribution rights for the adapted catalog mesh were unresolved. | Both scan-derived barrels were replaced with original analytic geometry. No external mesh is bundled, referenced or required by the generator. Regeneration and self-contained-asset tests pass. The former asset and named license are identified in the provenance section as historical attribution, not as a claim of redistribution permission. |
+| Validation and physical claims needed to be separated. | **81 tests and the runtime geometry/reset audit pass.** The demo establishes completion of the stated simulation approximation. No manufactured specimen, measured insertion/pull-off force or physical retention qualification is claimed. A concrete physical qualification procedure is supplied separately. |
+
+The revised task therefore has an explicit engagement mechanism, numerical
+seating criteria, release-sensitive scoring and a completed robot-driven demo
+of all four assemblies. The remaining fidelity limits concern elastomer
+response and physical construction, not an omitted cap feature. These limits
+are part of the submission's stated scope and are not inferred from the full
+simulation score.
+
+## Current recorded evidence
+
+| Policy | Final score | Actions | Simulated time | Wall time |
+| --- | ---: | ---: | ---: | ---: |
+| Scripted demo | **1.0** | 4,910 | 245.5 s | 600.33 s |
+| Dream-1 beta | **0.0** | 6,000 | 300 s | 737.58 s |
+
+Both trials completed without errors, using seed 0, no jitter, CPU PhysX at
+240 Hz, 20 Hz control, three native 640 × 360 cameras and a common 6,000-action
+limit. The runtime input revision for both is
+`ee5269d7fc4721b5eaae64e4656608f4d8d1ce1748182df31957f008cc03f902`.
+The demo's engagement events occur at 39.35, 100.05, 158.70 and 220.05 seconds;
+all four released placements retain full credit through the final hold.
+Dream manipulates loose caps and an uncapped pen but establishes no retention.
+
+**Current media: `M-CYJ5YA`.** The attached demo and Dream videos
+are the native station-camera recordings of these two trials. The setup image
+is from the same recorded initial layout. Synchronized wrist views are retained
+in the evidence package. Numerical engagement records supplement the partly
+occluded wrist insertion views. Exact source/asset hashes, terminal-result
+checksums and review records are in `validation.json` and `GPU_VALIDATION.md`.
 
 ## Reproduce
 
 Use Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0, Inspect Robots 0.60.0 and
 YAM Arena 0.1.0. Source pins: YAM `0059d02a1a91bc6834c1d0846022891df0c78730`;
-Arena `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`.
+Arena `c7edf3a9d5d8276565208f72422f8f8a0806d6cf`;
+Isaac Lab `91a0906f93802eb859192dcb0bca879f891e92d6`.
 
 Activate the installed Arena/YAM environment, from the benchmark repository:
 
@@ -46,9 +109,9 @@ Nominal roots before settling (x,y,z,yaw°):
 | Red | (0.42,−0.16,0.7575,−65) | (0.40,0.10,0.7638,−145) |
 | Blue | (0.21,−0.34,0.7575,−110) | (0.24,0.05,0.7638,−125) |
 
-Pens reuse the central catalog marker-barrel mesh, stretched axially 1.4×;
-scanned ends are trimmed and materials replaced with clear red/blue colors.
-Analytic barrel, shoulder, nib and tail collisions give a 165.2 mm overall pen,
+Pens use original analytic barrel, shoulder, nib and tail geometry, with red/blue
+surface colors; no downloaded mesh is included or required. The same four
+analytic collisions as the previous lined-cap revision give a 165.2 mm overall pen,
 19.4 mm barrel diameter and 35 g mass. Caps are separate rigid bodies, 35 mm
 long, approximately 32.6 mm diameter, 8 g. Sixteen individual convex wall boxes
 surround an open bore with 12.5 mm inner apothem. One 3 mm thick disk closes
@@ -59,51 +122,78 @@ bridges this clearance; there is no solid collider across the mouth.
 For a physical reproduction, specify pigmented polypropylene (PP) for the pen
 barrel, shoulder, tail and cap shell, a polyester felt nib, and printed paper
 destination markers on a rigid tabletop. These are chosen reproduction
-materials, not verified material identities of the catalog scan or a tested
-physical assembly. The simulation represents all pen and cap parts as rigid;
+materials, not a claim that a physical assembly has been manufactured or tested. The simulation represents all pen and cap parts as rigid;
 its red/blue surface shaders specify appearance, not PP elasticity or felt
 compliance. The destination markers are textures, with no paper mechanics.
-The retention insert is specified as silicone rubber, nominal Shore A 40,
-primer-bonded into the recessed PP seat. This is a proposed material hardness
-and attachment, not a verified commercial silicone grade, adhesive system or
-tested assembly. Bond compatibility, manufacturing tolerances, insertion force
-and pull-off force must be established on physical specimens.
+The retention insert is specified as Smooth-On SORTA-Clear 40 silicone rubber,
+manufacturer nominal Shore A 40, mechanically keyed into the recessed PP seat.
+The [manufacturer's material specification](https://www.smooth-on.com/products/sorta-clear-40/)
+gives nominal Shore A 40 and density 1.08 g/cm³; neither value establishes a
+retention force for this assembly.
+Four molded-through keys with recessed outer heads capture the liner without
+assuming a PP–silicone adhesive bond. Full dimensions, mass construction and
+the physical qualification procedure are in [PHYSICAL_REPRODUCTION.md](PHYSICAL_REPRODUCTION.md).
+The moving pen target is **35 ± 1 g**, including its PP body, felt reservoir/nib
+and any enclosed mass adjustment. The complete cap target is **8.0 ± 0.5 g**,
+including the silicone insert. Use hollow PP pen bodies and lightened/ribbed
+cap shells, with a nominal 1 mm outer skin and full bosses around the liner
+keys; adjust enclosed relief or ballast to the finished mass without changing
+fit or external grasp surfaces. Dense simulation wall boxes are collision
+proxies, not a claim that a solid PP shell has the specified mass.
 
-CPU PhysX 240 Hz, control 20 Hz, observations 640×360. Static/dynamic friction
+For each liner, four **3 mm radial through-holes** at cap x=13 mm lie on flats
+at 0°, 90°, 180° and 270°. Each has a **5 mm diameter × 0.6 mm deep external
+counterbore**. Cast the sleeve and keys as one silicone piece, filling the
+counterbores with headed keys and finishing their outer faces flush with the
+shell. Retain PP bosses around the ports when lightening the shell. The heads
+mechanically capture the sleeve; no chemical bond to PP is assumed. The ports
+span x=11.5–14.5 mm, inside the straight-grip interval and outside the free bore.
+
+The proposed finished barrel diameter is **19.40 ± 0.05 mm**, and free liner
+bore **19.00 ± 0.05 mm**, giving 0.15–0.25 mm radial interference before
+eccentricity. A physical set should be checked over ten insertion/removal
+cycles, with the proposed qualification targets of insertion force ≤5 N,
+liner/key migration ≤0.2 mm, and retention against 0.5 N axial separation for
+ten seconds. These are **unperformed fixture-qualification targets**, separate
+from the scored one-second hand-clear checks. They are not experimental
+results or manufacturer guarantees. Full construction and measurement steps
+are in `PHYSICAL_REPRODUCTION.md`.
+
+Headless runs explicitly disable asynchronous renderer scheduling before scene initialization; this is process-local and does not change physics or camera geometry. CPU PhysX 240 Hz, control 20 Hz, observations 640×360. Static/dynamic friction
 is 1.2/1.0; task contact/rest offsets are 0.2/0 mm. Top camera is the existing
 station demo sensor with native pose and intrinsics, without crop or zoom.
-Calibrated wrist cameras are unchanged. Regenerate with
-`python build_assets.py CATALOG_MARKER_USD` using the recorded source.
-`python build_assets.py --caps-only` rebuilds just the revised caps offline
-without downloading or changing the historical catalog barrel meshes.
+Calibrated wrist cameras are unchanged. Regenerate all authored assets with
+`python build_assets.py`, or use `--pens-only` / `--caps-only` for the indicated
+subset. No download or source mesh argument is needed.
 
-## Asset attribution and license
+## Asset provenance
 
-The barrel visual geometry comes from NVIDIA's Isaac Sim 6.2 catalog asset
+All current task-object geometry is generated from original analytic primitives
+in `build_assets.py`. In each pen asset the barrel cylinder is now visible;
+there is no scanned mesh, external USD reference or catalog download. The four
+pen colliders, masses, relative transforms and materials are unchanged. The
+caps and destination assets are unchanged from the previous lined-cap revision.
+Destination textures contain rendered text; the font itself is not bundled.
+`assets/SOURCE.txt` and `assets/provenance.json` document the current source and
+asset hashes. Earlier recordings and historical Git commits contain the former
+catalog-derived barrel visual; they are retained as historical evidence, not
+bundled as the current revision's assets or recordings.
+
+The historical barrel asset was NVIDIA's catalog
 [`040_large_marker.usd`](https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.2/Isaac/Props/YCB/Axis_Aligned/040_large_marker.usd),
-under `Isaac/Props/YCB/Axis_Aligned/`. Its downloaded SHA-256 is
-`75673b47d4fcddfc2d7d5e825cf43b071f5e385c9f237126f8fe95abfc82df07`.
-The derived `assets/pen-red.usdc` and `assets/pen-blue.usdc` retain the central
-barrel mesh, trim the scanned ends, stretch the axis 1.4× and replace its
-materials. Pen ends/colliders, separate caps and destination prints are
-authored for this task; the catalog scan supplies no removable-cap mechanism.
-
-The named license is the
-[NVIDIA Isaac Sim Additional Software and Materials License](https://www.nvidia.com/en-us/agreements/enterprise-software/isaac-sim-additional-software-and-materials-license/).
-NVIDIA's [asset licensing FAQ](https://docs.isaacsim.omniverse.nvidia.com/6.2.0/common/license-faq.html)
-identifies this license for NVIDIA-provided assets, separately from Isaac Sim
-source-code licensing. Attribution does not establish permission to redistribute
-the modified mesh. The linked terms restrict distribution (§2.2) and derivative
-works (§2.4), prohibit notice removal (§2.5), and address separate component
-terms (§6). Asset-specific rights for the existing derived barrels remain
-unverified; resolve them before further distribution or replace the mesh with
-geometry whose rights are established. No permissive asset license is asserted.
-Source verification and provenance details are in `assets/SOURCE.txt` and
-`assets/provenance.json`.
+under `Isaac/Props/YCB/Axis_Aligned/`, associated with the
+**NVIDIA Isaac Sim Additional Software and Materials License**. Earlier versions
+trimmed and stretched its central scan mesh. This names the prior asset and
+license requested in the earlier review. The current pen files instead contain
+four original cylinders and no scan mesh; replacement removes the current
+submission's dependency on redistributing that adapted asset. No new permission
+claim is made for the historical files. Runtime-supplied station/robot assets
+remain dependencies of the documented simulator environment and are not bundled
+as task-object meshes here.
 
 ## Liner dimensions and retention approximation
 
-The chosen insert is a short silicone sleeve in the existing PP cap shell.
+The chosen insert is a short mechanically captured silicone sleeve in the PP cap shell.
 The physical nominal dimensions below are design specifications, not measured
 properties of an existing pen/cap product. All axial coordinates are cap-local:
 
@@ -119,9 +209,9 @@ properties of an existing pen/cap product. All axial coordinates are cap-local:
 | Rigid simulation backing aperture | 21.2 mm across flats |
 
 The silicone outside follows the shell's 16-sided seat. Its visible bore uses
-64 segments. The 0.4 mm recessed seat provides a bonding location. A PP/silicone-compatible
-primer and adhesive system still needs to be selected and verified by bond
-testing. No pull-off force follows from the dimensions
+64 segments. The 0.4 mm recessed seat and four molded-through radial keys locate
+and capture the physical insert; the keys are a physical manufacturing detail
+omitted from the simulated rigid shell. No adhesive is required. No pull-off force follows from the dimensions
 or Shore hardness alone. The insert occupies space that was previously empty;
 the shell dimensions, nominal assembly target and initial object layout stay
 the same. The chosen total cap mass remains 8 g, a simulation design parameter.
@@ -158,14 +248,16 @@ until reset or geometric invalidation. The same engagement test invalidates
 a separated, excessively eccentric or penetrating pair. It cannot validate
 physical pull-off strength. Wrong-color caps fit but receive no credit.
 
-Offline checks: `python -m pytest -q test_scoring.py test_retention.py test_alignment.py`.
-Runtime geometry, reset and normal-camera trials are complete on the same
-frozen source. The scripted demo scores 1.0 and Dream-1 beta scores 0.0.
-Measured engagement and retention through support release accompany the
-recorded views; all four scripted placements hold full credit at the end.
-These checks validate the simulation approximation, not real silicone holding
-force or the proposed adhesive bond. Exact results and source hashes are in
-`validation.json`, with a summary in `GPU_VALIDATION.md`.
+Offline checks: `python -m pytest -q` (81 passed, no skips). These cover fit,
+scoring, controller/recovery limits, solver settings and regeneration of the
+original pen assets without a source mesh. The runtime audit also verifies
+actual geometry, applied solver settings, joint/reset cleanup and motion-history
+reset. The full normal-camera demo and matching Dream run use identical frozen
+runtime inputs. Exact source hashes, terminal results and numerical/visual review
+records are in `validation.json`, with a summary in `GPU_VALIDATION.md`.
+These checks validate the stated simulation approximation, not physical silicone
+holding force. The former scan-visual runs remain explicitly historical in
+`previous-lined-validation.json` and `PREVIOUS_GPU_VALIDATION.md`.
 
 ## Controller and current validation
 
@@ -187,16 +279,12 @@ eight seconds for a 3 mm/s reinsertion. The common demo/model budget is 6,000 ac
 allow a slower contact approach. Numerical diagnostics without camera updates
 are development evidence only; final demo and Dream use the normal cameras.
 
-The revised scripted demo completed with score **1.0**, 4,910 actions and
-245.5 simulated seconds (613.21 seconds wall time) under the 6,000-action cap.
-All four caps remained attached and all four released placements held full
-credit through the final hold. Dream-1 beta completed 6,000 actions and
-300 simulated seconds with score **0.0** in 746.78 seconds wall time, with no
-trial errors. Both runs use identical frozen sources and settings.
-The runtime geometry/reset audit passed, including contact and motion-history
-cleanup; 77 task tests and one external approach regression passed.
-See `validation.json` for exact source hashes and records, and
-`GPU_VALIDATION.md` for the current evidence summary.
+The current results and media are listed above. The source manifests for the
+demo and Dream match exactly. The top timeline was sampled every two seconds
+for the demo and every five seconds for Dream, with wrist samples around each
+engagement or selected model-run windows. No team-identifying text was visible
+in the sampled media. These are simulation results; physical force performance
+of the specified sleeve/key construction remains unmeasured.
 
 ## Score and reset
 
@@ -225,33 +313,17 @@ camera observations after temporal-history flushing. Scorer tests cover
 partial and full outcomes, wrong colors, uncapped placement, missed insertion,
 side/angle errors, held/moving objects, destination errors and release duration.
 
-## Historical recorded runs (original unlined caps)
+## Calibration and historical evidence
 
-These records and `historical-validation.json` are preserved from the submitted
-revision. They do not validate the liner geometry or revised insertion gate.
-These historical records are separate from the revised results above.
+The native station-camera pose is approximately
+`(-0.166495,-0.009000,1.541821)` m, quaternion xyzw
+`(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention. At 640×360 the
+intrinsics are fx=392.195618, fy=391.722351, cx=318.389435, cy=177.876312.
+Wrist-camera calibration is unchanged from the pinned YAM station rig.
 
-Runtime revision: `2425d4f3d93b1a1e701c9ccc8df52523d2a369f5066168d618d4e5acc2fa4e58`.
-
-| Policy | Score | Steps | Video time | Wall time |
-| --- | ---: | ---: | ---: | ---: |
-| Scripted | 1.0 | 3,540 | 177.05 s | 365.77 s |
-| Dream-1 beta | 0.0 | 4,400 | 220.05 s | 485.50 s |
-
-Both completed without trial errors, using the same source revision, cameras,
-physics, seed 0, zero jitter and 4,400-step limit. The recorded videos and submission text were reviewed and approved for
-submission. The uploaded demo, Dream run and setup image are recorded as
-media `M-MYJ9A2` in `task.json`; synchronized wrist views are retained locally.
-
-The native top-camera pose is approximately `(-0.166495,-0.009000,1.541821)` m,
-quaternion xyzw `(0.212629,-0.212629,-0.674380,0.674380)`, OpenGL convention.
-At 640×360 its intrinsics are fx=392.195618, fy=391.722351,
-cx=318.389435, cy=177.876312. The historical calibration and result records are in
-`historical-validation.json`. Physics and reset checks in that record predate this liner revision.
-The recorded full score applies to its original synthetic-retention setup.
-
-The one-pen milestone demonstrated insertion and synthetic joint retention
-after release, without validating a physical retention feature.
-The next milestone capped and placed one red and one blue pen before scene
-expansion to four. The final 4,400-step budget was tightened from the initial
-4,800 after the full-score demo showed that 3,540 steps were sufficient.
+`historical-validation.json` describes the original **unlined** cap recordings;
+`previous-lined-validation.json` and `PREVIOUS_GPU_VALIDATION.md` describe the
+later lined-cap recordings with the former scan-derived barrel visuals. They
+are retained as historical records. The current `validation.json` and media ID
+above identify the new original-asset demo and Dream run. Earlier results and
+media IDs are not evidence for this revision's geometry or current recordings.

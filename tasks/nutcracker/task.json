@@ -1,0 +1,18 @@
+{
+  "title": "Crack a walnut with a figure nutcracker",
+  "category": "Societal relatability",
+  "keywords": [
+    "bimanual",
+    "tool use",
+    "nutcracker"
+  ],
+  "instruction": "Lift the lever on the nutcracker’s back to open its mouth, put the walnut in the mouth, then press the lever to crack it.",
+  "context": "A figure-style nutcracker uses a rear lever to open and close its mouth. A related pending board task cracks a walnut with a two-handle nutcracker and sorts the kernel and shell.",
+  "setup": "On a fixed table, a fixed wooden-soldier-style figure stands on a 130 × 130 mm base, with a centered rear lever, a 120 mm wide head and a 60 mm wide mouth. A 36 mm walnut rests on the table in front of the figure. In station coordinates the figure hinge is at (0.320, −0.040, 0.868) m and the walnut center at (0.201, 0.126, 0.763) m. Two YAM arms with parallel grippers start in the ready pose.",
+  "scoring": "1.0: native shell seam breaks with contact from the upper figure and lower moving body in the preceding 0.25 s; shell-rim landmarks separate ≥3 mm; fixture roots stay within 10 mm of their starting positions; shell heights are 0.7425–0.9675 m; both open grippers remain ≥80 mm from the objects and lever grip for 2 s. 0.25: intact walnut center is within (18, 20, 25) mm of (0.280, −0.040, 0.8795) m and the grippers are open and clear for 2 s. Otherwise 0.",
+  "run_limit": "2,400 actions (120 seconds at 20 Hz)",
+  "reset_notes": "Reset the two shell halves and native seam, the figure and both arms to the fixed seed-0 starting poses.",
+  "fidelity": "The figure and rear lever are rigid bodies; the walnut is two rigid shell halves joined by a breakable constraint. The kernel is a visual patch; shell deformation and fragments are not modeled. Joint limits are not calibrated external cracking forces. Contact telemetry identifies whole figure bodies rather than individual jaw surfaces. The hat collision may differ from its scaled visual, and the scripted gripper touches it.",
+  "scores": "Dream-1 beta: 0.0 (seed 0, 2,400 actions); scripted demo: 1.0 (seed 0, 1,551 actions).",
+  "media": "M-TX6JJV"
+}

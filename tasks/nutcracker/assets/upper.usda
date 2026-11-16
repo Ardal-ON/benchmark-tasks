@@ -1,0 +1,872 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    float physics:mass = 0.45
+
+    def Cube "LeftBoot" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/LeftBoot>
+        double size = 1
+        float3 xformOp:scale = (0.04, 0.055, 0.025)
+        double3 xformOp:translate = (-0.028, 0, -0.103)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def "Materials"
+    {
+        def Material "LeftBoot"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftBoot/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.04, 0.05)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightBoot"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightBoot/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.04, 0.05)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeftLeg"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftLeg/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.1, 0.17, 0.42)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightLeg"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightLeg/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.1, 0.17, 0.42)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Jacket"
+        {
+            token outputs:surface.connect = </Asset/Materials/Jacket/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.66, 0.05, 0.035)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "CollarBack"
+        {
+            token outputs:surface.connect = </Asset/Materials/CollarBack/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.66, 0.05, 0.035)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "CollarLeft"
+        {
+            token outputs:surface.connect = </Asset/Materials/CollarLeft/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.66, 0.05, 0.035)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "CollarRight"
+        {
+            token outputs:surface.connect = </Asset/Materials/CollarRight/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.66, 0.05, 0.035)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Belt"
+        {
+            token outputs:surface.connect = </Asset/Materials/Belt/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.04, 0.05)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Buckle"
+        {
+            token outputs:surface.connect = </Asset/Materials/Buckle/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.67, 0.08)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Head"
+        {
+            token outputs:surface.connect = </Asset/Materials/Head/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.68, 0.47)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "MouthSideL"
+        {
+            token outputs:surface.connect = </Asset/Materials/MouthSideL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.68, 0.47)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "MouthSideR"
+        {
+            token outputs:surface.connect = </Asset/Materials/MouthSideR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.68, 0.47)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Hat"
+        {
+            token outputs:surface.connect = </Asset/Materials/Hat/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.06, 0.1, 0.2)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "HatBrim"
+        {
+            token outputs:surface.connect = </Asset/Materials/HatBrim/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.06, 0.1)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "HatBand"
+        {
+            token outputs:surface.connect = </Asset/Materials/HatBand/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.85, 0.62, 0.1)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "HatBadge"
+        {
+            token outputs:surface.connect = </Asset/Materials/HatBadge/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.95, 0.7, 0.12)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "CoatGoldL"
+        {
+            token outputs:surface.connect = </Asset/Materials/CoatGoldL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.62, 0.09)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "CoatGoldR"
+        {
+            token outputs:surface.connect = </Asset/Materials/CoatGoldR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.62, 0.09)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "BeardL"
+        {
+            token outputs:surface.connect = </Asset/Materials/BeardL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.9, 0.84)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "BeardR"
+        {
+            token outputs:surface.connect = </Asset/Materials/BeardR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.9, 0.84)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "UpperLip"
+        {
+            token outputs:surface.connect = </Asset/Materials/UpperLip/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.93, 0.8, 0.65)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "EyeL"
+        {
+            token outputs:surface.connect = </Asset/Materials/EyeL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.03, 0.03, 0.03)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "EyeR"
+        {
+            token outputs:surface.connect = </Asset/Materials/EyeR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.03, 0.03, 0.03)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "Nose"
+        {
+            token outputs:surface.connect = </Asset/Materials/Nose/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.83, 0.52, 0.36)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "MoustacheL"
+        {
+            token outputs:surface.connect = </Asset/Materials/MoustacheL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.12, 0.08, 0.045)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "MoustacheR"
+        {
+            token outputs:surface.connect = </Asset/Materials/MoustacheR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.12, 0.08, 0.045)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightSleeve"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightSleeve/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.62, 0.04, 0.03)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightShoulder"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightShoulder/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.88, 0.66, 0.15)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightCuff"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightCuff/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.93, 0.84, 0.65)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RightHand"
+        {
+            token outputs:surface.connect = </Asset/Materials/RightHand/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.92, 0.68, 0.45)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeftSleeve"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftSleeve/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.62, 0.04, 0.03)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeftShoulder"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftShoulder/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.88, 0.66, 0.15)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeftCuff"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftCuff/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.93, 0.84, 0.65)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeftHand"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeftHand/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.92, 0.68, 0.45)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+    }
+
+    def Cube "RightBoot" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/RightBoot>
+        double size = 1
+        float3 xformOp:scale = (0.04, 0.055, 0.025)
+        double3 xformOp:translate = (0.028, 0, -0.103)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "LeftLeg" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.065
+        rel material:binding = </Asset/Materials/LeftLeg>
+        double radius = 0.015
+        double3 xformOp:translate = (-0.027, 0, -0.062)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "RightLeg" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.065
+        rel material:binding = </Asset/Materials/RightLeg>
+        double radius = 0.015
+        double3 xformOp:translate = (0.027, 0, -0.062)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "Jacket" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.049
+        rel material:binding = </Asset/Materials/Jacket>
+        double radius = 0.068
+        double3 xformOp:translate = (0, 0, -0.0695)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cube "CollarBack" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/CollarBack>
+        double size = 1
+        float3 xformOp:scale = (0.09, 0.04, 0.031)
+        double3 xformOp:translate = (0, -0.046, -0.0295)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "CollarLeft" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/CollarLeft>
+        double size = 1
+        float3 xformOp:scale = (0.026, 0.055, 0.031)
+        double3 xformOp:translate = (-0.05, 0.018, -0.0295)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "CollarRight" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/CollarRight>
+        double size = 1
+        float3 xformOp:scale = (0.026, 0.055, 0.031)
+        double3 xformOp:translate = (0.05, 0.018, -0.0295)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "Belt" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/Belt>
+        double size = 1
+        float3 xformOp:scale = (0.095, 0.004, 0.012)
+        double3 xformOp:translate = (0, 0.069, -0.06)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "Buckle" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/Buckle>
+        double size = 1
+        float3 xformOp:scale = (0.02, 0.003, 0.014)
+        double3 xformOp:translate = (0, 0.072, -0.06)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "Head" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.08
+        rel material:binding = </Asset/Materials/Head>
+        double radius = 0.06
+        double3 xformOp:translate = (0, 0.005, 0.0745)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cube "MouthSideL" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/MouthSideL>
+        double size = 1
+        float3 xformOp:scale = (0.014, 0.06, 0.034)
+        double3 xformOp:translate = (-0.037, 0.038, 0.018)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "MouthSideR" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/MouthSideR>
+        double size = 1
+        float3 xformOp:scale = (0.014, 0.06, 0.034)
+        double3 xformOp:translate = (0.037, 0.038, 0.018)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "Hat" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.038
+        rel material:binding = </Asset/Materials/Hat>
+        double radius = 0.047
+        float3 xformOp:scale = (0.9, 1, 1)
+        double3 xformOp:translate = (0, 0.005, 0.13)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "HatBrim" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.006
+        rel material:binding = </Asset/Materials/HatBrim>
+        double radius = 0.052
+        double3 xformOp:translate = (0, 0.005, 0.111)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cube "HatBand" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/HatBand>
+        double size = 1
+        float3 xformOp:scale = (0.05, 0.004, 0.008)
+        double3 xformOp:translate = (0, 0.053, 0.125)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "HatBadge" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/HatBadge>
+        double size = 1
+        float3 xformOp:scale = (0.013, 0.003, 0.016)
+        double3 xformOp:translate = (0, 0.056, 0.133)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "CoatGoldL" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/CoatGoldL>
+        double size = 1
+        float3 xformOp:scale = (0.005, 0.004, 0.055)
+        double3 xformOp:translate = (-0.023, 0.069, -0.028)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "CoatGoldR" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/CoatGoldR>
+        double size = 1
+        float3 xformOp:scale = (0.005, 0.004, 0.055)
+        double3 xformOp:translate = (0.023, 0.069, -0.028)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "BeardL" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/BeardL>
+        double size = 1
+        float3 xformOp:scale = (0.016, 0.006, 0.035)
+        double3 xformOp:translate = (-0.052, 0.055, 0.042)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "BeardR" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/BeardR>
+        double size = 1
+        float3 xformOp:scale = (0.016, 0.006, 0.035)
+        double3 xformOp:translate = (0.052, 0.055, 0.042)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "UpperLip" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/UpperLip>
+        double size = 1
+        float3 xformOp:scale = (0.06, 0.05, 0.008)
+        double3 xformOp:translate = (0, 0.04, 0.034)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "EyeL" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/EyeL>
+        double size = 1
+        float3 xformOp:scale = (0.01, 0.003, 0.01)
+        double3 xformOp:translate = (-0.022, 0.06, 0.094)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "EyeR" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/EyeR>
+        double size = 1
+        float3 xformOp:scale = (0.01, 0.003, 0.01)
+        double3 xformOp:translate = (0.022, 0.06, 0.094)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "Nose" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/Nose>
+        double size = 1
+        float3 xformOp:scale = (0.014, 0.015, 0.018)
+        double3 xformOp:translate = (0, 0.063, 0.074)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "MoustacheL" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/MoustacheL>
+        double size = 1
+        float3 xformOp:scale = (0.036, 0.008, 0.009)
+        double3 xformOp:translate = (-0.018, 0.06, 0.052)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "MoustacheR" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/MoustacheR>
+        double size = 1
+        float3 xformOp:scale = (0.036, 0.008, 0.009)
+        double3 xformOp:translate = (0.018, 0.06, 0.052)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "RightSleeve" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.078
+        rel material:binding = </Asset/Materials/RightSleeve>
+        double radius = 0.014
+        double3 xformOp:translate = (0.079, 0.02, -0.027)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "RightShoulder" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.009
+        rel material:binding = </Asset/Materials/RightShoulder>
+        double radius = 0.016
+        double3 xformOp:translate = (0.079, 0.02, 0.013)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "RightCuff" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.008
+        rel material:binding = </Asset/Materials/RightCuff>
+        double radius = 0.015
+        double3 xformOp:translate = (0.079, 0.02, -0.067)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "RightHand" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.022
+        rel material:binding = </Asset/Materials/RightHand>
+        double radius = 0.013
+        double3 xformOp:translate = (0.079, 0.02, -0.073)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "LeftSleeve" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.078
+        rel material:binding = </Asset/Materials/LeftSleeve>
+        double radius = 0.014
+        double3 xformOp:translate = (-0.079, 0.02, -0.027)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "LeftShoulder" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.009
+        rel material:binding = </Asset/Materials/LeftShoulder>
+        double radius = 0.016
+        double3 xformOp:translate = (-0.079, 0.02, 0.013)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "LeftCuff" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.008
+        rel material:binding = </Asset/Materials/LeftCuff>
+        double radius = 0.015
+        double3 xformOp:translate = (-0.079, 0.02, -0.067)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "LeftHand" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "Z"
+        double height = 0.022
+        rel material:binding = </Asset/Materials/LeftHand>
+        double radius = 0.013
+        double3 xformOp:translate = (-0.079, 0.02, -0.073)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}
+

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "robocurve-nutcracker"
+version = "0.1.0"
+[project.entry-points."inspect_robots.embodiments"]
+yam_nutcracker = "nutcracker_task.embodiment:make_embodiment"
+[project.entry-points."inspect_robots.policies"]
+nutcracker_scripted = "nutcracker_task.policy:make_policy"
+[tool.setuptools.packages.find]
+include = ["nutcracker_task*"]

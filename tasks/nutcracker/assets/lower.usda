@@ -1,0 +1,257 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Asset" (
+    prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+)
+{
+    float physics:mass = 0.16
+
+    def Cube "LowerJaw" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/LowerJaw>
+        double size = 1
+        float3 xformOp:scale = (0.06, 0.06, 0.008)
+        double3 xformOp:translate = (0, 0.045, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def "Materials"
+    {
+        def Material "LowerJaw"
+        {
+            token outputs:surface.connect = </Asset/Materials/LowerJaw/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.91, 0.73, 0.54)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawTooth0"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawTooth0/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.88, 0.79)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawTooth1"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawTooth1/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.88, 0.79)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawTooth2"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawTooth2/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.88, 0.79)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "FrontToothL"
+        {
+            token outputs:surface.connect = </Asset/Materials/FrontToothL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.88, 0.79)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "FrontToothR"
+        {
+            token outputs:surface.connect = </Asset/Materials/FrontToothR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.88, 0.79)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawPivot"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawPivot/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.45, 0.31, 0.18)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeverLink"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeverLink/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.28, 0.14)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "RearLever"
+        {
+            token outputs:surface.connect = </Asset/Materials/RearLever/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.46, 0.28, 0.14)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "LeverGrip"
+        {
+            token outputs:surface.connect = </Asset/Materials/LeverGrip/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.72, 0.5, 0.27)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+    }
+
+    def Cube "JawTooth0" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawTooth0>
+        double size = 1
+        float3 xformOp:scale = (0.058, 0.002, 0.003)
+        double3 xformOp:translate = (0, 0.025, 0.0055)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "JawTooth1" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawTooth1>
+        double size = 1
+        float3 xformOp:scale = (0.058, 0.002, 0.003)
+        double3 xformOp:translate = (0, 0.04, 0.0055)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "JawTooth2" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawTooth2>
+        double size = 1
+        float3 xformOp:scale = (0.058, 0.002, 0.003)
+        double3 xformOp:translate = (0, 0.055, 0.0055)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "FrontToothL" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/FrontToothL>
+        double size = 1
+        float3 xformOp:scale = (0.01, 0.005, 0.016)
+        double3 xformOp:translate = (-0.014, 0.071, 0.012)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "FrontToothR" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/FrontToothR>
+        double size = 1
+        float3 xformOp:scale = (0.01, 0.005, 0.016)
+        double3 xformOp:translate = (0.014, 0.071, 0.012)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "JawPivot" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawPivot>
+        double size = 1
+        float3 xformOp:scale = (0.028, 0.06, 0.012)
+        double3 xformOp:translate = (0, -0.025, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "LeverLink" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/LeverLink>
+        double size = 1
+        float3 xformOp:scale = (0.012, 0.18, 0.012)
+        double3 xformOp:translate = (0, -0.035, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "RearLever" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/RearLever>
+        double size = 1
+        float3 xformOp:scale = (0.018, 0.018, 0.1)
+        double3 xformOp:translate = (0, -0.12, -0.01)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "LeverGrip" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/LeverGrip>
+        double size = 1
+        float3 xformOp:scale = (0.08, 0.024, 0.024)
+        double3 xformOp:translate = (0, -0.12, 0.04)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+}
+

@@ -2,7 +2,7 @@
 
 Use a held paddle to complete three consecutive ball returns against a tabletop rebound board. One completed return is a held-blade strike, board-front contact, exactly one table bounce, then the next held-blade strike. Four paddle strikes, three board contacts and three intervening table bounces earn full credit. The initial feeder bounce starts the drill and is not a scored return.
 
-This is a compact practice drill on the supplied station, not a regulation-table match. A commercial rebounding-board construction and published paddle mass anchor the independently dimensioned apparatus. Physical build qualification and benchmark acceptance are separate from simulator feasibility.
+Category: **Societal relatability**. This is solo recreational table-tennis practice: use a paddle to send the ball to a return board and keep the next table bounce in play. It is a compact practice drill on the supplied station, not a regulation-table match. A commercial rebounding-board construction and published paddle mass anchor the independently dimensioned apparatus. Physical build qualification and benchmark acceptance are separate from simulator feasibility.
 
 ## Physical setup
 

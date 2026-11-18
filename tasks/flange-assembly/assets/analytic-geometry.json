@@ -1,0 +1,42 @@
+{
+  "flange_code": "721730208",
+  "pipe_code": "161017108",
+  "moving_mass_kg": 0.44461,
+  "elbow_code": "721100108",
+  "branch_cut_length_m": 0.2,
+  "plate_convex_triangles": 312,
+  "plate_area_m2": 0.009191505649526576,
+  "expected_polygon_area_m2": 0.009191505649526577,
+  "hole_diameter_mm": 14,
+  "max_hole_radial_conservatism_mm": 0.0337069132946215,
+  "moving_local_bbox_mm": [
+    [
+      -57.5,
+      -57.5,
+      0
+    ],
+    [
+      57.5,
+      217,
+      470.00000000000006
+    ]
+  ],
+  "fixed_local_bbox_mm": [
+    [
+      -57.5,
+      -57.5,
+      0
+    ],
+    [
+      57.5,
+      57.5,
+      203
+    ]
+  ],
+  "v_vertex_above_table_mm": 147.3725830020305,
+  "assets": {
+    "fixed_pipe.usda": "ae03b942a74bdb10637a87efec0ecb5c95d01d403528427237f78a4630af8043",
+    "moving_pipe.usda": "de30a9a26a4a36796fba150b0d8d91fcaf97b17b08839834d5e1841b0bae9968",
+    "v_rest.usda": "cf25d10d8b1a332bffe54c2afe8e6e51e4bd0877b1cc12adc76c1adf7d506124"
+  }
+}

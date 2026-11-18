@@ -1,68 +1,197 @@
-# Hold and align pipe flanges for horizontal pin insertion
+# Align a supported pipe joint and insert two bolts
 
-Hold the loose pipe flange against the fixed flange and insert two locating pins horizontally in the top and bottom holes. The loose flange is grasped by the side lug; the demonstration ends with the flange and upper pin still held. It does not claim the pins support the flange after release.
+Grip the ordinary straight pipe with one arm, clock and slide the supported
+spool until its flange holes align, and insert two bolts horizontally with the
+other arm. There is no added grip lug, collar or lifting handle. The moving
+part is a solvent-jointed PVC-U pipe spool on V rests, with a normal elbow and
+branch at its far end. The eccentric branch creates a roll moment that the
+holding arm must resist during insertion; the two V rests carry its weight.
 
-## Relevance and scope
+This evaluates the alignment/insertion stage of bench pipe fabrication. The
+joint is a dry fit: gasket installation, the remaining bolts, washers, nuts,
+torque and pressure sealing are outside the task. The demonstration may end
+with the pipe and second bolt held. It does not claim unsupported bolt retention.
 
-This is a lightweight fixture for evaluating the coordination needed to hold mating parts aligned while inserting locating pins. One arm supports the loose assembly against gravity and controls its orientation while the other approaches and inserts pins along a horizontal axis. Keeping the mating faces and bolt holes aligned during insertion is the assembly skill being evaluated. Flange alignment is a real pipework assembly operation; for example, [Enerpac's flange-alignment instructions](https://literature.enerpac.com/pdf/L4060_c_EN.pdf) describe aligning joint bolt holes. Industrial work can use dedicated alignment tools and lifting equipment; this fixture isolates a hand-supported alignment and insertion operation.
+## Real parts and dimensions
 
-The specified physical counterpart uses printed ABS parts and aluminum-bodied pins to keep the moving assembly light for the bimanual YAM setup. Its 150 mm flange geometry and insertion clearances are retained, but the mass and material are deliberately different from a solid steel flange. The evaluation concerns coordination and geometric fit; it does not demonstrate handling industrial steel pipe loads, gasket compression, bolt tightening or pressure sealing. Evidence reported here is from simulation. The construction below is a specification for a physical reproduction, not a claim that these parts have already been manufactured, weighed or tested.
+The [GF PVC-U manufacturer catalog](https://www.gfps.com/content/dam/gfps/com/product-ranges/en/gfps-00019b-product-range-pvc-u-en.pdf)
+provides these exact part rows (printed pages 12, 14, 63):
 
-## Setup
-
-All distances are metres and coordinates are in the calibrated YAM station frame, with `TOP = 0.7475`. The fixed flange is vertical, with its mating face at `(0.3145, 0.06, TOP + 0.17)`, supported by a fixed horizontal pipe 0.10 long and 0.054 in diameter and a 0.05 × 0.08 × 0.13 support. The loose 0.25 kg vertical flange starts at `(0.19, 0.20, TOP + 0.076)`, on three fixed staging blocks. It has a short pipe stub, a square coupling collar and a side lifting lug; these are rigidly attached. Both flanges use the CAD visual and a 0.016-thick perforated collision approximation with 0.016 diameter holes, on a 0.05499 bolt-circle radius.
-
-Two 0.035 kg rigid locating pins lie parallel, with their heads toward negative x, on identical 0.05 × 0.028 × 0.185 supports. Their nominal initial positions are `(0.32, -0.30, TOP + 0.195)` and `(0.32, -0.18, TOP + 0.195)`. Each has a 0.05-long tapered shank of diameter 0.014 and a 0.02-diameter, 0.01-thick head. Their specified construction is aluminum with a small steel mass insert, detailed below. Task-file coordinates, sizes, colors and reset poses are specified in `task.py`; the generated collision assets and `build_collisions.py` are included. The station and all supports are fixed. There is no object jitter; both arms reset to the ready pose.
-
-### Physical materials and construction
-
-Dimensions in this table are millimetres. Use unfilled ABS filament for the printed parts. The [Stratasys ABS-M30 material datasheet](https://www.stratasys.com/contentassets/5460e85552cf40a097148d125e8be84f/mds_fdm_abs-m30_0925a.pdf?v=4aa6a3) gives a representative specific gravity of 1.05; this is a planning value, not a measurement of a finished print. Record the actual filament, slicing settings and finished mass for a physical trial.
-
-| Part | Material and construction | Dimensions and mass requirement |
+| Part | Product and catalog dimensions | Mass used |
 | --- | --- | --- |
-| Loose flange | Printed ABS, with a closed outer skin and sparse interior; open center bore and bolt holes. | 150 outside diameter, 51 overall flange/neck depth, 16 plate thickness, 54 center bore; four 16 holes on a 54.99 bolt-circle radius. The **complete moving assembly**, including stub, collar, lug and joints, must weigh 250 ± 5 g; 250 g is not the flange plate's mass alone. |
-| Loose pipe stub and collar | Printed ABS, fused into the flange assembly or rigidly bonded with ABS-compatible two-part epoxy. Keep joints inside the modeled envelope. | Stub: 36 outside diameter × 80 long. Collar: 40 × 40 × 30. Their local positions are defined by `PipeStub` and `GripCollar` in `assets/flange_with_stub.usda`. These are closed lightweight props, without a functional fluid passage. |
-| Side lifting lug | Printed ABS connector and gripping block, rigidly joined to the same assembly. | Connector: 20 × 90 × 20; gripping block: 40 × 40 × 40. Local positions are `LiftingLugConnector` and `LiftingLugGrip` in the same asset. Included in the 250 g total. |
-| Fixed flange and pipe | Printed ABS flange with the same flange/neck dimensions as the loose part; printed ABS pipe prop, rigidly joined and anchored to the station fixture. | Fixed pipe: 54 outside diameter × 100 long. Fixed bodies have no simulated free-body mass; their weight is carried by the fixture, not the robot. |
-| Fixed mounting support | Printed ABS support, secured to the station with steel mounting hardware outside the insertion and gripper paths. | Main block: 50 × 80 × 130. Use an ABS saddle/riser to bridge the 13 mm clearance between the block top and the pipe's lowest surface; the pipe axis remains 170 mm above the table. Mounting joints and this riser are idealized by the fixed-body constraints and are not separate simulated geometry. |
-| Three loose-assembly staging blocks | Printed ABS, fixed to the station; no support follows the assembly after pickup. | 60 × 80 × 56, 18 × 80 × 70, and 25 × 35 × 55, at the poses in `task.py`. |
-| Two pin supports | Printed ABS, fixed to the station. | Each 50 × 28 × 185, at the poses in `task.py`. |
-| Two locating pins | Machined 6061-T6 aluminum shank and head, with a retained 304 stainless-steel insert inside each head to match the simulated mass. | Shank: 14 diameter × 50 long; the first 10 tapers linearly from an 8 diameter tip to 14. Head: 20 diameter × 10 thick. Target finished mass: 35 ± 1 g each. Insert dimensions and calculation follow below. |
+| Two fixed socket flanges | GF721730208, d32/DN25; 115 mm OD, 85 mm bolt circle, four 14 mm holes, 14 mm plate, 25 mm overall, 41 mm neck |183 g each |
+| Straight pipe | GF161017108, 32 mm OD, 2.4 mm wall; 430 mm moving cut, 200 mm fixed cut |347 g/m |
+| Moving elbow | GF721100108, 90°, 32 mm socket, 40 mm OD, 39 mm socket-mouth/intersection dimension, 17 mm z dimension |43 g |
+| Branch |200 mm cut of the same pipe |69.4 g |
 
-For the ABS assembly, use a starting print specification of a 0.4 mm nozzle, 0.2 mm layers, five perimeters (nominal 2 mm walls), 2 mm top/bottom skins and 15% gyroid infill. Keep continuous walls around the bores and lug connections. Boolean-union touching/overlapping component volumes before slicing, or print components separately and bond them rigidly. Adjust internal infill after the slicer's mass estimate and an actual scale measurement to reach 250 ± 5 g **including joints**; do not scale the exterior or change the bores, mating faces or grasp surfaces. These starting settings are not a validated print recipe or a guarantee of the target mass. Before a physical trial, check the finished dimensions and that the lug joints remain rigid while supporting the assembly; physical strength has not been validated here. Fixed ABS supports may use the same wall specification with 20% infill; their finished mass is not a scoring parameter.
+The complete moving spool has catalog-derived mass
+`183 + 430×0.347 + 43 + 200×0.347 = 444.61 g`, including the moving flange, two pipe cuts and elbow.
+These are catalog/planning masses, not measurements of a built specimen.
+Solvent cement contribution and exact physical inertia are unmeasured. Use the
+maker's compatible PVC-U solvent jointing process, 22 mm nominal socket insertion
+for the elbow and flange (L−z/H1−z), cure as directed, and record actual finished
+mass and socket depths. Do not add grasp features or change the pipe diameter.
 
-The low mass comes from the sparse interior, not just renaming a solid part as ABS. An ideal 150 mm annular plate with a 54 mm bore and four 16 mm holes has volume `pi * (75^2 - 27^2 - 4*8^2) * 16 = 233,232 mm^3`, or about 245 g of solid ABS at 1.05 g/cm³, **before** adding the neck, stub, collar and lug. The 250 g assembly therefore cannot be specified as solid ABS. Its material budget is approximately 238 cm³ of ABS-equivalent volume, reduced by the mass of adhesive or other joints; infill and cavities provide the weight reduction while preserving the external contact geometry.
+Two [norelem 07170-112X50 DIN 931 A2-70 bolts](https://norelem.co.uk/medias/07170-Datasheet-32104-Hexagon-head-bolts-with-shaft-DIN-931-ISO-4014-en.pdf?context=bWFzdGVyfHJvb3R8Mjg3OTY5fGFwcGxpY2F0aW9uL3BkZnxhRGt5TDJnd1lpODVOVEk1T0RNeU1qYzFPVGs0THpBM01UY3dYMFJoZEdGemFHVmxkRjh6TWpFd05GOUlaWGhoWjI5dVgyaGxZV1JmWW05c2RITmZkMmwwYUY5emFHRm1kRjlFU1U1Zk9UTXhYMGxUVDE4ME1ERTBMUzFsYmk1d1pHWXw3ODM5MWIxYjg5ZDVlMWM5N2E1ZTQ2NGI3ZDk3MDU0NzI3NzhlNDljMzMwZGVkOGMyNjUwN2FjNDZkNjkxMjFh)
+are M12×50, 19 mm across flats, 7.5 mm head height. Simulation uses a 12 mm smooth
+shank and hexagonal head. Threads and tip/head chamfers are omitted; the
+full-diameter blunt tip is a conservative insertion-clearance approximation.
+The 63.2 g assigned mass is the ideal solid stainless envelope estimate at
+7.9 g/cm³; actual threaded bolts must be weighed before physical comparison.
+This is an explicit mass/inertia approximation, not a claimed measured bolt.
 
-An entirely aluminum pin with the dimensions above would weigh about 27.7 g, rather than 35 g. The ideal shank plus head volume is 10.273 cm³; [the Aluminum Association's nominal density for 6061](https://www.aluminum.org/sites/default/files/2026-01/Teal%20Sheets%20December%202025.pdf) is 2.70 g/cm³. To reproduce 35 g without changing the outside shape, bore a nominal 15 mm diameter × 7.9 mm deep axial pocket into the **back of the head**, away from the insertion tip, and retain a flush 304 stainless insert with a fitted joint and retaining epoxy. At [304 stainless density 7.9 g/cm³](https://www.alleima.com/en/technical-center/material-datasheets/billets/sanmac-304304l/), replacing that aluminum volume adds approximately 7.3 g, giving about 35.0 g. Verify the finished mass on a scale and trim the internal insert as needed; the 24-sided simulated shaft and joint adhesive introduce small differences from this ideal calculation. An unballasted aluminum pin is a different mass configuration and is not the specified reproduction of the recorded run.
+## Supports, mounting and reset
 
-## Scoring
+Use two smooth 90° V rests under each pipe. Each rest has 30 mm axial length,
+60 mm width, flat bottom and two 45° faces. The notch vertex is 147.373 mm above
+the table, giving a 170 mm axis for 32 mm pipe. Outer top height is 177.373 mm.
+Machine the rests in aluminum or steel, use a thin low-friction liner without
+changing the finished contact envelope, and bolt their feet to the station.
+The maker's [vinyl mechanical joining guidance](https://www.gfps.com/content/dam/gfps/us/products/piping-systems/chlorfit/chlorfit-industrial/gfps-us-Training%20Material-PM-401Vinyl%20Mechanical%20Joining%20Rev%20005%2011-01-16-en.pdf)
+requires the piping to be well supported. Here the fixed pipe is additionally
+clamped to its rests with two ordinary straps; ideal fixed constraints replace
+those straps and mounting hardware in simulation.
 
-The final state alone is scored. Both flange axes must lie within 7.25 degrees of the horizontal pipe axis; all four corresponding bolt-hole centers must lie within 0.003 in 3D for the alignment credit of 0.4. A pin scores 0.3 when its axis points toward negative x within 7.25 degrees, its center is within 0.0045 of the top or bottom hole axis, and its bounding-box center is between 0.005 toward the head and 0.008 toward the tip from the mating plane. Only one pin counts per target hole; the side holes do not count. Without alignment the score is zero. Maximum is 1.0.
+Coordinates are metres in the YAM station frame, tabletop Z=0.7475:
 
-The scorer checks poses, not grasp contacts or velocities; a pin in a target hole can earn credit while held, and transient placements can be scored if present at the end. The demo stops with the second pin held, so it shows insertion but does not demonstrate release or unsupported retention. `python -m pytest -q test_score.py` exercises the geometry and partial-credit cases.
+* Fixed mating face: (.3145, .060, .9175), pipe extends toward +X. Fixed rests at
+  X=.400, .480, Y=.060. Its pipe cut runs 3–203 mm behind the flange face.
+* Moving mating face initially: (.290, .060, .9175), pipe extends toward −X.
+  Moving rests: X=−.020, .240, Y=.060. The 430 mm cut runs 3–433 mm behind the face;
+  elbow socket begins at 411 mm, its intersection is at 450 mm. The branch points
+  toward +Y at the target roll; its pipe cut runs 17–217 mm from that intersection.
+  Reset the spool to −15° roll about world X; align its bolt clocking with the
+  fixed flange by returning to 0°. Move its face to X=.3125, leaving 2 mm dry gap.
+* A 50 × 25 × 113 mm metal staging block centred X=−.160, Y=.195 supports the lowered
+  branch during reset. Clocking raises the branch clear of this block. With the 22.5 mm slide the
+  block remains partly below it; release can let the branch return to the
+  reset roll and lose hole alignment. It bears no branch load in the aligned
+  held pose. The branch is never a grasp surface.
+* Two 50 × 28 × 185 mm fixed pin stands are centred (.325, −.300) and (.325, −.180).
+  Bolts start along+X with heads toward −X, shaft origins (.320, Y, .9425), then
+  settle on the stands. The hex head overhangs the stand end.
+* Both arms reset to YAM ready: (0, 1, 1, −.6, 0, 0) rad, grippers open. No jitter. The four bolt holes straddle the horizontal/vertical centrelines at 45 degrees; the two upper holes are the targets.
 
-## Reproduction
+The robot pinches the bare pipe near X=−.090 before clocking, then holds near
+X=−.0675 after sliding. Grip across the 32 mm diameter; the scripted target gap
+is 24 mm under normal actuator limits. It never grasps the elbow/branch.
+The other arm grasps each bolt, aligns it with a hole and pushes horizontally.
+Fresh reset restores the intact spool and two bolts; inspect/clean contact
+surfaces and verify the actual bore/bolt fit. No specimen is preattached to a
+robot or assisted by a joint, pose write, alignment snap or external force.
 
-Use Isaac Lab Arena commit `c7edf3a9d5`, Inspect Robots 0.60.0, Isaac Lab Arena 0.3.0 and Isaac Lab 17.0.2. Install this directory as an editable package in the YAM environment. The extensions register `yam_flange` and `yam_flange_scripted`. The scripted demo uses measured simulator object poses as feedback for alignment; those privileged poses are not provided to Dream-1.
+## Score and simulation limits
+
+Final-state score: 0.4 for opposed horizontal flange axes within 7.25° and all
+four matching mating-face hole centres within 3 mm in 3D. Add 0.3 per distinct upper bolt only if its axis clears both ends of both 14 mm plate bores
+using the actual 32-sided shaft/bore polygons at all four plate planes, with only 50 µm numerical contact tolerance, its head bearing face is no more than 3 mm from the loose
+back face (at most 0.5 mm penetration tolerance), and its tip projects at least
+2 mm beyond the fixed plate. Side holes and duplicates do not count. Maximum 1.
+The scorer checks final geometry; actual continued bare-pipe holding and support must also be verified in the demonstration contact trace/video. Held parts can score; no release or load-bearing bolt retention is implied.
+Measure hole alignment, head gap and projecting tip from calibrated close-up
+front/side video or gauges on the real fixture; no simulated coordinates are
+needed to apply that physical rubric. Thirteen offline tests cover false centre-only
+seating, skewed bolts, duplicates, orientation, depth and partial credit.
+
+`build_collisions.py` generates original analytic rigid envelopes and an area
+check for 312 convex plate triangles, with true through holes. Inscribed 32-sided
+hole polygons reduce radial clearance by at most 0.034 mm. The elbow uses two
+intersecting annular envelopes; its internal flow passage and molding detail
+are simplified. Pipe/flange stiffness, solvent joints and the steel rests are
+rigid. Branch torque uses the component-mass centre estimate; compound-body
+inertia is approximate. No sparse printed prop or mass ballast is used.
+
+Assumed static/dynamic friction: spool 0.4/0.3, rests 0.25/0.2; bolt/default and
+robot-pad friction come from the installed runtime. These are unmeasured. CPU
+PhysX 480 Hz, 20 Hz control, 64 position/16 velocity iterations and CCD. No support
+follows the pipe. Set `FLANGE_DIAGNOSTICS_DIR` to a new output directory to save 20 Hz contact/pose records at close. Contact diagnostics record the actual spool/rest and
+spool/gripper colliders; ordinary actuator commands create all assembly forces.
+The scripted policy uses measured simulated poses, not supplied to Dream.
+
+## Reproduce and local evidence
+
+Validated runtime: Isaac Sim 6.1.0.0, Isaac Lab 17.0.2, Arena 0.3.0,
+YAM Arena 0.1.0 and Inspect Robots 0.60.0.
+
+In the existing environment, regenerate assets with NumPy/SciPy and run
+`python -m pytest -q test_score.py`. Use `run_local.py` to register this source for a single process without changing
+the installed environment, or install its existing `yam_flange`/`yam_flange_scripted`
+entry points. The command below uses the single-process registration:
 
 ```sh
-inspect-robots run --embodiment yam_flange --policy yam_flange_scripted \
-  -E task="$PWD/task.py" -E object_jitter=0 -E device=cpu \
-  -E control_hz=20 -E cam_width=320 -E cam_height=176 \
-  --instruction "Hold the loose pipe flange against the fixed flange and insert two pins horizontally in the top and bottom holes." \
-  --scorer task_score --max-steps 2700 --seed 0 --store-frames --log-dir ./demo-run
+python run_local.py run --embodiment yam_flange --policy yam_flange_scripted \
+ -E task="$PWD/task.py" -E object_jitter=0 -E device=cpu \
+ -E control_hz=20 -E cam_width=640 -E cam_height=360 \
+ --instruction 'Hold the supported pipe joint aligned by gripping the bare pipe, and insert two bolts horizontally in the two upper flange holes.' \
+ --scorer task_score --grader none --no-prompt --no-rerun --seed 0 \
+ --max-steps 2700 --store-frames --log-dir <new-output-dir>
 ```
 
-For Dream-1, substitute `--policy dream` and a separate log directory; retain the same task, instruction, seed, control rate, cameras and run limit. The scripted demonstration reported 1.0 at 2,231 steps in 226.7 seconds, environment revision `178813d85202`. Dream-1 reported 0.0 at 2,700 steps in 265.6 seconds, with the same environment revision. After both recordings, only the task file’s module docstring and one comment were updated; its resulting SHA-256 is `97b1eb57ed9ad668ad2720501a8608c995280b4025854bfeefa40fb5293a6071`, with no behavior change.
+For the matching baseline substitute `--policy dream -P model=dreamlabs/dream-1-beta`
+and use a new output directory. Both policies receive the same geometry,
+physics, cameras and 2,700-action limit.
 
-### Simulation differences and recorded evidence
+| Current local evidence | Score | Actions | Simulated time | Wall time |
+| --- | ---: | ---: | ---: | ---: |
+| Scripted demo006 | **1.0** | 2,321 | 116.05 s | 442.50 s |
+| Matching Dream001 | **0.0** | 2,700 | 135 s | 471.69 s |
 
-The simulation assigns 0.250 kg to the complete loose assembly and 0.035 kg to each pin explicitly; it does not calculate their masses from a steel density or model printed infill and the pin inserts. The CAD's gray metallic shader (including the asset's internal `Steel` material name) and the pins' gold display color are retained visual styling, not physical material specifications. The physical material specification is the ABS/aluminum construction above. The internal mass distributions of sparse prints and head inserts are not modeled; agreement with the physical parts' inertia has not been validated.
+Both trials completed without errors. Dream moved parts but did not align the
+joint or insert a bolt. Both bolts remain seated after the working
+hand withdraws. Final head gaps are about 0.916 mm and 0.299 mm. The 20 Hz
+trace records both holding fingertips on the bare pipe and both moving rests
+in every sampled insertion/push frame, with no working-hand/pipe or arm-to-arm
+contact. This sampling does not prove contact at every physics substep.
 
-The simulation uses simplified 16 mm perforated colliders, a rigid pipe stub and side lifting lug, and approximate contact friction. It does not model ABS layer structure, flexure or joint failure, aluminum surface finish, or measured ABS/aluminum friction. The fixed pipe is a solid cylindrical collider; the fixed fixture's mounting hardware and saddle/riser are omitted. It also omits gasket, threads, retaining clips, preload and fluid seal. It does not establish that the two pins retain the pipe when unsupported.
+The frozen runtime revision is
+`1aed237f5899e16d92caf05db489a0831b8f0901f12d552ccbffef0a99c2ab29`.
+Exact result hashes and scope are recorded in `validation.json`. Review
+media **M-YNZ89J** contains the matching model run, full-score demo and setup
+image. The demo and setup image combine synchronized station and oblique
+fixture views of one trajectory; the model video uses the native station view.
+Physical construction and force/friction qualification remain unperformed.
 
-This materials revision changes only this README and the descriptive `context`, `setup` and `fidelity` fields in `task.json`. Geometry, assigned masses, contact parameters, controller, instruction, scoring and run limit remain the ones used for the reported demo and Dream-1 recordings; the existing evidence therefore describes the same simulated task. It does not validate the proposed physical construction. Any later change to the simulated task requires corresponding updated run evidence.
 
-The original CAD source is [Innerscene pipe flange](https://www.innerscene.com/tools/library/3d-parts/pipe-flange-original-mep-cad-2a6f5077), [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+A paired holding check uses the same environment with scripted policy option
+`-P release_probe=true --max-steps 700`: after 22 s of clocking/holding it opens the
+left gripper, then withdraws it to ready while the right stays parked. This is
+an explicit controller ablation, not a successful task demo. It uses normal
+motor commands and no object pose/force writes. Compare flange roll/alignment
+and support/hand contacts before and after release to check the branch load.
 
-The demonstration video places the station and right-wrist cameras from the same recorded run side by side; the Dream video uses the station camera.
+
+The fixed 1280 × 720 oblique fixture camera records the same live trajectory when
+`FLANGE_DIAGNOSTICS_DIR` is set, including the whole spool and branch. Its eye
+is (.60, −.70, 1.85) m, target (.15, .04, .88) m, 20 mm focal length, 20.955 mm aperture.
+It is a diagnostic scene sensor; the model still receives only the standard
+three 640 × 360 RGB streams. Encoder output and 20 Hz contact/pose trace are saved
+at environment close. The controller smooths measured grasp offsets and uses
+joint integral correction bounded to 0.08 rad, with unchanged physical gains
+and effort limits. Pose feedback tracks the pipe axis at the bare-pipe grasp, rather than the asymmetric bounding-box centre or the flange tip beyond a support fulcrum. Failed grasps stop the scripted trial.
+
+
+The insertion gripper approaches 27° downward from horizontal, placing its
+palm above the pipe. Its jaws close transversely across the bolt head. Pickup
+uses this same orientation. The scripted controller centres the grasp on the
+observed settled head, then smoothly carries that correction through the lift.
+It measures the rigid grasp transform and corrects a small bolt-axis tilt during
+approach using ordinary joint commands. Failure to lift, a reversed grasp,
+post-lift tilt above 10°, or excessive slip stops the trial.
+
+Insertion has two stages. First, the held bolt is advanced through both plates,
+leaving the head about 9.5 mm from the loose flange. This intermediate position
+receives no bolt credit. Before opening the fingers, a separate controller gate
+requires the shaft to fit all four bore planes and project beyond the fixed
+plate. The gripper then backs away, closes, and pushes the head with its normal
+finger surfaces. The ordinary final scorer still requires a head gap of at most
+3 mm. The controller checks that strict score before clearing the head and
+moving to the next bolt. No washer compression is represented. This sequence
+is demonstrated by the local full-score run described above. Both policies use the same frozen runtime inputs.
+
+The bolt shaft uses 32 solid convex triangular prisms. Native cooking audits
+found that a single small-radius hull was reduced from 96 to 20 vertices; the
+sector representation preserves the specified 32-sided, 12 mm envelope. Small
+tip-chamfer hulls were also distorted by cooking, so that detail is omitted
+in favour of a full-diameter blunt collision/visual proxy. Scoring still checks
+the full shaft cross-section and both plate bores. No bore enlargement or
+scoring-tolerance relaxation compensates for cooking.

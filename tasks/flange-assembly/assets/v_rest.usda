@@ -1,0 +1,38 @@
+#usda 1.0
+( defaultPrim="Asset"
+ metersPerUnit=1
+ upAxis="Z" )
+def Xform "Asset" (prepend apiSchemas = ["MaterialBindingAPI"])
+{
+    rel material:binding = </Asset/Looks/Surface>
+    def Scope "Looks" {
+        def Material "Surface" {
+            token outputs:surface.connect = </Asset/Looks/Surface/Shader.outputs:surface>
+            def Shader "Shader" {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.44,0.47,0.49)
+                float inputs:metallic = 0.5
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+    }
+    def Mesh "Rest_m1" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+    {
+        point3f[] points = [(-0.015000000,0.000000000,0.000000000), (-0.015000000,-0.030000000,0.000000000), (-0.015000000,-0.030000000,0.177372583), (-0.015000000,0.000000000,0.147372583), (0.015000000,0.000000000,0.000000000), (0.015000000,-0.030000000,0.000000000), (0.015000000,-0.030000000,0.177372583), (0.015000000,0.000000000,0.147372583)]
+        int[] faceVertexCounts = [4,4,4,4,4,4]
+        int[] faceVertexIndices = [0,3,2,1,4,5,6,7,0,1,5,4,1,2,6,5,2,3,7,6,3,0,4,7]
+        uniform token subdivisionScheme = "none"
+        uniform token physics:approximation = "convexHull"
+        color3f[] primvars:displayColor = [(0.44,0.47,0.49)]
+    }
+    def Mesh "Rest_1" (prepend apiSchemas = ["PhysicsCollisionAPI", "PhysicsMeshCollisionAPI"])
+    {
+        point3f[] points = [(-0.015000000,0.000000000,0.000000000), (-0.015000000,0.030000000,0.000000000), (-0.015000000,0.030000000,0.177372583), (-0.015000000,0.000000000,0.147372583), (0.015000000,0.000000000,0.000000000), (0.015000000,0.030000000,0.000000000), (0.015000000,0.030000000,0.177372583), (0.015000000,0.000000000,0.147372583)]
+        int[] faceVertexCounts = [4,4,4,4,4,4]
+        int[] faceVertexIndices = [0,3,2,1,4,5,6,7,0,1,5,4,1,2,6,5,2,3,7,6,3,0,4,7]
+        uniform token subdivisionScheme = "none"
+        uniform token physics:approximation = "convexHull"
+        color3f[] primvars:displayColor = [(0.44,0.47,0.49)]
+    }
+}

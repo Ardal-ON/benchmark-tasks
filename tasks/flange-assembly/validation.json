@@ -1,0 +1,78 @@
+{
+  "status": "Validated revised source: demo1.0/Dream0.0 on identical runtime; independent review passed",
+  "runtime_revision": "1aed237f5899e16d92caf05db489a0831b8f0901f12d552ccbffef0a99c2ab29",
+  "demo": {
+    "trial": "demo-006",
+    "score": 1.0,
+    "actions": 2321,
+    "simulated_time_s": 116.05,
+    "wall_time_s": 442.50358403101563,
+    "status": "success",
+    "error": null,
+    "errored_trials": 0,
+    "native_result_sha256": "2752f2d2c9637898748656ee5f1ba71f0a704de301ca4e345e05c365dd15acc7",
+    "final_head_gaps_mm": {
+      "pin_1": 0.9164940702313493,
+      "pin_2": 0.2985154412798992
+    },
+    "trace_sha256": "c99253fe97868262cb0cdc6f5972f6ac3036f3276ccd1a81346cd83054e96b82"
+  },
+  "dream": {
+    "trial": "dream-001",
+    "score": 0.0,
+    "actions": 2700,
+    "simulated_time_s": 135.0,
+    "wall_time_s": 471.68703532777727,
+    "status": "success",
+    "error": null,
+    "errored_trials": 0,
+    "native_result_sha256": "8c3961bb00aeb406beb6e4c6327b85d0ed244c0656a4a4c880046362e69ffb54"
+  },
+  "checks": {
+    "scorer_tests": 13,
+    "cooked_geometry": "all32 shaft sectors, hex head and312 plate pieces retain exact authored vertices in native cooking-audit006; geometry equivalence to source021 recorded",
+    "grasp_frame": "actual URDF finger motion maps to worldY for both pickups",
+    "sampled_contacts": "both holding fingertips and both rests in every sampled insertion/push frame; both bolt fingertips during every sampled lift/transfer/insertion/seat frame",
+    "right_hand_pipe_contact_frames": 0,
+    "arm_arm_contact_frames": 0
+  },
+  "physical_scope": {
+    "commercial_parts_identified": true,
+    "specimen_built": false,
+    "forces_and_friction_measured": false,
+    "moving_mass_g": 444.61,
+    "mass_basis": "manufacturer component masses and cut-pipe length estimates; cement omitted",
+    "bolt_mass_g": 63.2,
+    "bolt_mass_basis": "ideal solid stainless envelope estimate, not measured",
+    "threads_and_chamfers": "omitted; full-diameter blunt shaft is conservative for clearance, not identical real contact dynamics"
+  },
+  "publication": {
+    "media_id": "M-YNZ89J",
+    "files": {
+      "video": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/flange-assembly/video.mp4",
+        "bytes": 2698876,
+        "sha256": "c9bd0da8cda3e9e60558a899d6f6cdf8ee33fa6810fd1d866f7637db6f0f73a6"
+      },
+      "demo": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/flange-assembly/demo.mp4",
+        "bytes": 7527160,
+        "sha256": "6c8870b01b0bd2fe3d1134c7b0cafe64dbef561cd7661d0173316083e88844d2"
+      },
+      "screenshot": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/flange-assembly/screenshot.png",
+        "bytes": 443745,
+        "sha256": "cbb249f618be77f77b1ee69b6f8b76c883301306cc4c3003c9fa11a44b708c00"
+      }
+    },
+    "scope": "Reviewed matching demo/model/setup uploaded; existing PR submission state is reported by its review bot"
+  },
+  "runtime_versions": {
+    "isaacsim": "6.1.0.0",
+    "isaaclab": "17.0.2",
+    "isaaclab_arena": "0.3.0",
+    "yam_arena": "0.1.0",
+    "inspect_robots": "0.60.0"
+  },
+  "credential": "temporary private file removed; absence verified"
+}

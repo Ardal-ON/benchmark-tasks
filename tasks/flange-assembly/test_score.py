@@ -12,8 +12,8 @@ def state(pos, q, resting=True):
 def assembly():
     s = np.sqrt(.5)
     fixed = state((.32, 0, .95), (0, s, 0, s))
-    loose = state((.2295, .02, .95), (0, -s, 0, s))
-    pins = [state(holes(fixed)[i] + (.004, 0, 0), (0, -s, 0, s)) for i in (0, 2)]
+    loose = state((-.0185, .07975, .95), (0, -s, 0, s))
+    pins = [state(holes(fixed)[i] + (.004, 0, 0), (0, -s, 0, s)) for i in (2, 1)]
     return fixed, loose, pins
 
 
@@ -66,7 +66,7 @@ def test_spin_about_pin_axis_does_not_affect_seating():
 
 def test_side_holes_do_not_count():
     f, l, p = assembly()
-    p[0].pos = holes(f)[1] + (.004, 0, 0)
+    p[0].pos = holes(f)[0] + (.004, 0, 0)
     assert abs(score(f, l, p) - .7) < 1e-9
 
 
@@ -74,3 +74,36 @@ def test_pin_not_through_joint_is_not_counted():
     f, l, p = assembly()
     p[0].pos[0] -= .03
     assert abs(score(f, l, p) - .7) < 1e-9
+
+
+def test_pin_must_clear_both_real_diameter_bores():
+    f,l,p=assembly()
+    p[0].pos[1]+=.002
+    assert abs(score(f,l,p)-.7)<1e-9
+
+
+def test_skewed_bolt_cannot_score_from_centre_alone():
+    f,l,p=assembly()
+    angle=-np.pi/2+np.deg2rad(5)
+    p[0].quat_xyzw=np.array([0,np.sin(angle/2),0,np.cos(angle/2)])
+    assert abs(score(f,l,p)-.7)<1e-9
+
+
+def test_former_tolerance_cannot_admit_intersection():
+    f,l,p=assembly()
+    p[0].pos[1]+=.0011
+    assert abs(score(f,l,p)-.7)<1e-9
+
+
+def test_legitimate_bolt_resting_at_bore_edge_counts():
+    f,l,p=assembly()
+    p[0].pos[2]-=.001
+    assert abs(score(f,l,p)-1.)<1e-9
+
+
+def test_through_shaft_with_unseated_head_is_not_final_credit():
+    from flange_assembly.geometry import count_engaged_bolts
+    f,l,p=assembly()
+    p[0].pos[0]-=.0065
+    assert abs(score(f,l,p)-.7)<1e-9
+    assert count_engaged_bolts(f,l,p)==2

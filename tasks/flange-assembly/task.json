@@ -1,5 +1,5 @@
 {
-  "title": "Hold and align pipe flanges for horizontal pin insertion",
+  "title": "Align a supported PVC-U pipe joint and insert two bolts",
   "category": "Impact on jobs",
   "keywords": [
     "bimanual",
@@ -7,13 +7,13 @@
     "flange alignment",
     "pin insertion"
   ],
-  "instruction": "Hold the loose pipe flange against the fixed flange and insert two pins horizontally in the top and bottom holes.",
-  "context": "A lightweight ABS fixture isolates the coordination needed to hold mating flange faces and bolt holes aligned with one arm while inserting horizontal locating pins with the other. It evaluates assembly alignment and insertion, without claiming industrial steel-load handling or pressure sealing.",
-  "setup": "Fixed-layout YAM station. Two printed ABS flanges: 150 mm OD, 51 mm overall depth, 16 mm plate, 54 mm bore, four 16 mm holes on a 55 mm radius. Loose ABS stub/collar/lug assembly: 250 g total using sparse infill; fixed ABS pipe: 100 x 54 mm OD. Two 35 g pins: 6061-T6 aluminum with 304 steel head inserts; 50 x 14 mm tapered shanks, 20 x 10 mm heads. All six mounting/staging/pin supports are fixed ABS. README specifies each support size, print/mass calibration, pin ballast and mounting; task.py/assets specify geometry and poses. No jitter.",
-  "scoring": "At the end, alignment within 3 mm and axes within 7.25° of the pipe earn 0.4. Add 0.3 for a pin in each of the top and bottom holes, axis within 7.25°, center within 4.5 mm radially and between 5 mm toward the head and 8 mm toward the tip from the mating plane. Only one pin counts per hole; without alignment the score is zero. Poses are scored, including while held.",
+  "instruction": "Hold the supported pipe joint aligned by gripping the bare pipe, and insert two bolts horizontally in the two upper flange holes.",
+  "context": "Bench fabrication: a supported real pipe spool must be clocked and slid into flange alignment while an eccentric elbow branch requires the bare-pipe grip to resist roll during horizontal bolt insertion. No added grasp lug.",
+  "setup": "GF 721730208 d32/DN25 PVC-U fixed socket flanges: 115 mm OD, 85 mm bolt circle, four 14 mm bores and 14 mm plates. GF 161017108 pipe: 32 mm OD, 2.4 mm wall, 430 mm moving cut and 200 mm fixed cut. Moving GF 721100108 elbow and 200 mm branch; 444.61 g catalog-derived spool mass. Four metal V rests, fixed-pipe straps and branch reset block. Bare 32 mm pipe grip. Two DIN 931 M12x50 A2-70 bolts: 19 mm AF, 7.5 mm heads, 63.2 g ideal solid-envelope mass estimate; threads/chamfers omitted. Exact mounting/reset in README.",
+  "scoring": "Final 0.4 for opposed horizontal axes within 7.25 degrees and all four mating holes within 3 mm. Add 0.3 per distinct upper bolt fitting the actual 32-sided shaft/bore polygons at both ends of both 14 mm plates, with 50 micrometre numerical contact tolerance, head gap at most 3 mm (0.5 mm penetration tolerance), and tip projection at least 2 mm. Held pipe can score; no unsupported joint-load or seal claim.",
   "run_limit": "2,700 control steps (135 seconds at 20 Hz).",
-  "reset_notes": "Restore the fixed-layout object poses and both arms to the ready pose; no object jitter.",
-  "fidelity": "Lightweight ABS/aluminum physical specification; construction is proposed, not physically validated. Simulation uses rigid CAD/collider shapes with assigned 250 g assembly and 35 g pin masses; no infill, steel pin-head inserts, print/joint deformation or measured material friction. Metallic colors are visual styling. Fixed mounting details are idealized. No gasket, threads, clips, preload or seal; final poses do not prove grasp contact or unsupported retention.",
-  "scores": "Dream-1: 0.0 (2,700 steps); scripted demo: 1.0 (2,231 steps).",
-  "media": "M-SXH5C5"
+  "reset_notes": "Restore the supported spool to minus 15-degree roll and 24.5 mm initial face gap, with its branch on the reset block. Both arms ready/open; two bolts on stands; no jitter. Inspect and clean real parts, verify mass/dimensions and cured solvent joints. No added grip feature.",
+  "fidelity": "Commercial PVC-U spool dimensions and catalog-derived mass replace the lugged prop. Rigid envelopes and approximate inertia; blunt smooth bolts omit threads/chamfers. Friction and physical forces are unmeasured; no physical build. Board demo combines synchronized station and fixture views of one run; Dream uses its native station view.",
+  "scores": "Revised scripted demo 1.0 in 2321/2700 actions (442.504 s wall); matching Dream-1 beta 0.0 at 2700 actions (471.687 s wall). Seed 0, no native errors; identical runtime 1aed237f5899e16d92caf05db489a0831b8f0901f12d552ccbffef0a99c2ab29.",
+  "media": "M-YNZ89J"
 }

@@ -1,11 +1,39 @@
-# Walnut force calibration (work in progress)
+# Simulation fidelity and limits
 
-The simulated walnut is a two-part rigid shell joined by a breakable constraint, not a deformable biological shell. A published compression study reports rupture-initiation forces of about 40–50 N, 371–450 N, and 103–171 N for three tested loading orientations, depending on moisture ([Saeidi et al., DOI 10.1111/j.1745-4549.2011.00601.x](https://doi.org/10.1111/j.1745-4549.2011.00601.x)). Those ranges are specimen- and protocol-specific; the simulation has not yet established a one-to-one orientation match.
+The figure is an original dimensioned fabrication, with an aluminum load path
+and hollow PETG exterior specified in REAL_TRIAL.md. It has not been built or
+load-qualified. Rigid external envelopes and assigned masses replace internal
+construction; their inertia and friction have not been measured on a physical
+assembly. Static/dynamic friction coefficients are 1.2/1.0, provisional values
+that require checking during physical commissioning.
 
-For a preliminary representative test, use approximately 270 N opposing jaw compression as a calibration target, consistent with an [experimental force-displacement example](https://dl.ifip.org/db/conf/ifip12/ccta2011-2/XuYB11.pdf), not as a universal walnut strength. Aim for an intact hold below 20 N and a deliberate squeeze around the target. These are design targets, not measured results. The idealized instantaneous lever force ratio is the nut's perpendicular moment arm divided by the handle's perpendicular moment arm; for nominal 20 mm and 140 mm arms it suggests roughly 39 N at the handle for 270 N at the nut, before friction, changing angles, contact placement, and inertial effects. Actual force must be measured.
+The walnut is two rigid halves with an attached visual kernel. It has no shell
+flexure, biological fracture network or independently separable kernel. A
+native fixed joint with provisional 200 N / 5 N m limits generates rupture;
+these are joint reaction limits, not measured external jaw compression or a
+calibrated walnut strength. Published walnut compression results vary strongly
+with orientation and moisture; they do not qualify this particular model.
+See [Saeidi et al.](https://doi.org/10.1111/j.1745-4549.2011.00601.x) and
+[Xu et al.](https://dl.ifip.org/db/conf/ifip12/ccta2011-2/XuYB11.pdf).
 
-The provisional native seam settings (200 N, 5 N m) are joint reaction limits, not calibrated external jaw forces. Earlier robot runs produced premature single-surface breaks, so the current model does not satisfy the requested force behavior. A fixture-only slow press with 90 N / 1.4 N m limits broke with both jaws contacting, with separate peak reported contact forces of 117 N upper and 86 N lower; the nut remained intact at diagnostic loading. However, that setting also broke prematurely in a robot trial; the stronger current setting is not yet calibrated. These are peak impulse-derived totals, not simultaneous normal-force measurements, so the force target was not established by that trial. Continue calibration with slow jaw compression, separately recording per-jaw normal forces, grip/lever forces, sustained contact, and joint failure; verify repeated low-force holds remain intact and a deliberate squeeze produces an opposing-jaw break near the chosen target. No successful force calibration is claimed.
+Shell-to-shell contact is filtered while the seam exists, approximating an
+intact body. After native rupture the broken joint and filter are removed at
+the first completed physics-step boundary. Ordinary fragment contact resumes
+one physics tick later in the recorded audit. No shell pose, velocity, force
+or impulse is overwritten at fracture. The 480 Hz trace records pair contacts,
+separation, positions and jaw impulse-derived contact totals around rupture.
+Those totals are diagnostic; they do not establish measured normal forces.
 
-A fixture-only stronger slow press with 200 N / 5 N m seam limits stayed intact at loading (peak lower contact 1.1 N) and broke during pressing with both jaws reporting contact; peak impulse-derived contact totals were 277 N upper and 283 N lower. These maxima need not be simultaneous or purely normal, and the diagnostic loaded the nut by a test-only pose write. This is a preliminary calibration, not evidence of a successful robot squeeze or force-accurate biological fracture.
+The score uses ordered opposing-jaw compression, normal rim opening, continuous
+mouth custody and exclusion of robot/foreign-object shell contact. Native seam
+rupture alone cannot earn credit. A 3 mm opening is a rigid-shell proxy for a
+visible crack, not a measurement of biological damage. Simulated support uses
+actual contact plus a stable-pose envelope over the final two seconds; it is
+an operational resting-state check, not a reconstructed force balance.
 
-Contact telemetry aggregates the full upper figure and full lower moving body. It does not distinguish jaw surfaces from other contacts. PhysX also warns that the scaled hat collision shape may differ from its visible geometry.
+The successful local demonstration uses normal robot joint commands, with
+simulator feedback for scripted motion planning. Object pose writes occur only
+at reset. Fixture-only bench diagnostics use a motor and pose placement and
+are not robot demonstrations. The fixed oblique witness camera records the
+same live demonstration trajectory; model inputs remain the standard three
+policy cameras. Matching run results and limitations are recorded in README.md.

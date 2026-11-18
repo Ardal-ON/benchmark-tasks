@@ -1,0 +1,44 @@
+{
+  "publication": {
+    "media_id": "M-V4JZ7P",
+    "files": {
+      "video": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/nutcracker/video.mp4",
+        "bytes": 2148622,
+        "sha256": "6d7fc53597ec07403d5b1f5e157c5f8f216a06c026c36b97a1b4d5935e3809ad"
+      },
+      "demo": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/nutcracker/demo.mp4",
+        "bytes": 3748720,
+        "sha256": "80f1bf485d8d842040481b84407ce2702b38c1f9d61cbdc0b05faf54bb493c34"
+      },
+      "screenshot": {
+        "path": "current/deliverables/revision-review-media-2026-11-17/nutcracker/screenshot.png",
+        "bytes": 143516,
+        "sha256": "a149d004168a3aa9bb0c46591cb269587048bc5c0df2856f131c0ec76aa7b4d8"
+      }
+    },
+    "scope": "Reviewed matching demo/model/setup uploaded; existing PR submission state is reported by its review bot"
+  },
+  "environment_revision": "d2bcea4533dbe1db36180c2d39d4963d59f25369131c29783bf2afc7c356210e",
+  "seed": 0,
+  "max_steps": 2400,
+  "demo": {
+    "score": 1.0,
+    "steps": 1553,
+    "wall_seconds": 243.68382250145078,
+    "native_result_sha256": "855fdebb9d7a91d59abf076f504b665ae3a44ae37da0b4ce0b9a194da1f21361",
+    "trial": "demo-020"
+  },
+  "dream": {
+    "score": 0.0,
+    "steps": 2400,
+    "wall_seconds": 370.1807459453121,
+    "errored_trials": 0,
+    "trial": "dream-001"
+  },
+  "offline_tests": 21,
+  "geometry_checks": 11,
+  "independent_visual_review": "TERRA_NUTCRACKER_VISUAL_020.md",
+  "physical_qualification": "unperformed; no force calibration claimed"
+}

@@ -9,7 +9,7 @@ def Xform "Asset" (
     prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
 )
 {
-    float physics:mass = 0.16
+    float physics:mass = 0.225
 
     def Cube "LowerJaw" (
         prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
@@ -17,7 +17,7 @@ def Xform "Asset" (
     {
         rel material:binding = </Asset/Materials/LowerJaw>
         double size = 1
-        float3 xformOp:scale = (0.06, 0.06, 0.008)
+        float3 xformOp:scale = (0.0596, 0.06, 0.008)
         double3 xformOp:translate = (0, 0.045, 0)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
     }
@@ -32,6 +32,32 @@ def Xform "Asset" (
             {
                 uniform token info:id = "UsdPreviewSurface"
                 color3f inputs:diffuseColor = (0.91, 0.73, 0.54)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawGuideL"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawGuideL/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "JawGuideR"
+        {
+            token outputs:surface.connect = </Asset/Materials/JawGuideR/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
                 float inputs:roughness = 0.7
                 token outputs:surface
             }
@@ -115,6 +141,45 @@ def Xform "Asset" (
             }
         }
 
+        def Material "HingeBoss"
+        {
+            token outputs:surface.connect = </Asset/Materials/HingeBoss/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "HingeAxle"
+        {
+            token outputs:surface.connect = </Asset/Materials/HingeAxle/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "StopHub"
+        {
+            token outputs:surface.connect = </Asset/Materials/StopHub/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
         def Material "LeverLink"
         {
             token outputs:surface.connect = </Asset/Materials/LeverLink/Surface.outputs:surface>
@@ -123,6 +188,32 @@ def Xform "Asset" (
             {
                 uniform token info:id = "UsdPreviewSurface"
                 color3f inputs:diffuseColor = (0.46, 0.28, 0.14)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "StopPad"
+        {
+            token outputs:surface.connect = </Asset/Materials/StopPad/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
+                float inputs:roughness = 0.7
+                token outputs:surface
+            }
+        }
+
+        def Material "StopCrank"
+        {
+            token outputs:surface.connect = </Asset/Materials/StopCrank/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.55, 0.57, 0.59)
                 float inputs:roughness = 0.7
                 token outputs:surface
             }
@@ -153,6 +244,28 @@ def Xform "Asset" (
                 token outputs:surface
             }
         }
+    }
+
+    def Cube "JawGuideL" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawGuideL>
+        double size = 1
+        float3 xformOp:scale = (0.004, 0.05, 0.012)
+        double3 xformOp:translate = (-0.0278, 0.04, 0.01)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "JawGuideR" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/JawGuideR>
+        double size = 1
+        float3 xformOp:scale = (0.004, 0.05, 0.012)
+        double3 xformOp:translate = (0.0278, 0.04, 0.01)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
     }
 
     def Cube "JawTooth0" (
@@ -221,6 +334,41 @@ def Xform "Asset" (
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
     }
 
+    def Cube "HingeBoss" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/HingeBoss>
+        double size = 1
+        float3 xformOp:scale = (0.0596, 0.012, 0.012)
+        double3 xformOp:translate = (0, 0.02, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cylinder "HingeAxle" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "X"
+        double height = 0.092
+        rel material:binding = </Asset/Materials/HingeAxle>
+        double radius = 0.003
+        double3 xformOp:translate = (0, 0.02, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Cylinder "StopHub" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        uniform token axis = "X"
+        double height = 0.004
+        rel material:binding = </Asset/Materials/StopHub>
+        double radius = 0.007
+        double3 xformOp:translate = (0.042, 0.02, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
     def Cube "LeverLink" (
         prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
     )
@@ -228,8 +376,31 @@ def Xform "Asset" (
         rel material:binding = </Asset/Materials/LeverLink>
         double size = 1
         float3 xformOp:scale = (0.012, 0.18, 0.012)
-        double3 xformOp:translate = (0, -0.035, 0)
+        double3 xformOp:translate = (0, -0.035, -0.012)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "StopPad" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/StopPad>
+        double size = 1
+        float3 xformOp:scale = (0.004, 0.01, 0.003)
+        double3 xformOp:translate = (0.042, -0.01, -0.0195)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+    }
+
+    def Cube "StopCrank" (
+        prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI"]
+    )
+    {
+        rel material:binding = </Asset/Materials/StopCrank>
+        double size = 1
+        float xformOp:rotateX = 33.02387
+        float3 xformOp:scale = (0.004, 0.03578, 0.006)
+        double3 xformOp:translate = (0.042, 0.005, -0.00975)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateX", "xformOp:scale"]
     }
 
     def Cube "RearLever" (

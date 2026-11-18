@@ -1,6 +1,6 @@
 {
   "title": "Crack a walnut with a figure nutcracker",
-  "category": "Societal relatability",
+  "category": "Societal relevance",
   "keywords": [
     "bimanual",
     "tool use",
@@ -8,11 +8,11 @@
   ],
   "instruction": "Lift the lever on the nutcracker’s back to open its mouth, put the walnut in the mouth, then press the lever to crack it.",
   "context": "A figure-style nutcracker uses a rear lever to open and close its mouth. A related pending board task cracks a walnut with a two-handle nutcracker and sorts the kernel and shell.",
-  "setup": "On a fixed table, a fixed wooden-soldier-style figure stands on a 130 × 130 mm base, with a centered rear lever, a 120 mm wide head and a 60 mm wide mouth. A 36 mm walnut rests on the table in front of the figure. In station coordinates the figure hinge is at (0.320, −0.040, 0.868) m and the walnut center at (0.201, 0.126, 0.763) m. Two YAM arms with parallel grippers start in the ready pose.",
-  "scoring": "1.0: native shell seam breaks with contact from the upper figure and lower moving body in the preceding 0.25 s; shell-rim landmarks separate ≥3 mm; fixture roots stay within 10 mm of their starting positions; shell heights are 0.7425–0.9675 m; both open grippers remain ≥80 mm from the objects and lever grip for 2 s. 0.25: intact walnut center is within (18, 20, 25) mm of (0.280, −0.040, 0.8795) m and the grippers are open and clear for 2 s. Otherwise 0.",
+  "setup": "Fixed reinforced figure on a 130 × 130 × 12 mm bolted aluminum base; aluminum jaws, carrier and rear lever, PETG exterior (dimensioned REAL_TRIAL.md and fabrication-envelope.csv). Head Ø120 mm, mouth 60 mm wide, upper/moving masses 450/225 g. Figure origin (320,−40,867.5) mm, yaw +90°. One raw dried in-shell English walnut, nominal 36 × 32 × 36 mm and 14 g, from a recorded lot, at (200,130,766.5) mm before settling on a 747.5 mm table. Two ready-pose YAM arms.",
+  "scoring": "Video witness: opposing jaw contact with ≥1° closure, then continuous mouth custody and no robot/other-object shell contact until first ≥0.5mm fissure and first ≥3mm normal opening. Threshold provenance is irreversible; no reveal deadline. Valid crack plus final2s released containment earns1.0; never-measurably-cracked shell seated/supported earns0.25; else0. Grippers open≥70mm/clear≥80mm, fixture moves<10mm, shells on table/in mouth ≤220mm above table. REAL_TRIAL.md specifies ROI and annotation.",
   "run_limit": "2,400 actions (120 seconds at 20 Hz)",
-  "reset_notes": "Reset the two shell halves and native seam, the figure and both arms to the fixed seed-0 starting poses.",
-  "fidelity": "The figure and rear lever are rigid bodies; the walnut is two rigid shell halves joined by a breakable constraint. The kernel is a visual patch; shell deformation and fragments are not modeled. Joint limits are not calibrated external cracking forces. Contact telemetry identifies whole figure bodies rather than individual jaw surfaces. The hat collision may differ from its scaled visual, and the scripted gripper touches it.",
-  "scores": "Dream-1 beta: 0.0 (seed 0, 2,400 actions); scripted demo: 1.0 (seed 0, 1,551 actions).",
-  "media": "M-TX6JJV"
+  "reset_notes": "New intact raw English walnut from same lot each trial; select 34–38 × 30–34 × 34–38 mm, 12–16 g, condition 48 h at 20–24 C and 40–60% RH. No soaking/scoring/precracking. Inspect and clean jaws, reset lever to zero and arms ready. Physical build/qualification and specimen record in REAL_TRIAL.md.",
+  "fidelity": "Dimensioned reinforced figure; physical fabrication/load qualification unperformed. Rigid envelopes, assigned masses and unmeasured friction approximate the hollow/metal build. Walnut is two rigid halves with an uncalibrated 200 N/5 Nm seam and attached visual kernel. Observable opening/contact/custody approximate REAL_TRIAL.md video scoring. Board demo combines synchronized station and witness views of one run; Dream uses its native station view.",
+  "scores": "Revised scripted demo 1.0 in 1553/2400 actions (243.684 s wall); matching Dream-1 beta 0.0 at 2400 actions (370.181 s wall). Seed 0, no native errors; identical runtime d2bcea4533dbe1db36180c2d39d4963d59f25369131c29783bf2afc7c356210e.",
+  "media": "M-V4JZ7P"
 }

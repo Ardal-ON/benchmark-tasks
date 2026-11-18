@@ -1,0 +1,18 @@
+{
+  "title": "Tip, roll and park a tabletop hand truck",
+  "category": "Other",
+  "keywords": [
+    "passive wheels",
+    "tipping",
+    "tabletop replica"
+  ],
+  "instruction": "Tip the compact loaded trolley onto its wheels, roll it to the near mark, stand and release it.",
+  "context": "A deliberately miniature manipulation apparatus for changing between standing and wheel-supported transport. It does not claim to reproduce full-size freight handling.",
+  "setup": "Unchanged YAM station table (1.10x1.30 m, top 0.7475 m), bases and calibrated cameras. Aluminum/steel replica: 300 mm reference body, 309 mm including foam sleeve, 115.625 mm wide, 112.5 mm long, 172.281 g; two passive cushion-wheel approximations, diameter 62.5x12.5 mm, 20.273 g each. Left jaws physically hold the 26 mm sleeve; right arm ready. Axle midpoint (0.460,0.100,0.77875) m; yaw +90 degrees, nose toward +X. Loose wood block 60x35x100 mm, 105 g, local centre (0,-0.0225,0.052) m. Green 40x200x1 mm visual mark centred (0.310,0.100,0.748). Product-derived mass, build dimensions and reset joint poses are in the physical design and source.",
+  "scoring": "Final score. 0.25: tilt >8 degrees with nose >8 mm above table. 0.5: additionally each wheel has >125 mm net and table-supported travel, signed turn >3.5 rad and |radius*turn-travel|<25 mm; axle X in (0.285,0.335), Y within 40 mm of 0.100 m. 1.0: additionally upright <2 degrees, released >0.5 s, both TCPs >120 mm from handle, frame/load speed <10 mm/s, held for 1 s. Load displacement >25 mm/axis or relative rotation >15 degrees, robot/load contact, excessive wheel height or both wheels unsupported >0.25 s terminates at zero. Full numeric rules and wheel-index video measurement are in README.",
+  "run_limit": "480 control steps (24 simulated seconds at 20 Hz); fixed seed 0.",
+  "reset_notes": "Replace the cart/load in the specified poses and restore initial joints and physical jaw hold. No glue, attachment or driven wheel. Nothing consumed.",
+  "fidelity": "Rigid native contacts at 480 Hz; stock station and cameras. Magliner-based 300 mm scale replica, not a sold product or full-size handling trial. Mass scales with volume; foam sleeve adds mass. Explicit compound inertias; hollow-tube collision envelopes and rigid 64-sided tires. Passive dissipative bearings. Friction and compliance are unmeasured; no tire/foam deformation or hardware qualification. Original parametric geometry.",
+  "scores": "Scripted demo: 1.0 (248 steps); Dream-1 beta: 0.0 (157 steps, invalid). Same final environment revision, seed 0, 480-step limit.",
+  "media": ""
+}

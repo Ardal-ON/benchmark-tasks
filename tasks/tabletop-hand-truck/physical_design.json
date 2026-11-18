@@ -1,0 +1,448 @@
+{
+  "reference": {
+    "product": "Magliner116-UA-1030",
+    "url": "https://www.magliner.com/116-ua-1030",
+    "height_m": 1.2192,
+    "width_m": 0.4699,
+    "length_m": 0.4572,
+    "total_mass_kg": 10.886216880000001,
+    "wheel_product": "101030",
+    "wheel_url": "https://www.magliner.com/10-inch-ballon-cushion-wheel-101030",
+    "wheel_diameter_m": 0.254,
+    "wheel_width_m": 0.0508,
+    "wheel_unit_mass_kg": 1.3607771100000001
+  },
+  "scale": 0.24606299212598423,
+  "derived": {
+    "height_m": 0.3,
+    "width_m": 0.115625,
+    "length_m": 0.1125,
+    "wheel_diameter_m": 0.0625,
+    "wheel_width_m": 0.0125,
+    "nose_size_m": [
+      0.1125,
+      0.046875,
+      0.002
+    ],
+    "reference_scaled_base_mass_kg": 0.16218694166134637,
+    "total_mass_kg": 0.17228087885733037,
+    "wheel_mass_kg": 0.020273367707668296,
+    "frame_mass_kg": 0.13173414344199377,
+    "frame_com_m": [
+      0.0,
+      0.0017227256609879881,
+      0.09513407458356109
+    ],
+    "frame_inertia_kg_m2": [
+      [
+        0.0014709568254996828,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0015652453294038584,
+        -5.6914716701561814e-06
+      ],
+      [
+        0.0,
+        -5.6914716701561814e-06,
+        0.00018582093857169856
+      ]
+    ],
+    "frame_principal_inertia_kg_m2": [
+      0.0001857974560970078,
+      0.0014709568254996828,
+      0.001565268811878549
+    ],
+    "bracket_thickness_m": 0.008535979161897496
+  },
+  "parts": [
+    {
+      "name": "left_rail",
+      "mass_kg": 0.01686281272740857,
+      "centre_m": [
+        -0.037,
+        0.0,
+        0.154
+      ],
+      "inertia": [
+        [
+          0.0001134459778580351,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0001134459778580351,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.107851590926071e-07
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.284,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "Z",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "right_rail",
+      "mass_kg": 0.01686281272740857,
+      "centre_m": [
+        0.037,
+        0.0,
+        0.154
+      ],
+      "inertia": [
+        [
+          0.0001134459778580351,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0001134459778580351,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.107851590926071e-07
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.284,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "Z",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "cross0",
+      "mass_kg": 0.004393831485310684,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.05
+      ],
+      "inertia": [
+        [
+          5.4922893566383546e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.032513214579967e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.032513214579967e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.074,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "X",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "cross1",
+      "mass_kg": 0.004393831485310684,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.13
+      ],
+      "inertia": [
+        [
+          5.4922893566383546e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.032513214579967e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.032513214579967e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.074,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "X",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "cross2",
+      "mass_kg": 0.004393831485310684,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.21
+      ],
+      "inertia": [
+        [
+          5.4922893566383546e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.032513214579967e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.032513214579967e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.074,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "X",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "cross3",
+      "mass_kg": 0.004393831485310684,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.296
+      ],
+      "inertia": [
+        [
+          5.4922893566383546e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2.032513214579967e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.032513214579967e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.074,
+        "outer_radius_m": 0.004,
+        "inner_radius_m": 0.003,
+        "axis": "X",
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "nose",
+      "mass_kg": 0.0284765625,
+      "centre_m": [
+        0.0,
+        -0.0234375,
+        0.001
+      ],
+      "inertia": [
+        [
+          5.2237065124511725e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          3.0043366699218754e-05,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.5248088836669925e-05
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.1125,
+          0.046875,
+          0.002
+        ],
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "axle",
+      "mass_kg": 0.010172869711405448,
+      "centre_m": [
+        0.0,
+        0.034375,
+        0.03125
+      ],
+      "inertia": [
+        [
+          2.0345739422810894e-08,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          9.02567996258293e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          9.02567996258293e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.103125,
+        "outer_radius_m": 0.002,
+        "inner_radius_m": 0.0,
+        "axis": "X",
+        "density_kg_m3": 7850
+      }
+    },
+    {
+      "name": "left_axle_bracket",
+      "mass_kg": 0.01584491131927223,
+      "centre_m": [
+        -0.037,
+        0.0171875,
+        0.03125
+      ],
+      "inertia": [
+        [
+          2.088412953506942e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.243726128723985e-07,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.6564581450945255e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.008535979161897496,
+          0.034375,
+          0.02
+        ],
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "right_axle_bracket",
+      "mass_kg": 0.01584491131927223,
+      "centre_m": [
+        0.037,
+        0.0171875,
+        0.03125
+      ],
+      "inertia": [
+        [
+          2.088412953506942e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          6.243726128723985e-07,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.6564581450945255e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.008535979161897496,
+          0.034375,
+          0.02
+        ],
+        "density_kg_m3": 2700
+      }
+    },
+    {
+      "name": "grip_sleeve",
+      "mass_kg": 0.010093937195984004,
+      "centre_m": [
+        0.0,
+        0.0,
+        0.296
+      ],
+      "inertia": [
+        [
+          9.336891906285204e-07,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          3.4950257541094613e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          3.4950257541094613e-06
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_tube_collision_envelope",
+        "length_m": 0.06,
+        "outer_radius_m": 0.013,
+        "inner_radius_m": 0.004,
+        "axis": "X",
+        "density_kg_m3": 350
+      }
+    }
+  ],
+  "assumptions": [
+    "This is a built miniature replica, not a manufacturer-sold300mm industrial truck.",
+    "Manufacturer whole/wheel masses scaled with s^3 at unchanged density. Force/inertia equivalence to fullsize is not claimed.",
+    "Unpublished tube/bracket/nose thicknesses are deliberate build dimensions. Bracket thickness closes the derived frame mass budget using aluminum2700kg/m3.",
+    "Axle uses steel7850kg/m3. Tube collisions are outer envelopes but masses use hollow tube volumes.",
+    "Wheel uses actual scaled unit mass; cylinder inertia approximates cushion rubber, polyolefin hub and bearings. Collision uses64-sided convex hull. Passive zero-target viscous bearing drive damping2e-7 USD angular units, stiffness0, max torque.001Nm; no commanded wheel motion.",
+    "An added60mm-long26mm-OD grip sleeve (8mm bore, assumed foam density350kg/m3) adds mass beyond the scaled reference and increases overall height9mm.",
+    "Physical apparatus and friction/bearing parameters have not been measured."
+  ]
+}

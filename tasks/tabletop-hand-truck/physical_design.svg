@@ -1,1 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="530" viewBox="0 0 800 530"><rect width="800" height="530" fill="white"/><style>text{font:18px sans-serif;fill:#17202b}.s{font-size:14px}.d{stroke:#43576b;stroke-width:2;fill:none}.o{stroke:#263746;stroke-width:8;fill:none}</style><text x="30" y="32">Tabletop hand-truck replica — schematic, dimensions in mm</text><path class="o" d="M190 100 V390 M330 100 V390 M190 100 H330 M190 240 H330 M180 393 H340"/><rect x="200" y="85" width="120" height="26" rx="13" fill="#bcc8d6" stroke="#263746"/><circle cx="175" cy="410" r="46" fill="#424a52"/><circle cx="345" cy="410" r="46" fill="#424a52"/><rect x="205" y="265" width="110" height="140" fill="#d6a66e" stroke="#263746"/><path class="d" d="M125 88 H95 V411 H125 M365 88 H395 V411 H365 M155 475 H365 M155 465 V485 M365 465 V485"/><text x="20" y="245">309 overall</text><text x="400" y="245">300 body</text><text x="178" y="510">115.625 reference width</text><text class="s" x="455" y="110">Grip sleeve: Ø26 × 60; bore Ø8</text><text class="s" x="455" y="150">Rail tube: Ø8 outside / Ø6 inside</text><text class="s" x="455" y="190">Wheels: Ø62.5 × 12.5 each</text><text class="s" x="455" y="230">Nose: 112.5 × 46.875 × 2</text><text class="s" x="455" y="270">Wood load: 60 × 35 × 100</text><text class="s" x="455" y="310">Axle Ø4; brackets 8.536 thick</text><text class="s" x="455" y="350">Frame silhouette is approximate</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820">
+<rect width="1280" height="820" fill="white"/>
+<style>text{font:16px sans-serif;fill:#1e293b}.small{font-size:13px}.dim{stroke:#475569;stroke-width:1.5;fill:none}.metal{fill:#a8b1bb;stroke:#64748b;stroke-width:.7}.dark{fill:#252c28;stroke:#111;stroke-width:.7}.strap{fill:#50643b}.tire{fill:#252525;stroke:#111}.hub{fill:#afb6af;stroke:#555}.paper{fill:#e7e4da;stroke:#777}.grip{fill:#ec8c22}.wood{fill:#9a744a;stroke:#76552d}</style>
+<text x="30" y="35" class="">Wesco Mini Mover 220646: actual operating envelope and original modeled geometry</text>
+<text x="30" y="62" class="small">Orthographic proxy at 450 pixels per meter. Published size is 1:1; internal profiles, hinges, masses and axle offset are estimates.</text>
+<text x="205" y="135" class="">Front view</text>
+<text x="670" y="135" class="">Side view: toe faces right</text>
+<rect x="174.275" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="340.325" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="179.675" y="644.600" width="160.650" height="2.700" class="metal"/>
+<rect x="179.675" y="644.600" width="160.650" height="2.700" class="metal"/>
+<rect x="179.675" y="644.600" width="160.650" height="2.700" class="metal"/>
+<rect x="179.675" y="644.600" width="160.650" height="2.700" class="metal"/>
+<rect x="179.675" y="644.600" width="160.650" height="2.700" class="metal"/>
+<rect x="212.300" y="647.300" width="5.400" height="2.700" class="metal"/>
+<rect x="302.300" y="647.300" width="5.400" height="2.700" class="metal"/>
+<rect x="192.500" y="544.250" width="135.000" height="6.750" class="dark"/>
+<rect x="192.500" y="524.000" width="135.000" height="6.750" class="dark"/>
+<rect x="192.500" y="530.750" width="13.500" height="13.500" class="dark"/>
+<rect x="314.000" y="530.750" width="13.500" height="13.500" class="dark"/>
+<rect x="192.500" y="388.055" width="135.000" height="18.000" class="dark"/>
+<rect x="197.000" y="181.370" width="126.000" height="12.150" class="dark"/>
+<rect x="197.450" y="596.000" width="9.000" height="36.000" class="metal"/>
+<rect x="195.200" y="633.350" width="13.500" height="11.250" class="metal"/>
+<rect x="313.550" y="596.000" width="9.000" height="36.000" class="metal"/>
+<rect x="311.300" y="633.350" width="13.500" height="11.250" class="metal"/>
+<rect x="171.418" y="619.625" width="177.165" height="3.600" class="metal"/>
+<rect x="218.150" y="357.500" width="2.700" height="225.000" class="strap"/>
+<rect x="299.150" y="357.500" width="2.700" height="225.000" class="strap"/>
+<rect x="197.000" y="391.250" width="9.900" height="247.500" class="metal"/>
+<rect x="313.100" y="391.250" width="9.900" height="247.500" class="metal"/>
+<rect x="198.350" y="193.520" width="7.200" height="253.980" class="metal"/>
+<rect x="314.450" y="193.520" width="7.200" height="253.980" class="metal"/>
+<rect x="171.417" y="592.850" width="14.287" height="57.150" class="tire"/>
+<rect x="334.295" y="592.850" width="14.287" height="57.150" class="tire"/>
+<path d="M145 650.0 H375 M135 181.370 H100 V650 H135 M171.418 670 V690 M348.582 670 V690 M171.418 680 H348.582" class="dim"/>
+<text transform="translate(80 520) rotate(-90)">1041.4 mm operating height</text>
+<text x="164" y="715" class="">393.7 mm overall width</text>
+<circle cx="260.000" cy="187.445" r="6.000" class="grip"/>
+<circle cx="260.000" cy="397.055" r="6.000" class="grip"/>
+<text x="380" y="480" class="small">Orange: acquired grasps</text>
+<rect x="720.000" y="644.600" width="142.875" height="2.700" class="metal"/>
+<rect x="720.000" y="644.600" width="142.875" height="2.700" class="metal"/>
+<rect x="720.000" y="644.600" width="11.250" height="2.700" class="metal"/>
+<rect x="857.475" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="748.800" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="788.737" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="828.675" y="644.600" width="5.400" height="2.700" class="metal"/>
+<rect x="723.938" y="647.300" width="135.000" height="2.700" class="metal"/>
+<rect x="723.938" y="647.300" width="135.000" height="2.700" class="metal"/>
+<rect x="711.000" y="544.250" width="18.000" height="6.750" class="dark"/>
+<rect x="711.000" y="524.000" width="18.000" height="6.750" class="dark"/>
+<rect x="711.000" y="530.750" width="18.000" height="13.500" class="dark"/>
+<rect x="711.000" y="530.750" width="18.000" height="13.500" class="dark"/>
+<rect x="711.000" y="388.055" width="18.000" height="18.000" class="dark"/>
+<rect x="713.925" y="181.370" width="12.150" height="12.150" class="dark"/>
+<rect x="696.712" y="596.000" width="18.000" height="36.000" class="metal"/>
+<rect x="713.250" y="633.350" width="9.000" height="11.250" class="metal"/>
+<rect x="696.712" y="596.000" width="18.000" height="36.000" class="metal"/>
+<rect x="713.250" y="633.350" width="9.000" height="11.250" class="metal"/>
+<circle cx="691.425" cy="621.425" r="1.800" class="metal"/>
+<rect x="702.900" y="357.500" width="2.700" height="225.000" class="strap"/>
+<rect x="702.900" y="357.500" width="2.700" height="225.000" class="strap"/>
+<rect x="713.700" y="391.250" width="12.600" height="247.500" class="metal"/>
+<rect x="713.700" y="391.250" width="12.600" height="247.500" class="metal"/>
+<rect x="715.500" y="193.520" width="9.000" height="253.980" class="metal"/>
+<rect x="715.500" y="193.520" width="9.000" height="253.980" class="metal"/>
+<circle cx="691.425" cy="621.425" r="28.575" class="tire"/>
+<circle cx="691.425" cy="621.425" r="20.250" class="hub"/>
+<path d="M691.425 621.425 v-24" stroke="#ec8c22" stroke-width="3"/>
+<circle cx="715.950" cy="187.445" r="6.000" class="grip"/>
+<circle cx="726.750" cy="397.055" r="6.000" class="grip"/>
+<path d="M620 650 H880 M691.425 673 V697 M720 673 V697 M691.425 685 H720" class="dim"/>
+<text x="612" y="720" class="small">63.5 mm axle offset — inferred</text>
+<path d="M662.850 735 V758 M862.875 735 V758 M662.850 748 H862.875" class="dim"/>
+<text x="668" y="782" class="">444.5 mm overall depth</text>
+<text x="922" y="175" class="">Manufacturer reference values</text>
+<text x="922" y="207" class="small">41 × 15.5 × 17.5 in operating size</text>
+<text x="922" y="235" class="small">15 × 12.5 in toe; Ø5 × 1.25 in wheels</text>
+<text x="922" y="263" class="small">9 lb selected current unit weight</text>
+<text x="922" y="291" class="small">Drawing / older catalog: 7.25 lb</text>
+<text x="922" y="319" class="small">24 in is folded storage height</text>
+<text x="922" y="383" class="">Empty cart and reduced platform</text>
+<text x="922" y="413" class="small">Empty equipment-staging task</text>
+<text x="922" y="440" class="small">No payload; selected actual unit mass 9 lb</text>
+<text x="922" y="467" class="small">Cart on floor; no chocks or engaged straps</text>
+<text x="922" y="494" class="small">Nominal axle X: 500 → 350 mm</text>
+<text x="922" y="521" class="small">390 × 860 mm U-shaped robot platform</text>
+<text x="922" y="565" class="small">Toe plan: original open grid</text>
+<rect x="922.000" y="580.000" width="5.400" height="142.875" class="metal"/>
+<rect x="1088.050" y="580.000" width="5.400" height="142.875" class="metal"/>
+<rect x="927.400" y="580.000" width="160.650" height="11.250" class="metal"/>
+<rect x="927.400" y="717.475" width="160.650" height="5.400" class="metal"/>
+<rect x="927.400" y="608.800" width="160.650" height="5.400" class="metal"/>
+<rect x="927.400" y="648.737" width="160.650" height="5.400" class="metal"/>
+<rect x="927.400" y="688.675" width="160.650" height="5.400" class="metal"/>
+<rect x="960.025" y="583.938" width="5.400" height="135.000" class="metal"/>
+<rect x="1050.025" y="583.938" width="5.400" height="135.000" class="metal"/>
+<text x="30" y="808" class="small">Not manufacturer CAD or measured hardware. See PHYSICAL_DESIGN.md for all references, source disagreement, mass calculations and simplifications.</text>
+</svg>

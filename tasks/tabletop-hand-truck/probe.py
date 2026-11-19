@@ -7,7 +7,9 @@ from cart_task.embodiment import make_embodiment,FEEDBACK
 from cart_task.policy import CartPolicy
 out=Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=False)
 emb=make_embodiment();pol=CartPolicy()
-scene=Scene(id='truck',instruction='Tip the compact loaded trolley onto its wheels, roll it to the near mark, stand and release it.')
+from inspect_robots.approver import ChainApprover,ClampApprover,DeltaLimitApprover
+guard=ChainApprover(ClampApprover(emb.info.action_space),DeltaLimitApprover(emb.info.action_space));guard_store={}
+scene=Scene(id='truck',instruction='Tip the empty full-size hand truck on the floor, pull it 150 mm toward the arms to the green mark, stand and release it.')
 import numpy as np
 def serial(x):
  if isinstance(x,np.ndarray):return x.tolist()
@@ -17,13 +19,13 @@ writers={};started=time.monotonic();error=None;steps=0
 try:
  obs=emb.reset(scene,seed=0);pol.reset(scene)
  from runtime_audit import capture
- (out/'runtime-audit.json').write_text(json.dumps(capture(emb,obs,['cart', 'load']),indent=2))
+ (out/'runtime-audit.json').write_text(json.dumps(capture(emb,obs,['cart']),indent=2))
  import imageio.v3 as iio
  for name,im in obs.images.items():
   h,w=im.shape[:2];writers[name]=subprocess.Popen(['ffmpeg','-loglevel','error','-y','-f','rawvideo','-pix_fmt','rgb24','-s',f'{w}x{h}','-r','20','-i','-','-an','-c:v','libx264','-threads','1','-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-movflags','+faststart',str(out/(name+'.mp4'))],stdin=subprocess.PIPE)
   iio.imwrite(out/('initial-'+name+'.png'),im)
- for steps in range(480):
-  a=pol.act(obs).actions[0];result=emb.step(a);obs=result.observation
+ for steps in range(600):
+  a=guard.review(pol.act(obs).actions[0],guard_store);result=emb.step(a);obs=result.observation
   for n,w in writers.items():w.stdin.write(obs.images[n].tobytes())
   if steps%10==0:print('PROGRESS',steps,json.dumps(FEEDBACK,default=serial),flush=True)
   if result.terminated:break

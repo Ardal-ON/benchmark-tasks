@@ -1,448 +1,1224 @@
 {
   "reference": {
-    "product": "Magliner116-UA-1030",
-    "url": "https://www.magliner.com/116-ua-1030",
-    "height_m": 1.2192,
-    "width_m": 0.4699,
-    "length_m": 0.4572,
-    "total_mass_kg": 10.886216880000001,
-    "wheel_product": "101030",
-    "wheel_url": "https://www.magliner.com/10-inch-ballon-cushion-wheel-101030",
-    "wheel_diameter_m": 0.254,
-    "wheel_width_m": 0.0508,
-    "wheel_unit_mass_kg": 1.3607771100000001
+    "product": "Wesco Mini Mover220646",
+    "url": "https://catalog.wescomfg.com/item/platform-trucks-carts-dollies/plastic-platform-lightweight-folding-trucks/220646-1",
+    "drawing_url": "https://catalog.wescomfg.com/Asset/220646.pdf",
+    "height_m": 1.0413999999999999,
+    "width_m": 0.3937,
+    "length_m": 0.4445,
+    "total_mass_kg": 4.082331330000001,
+    "older_weight_lb": 7.25,
+    "selected_current_weight_lb": 9.0
   },
-  "scale": 0.24606299212598423,
-  "derived": {
-    "height_m": 0.3,
-    "width_m": 0.115625,
-    "length_m": 0.1125,
-    "wheel_diameter_m": 0.0625,
-    "wheel_width_m": 0.0125,
-    "nose_size_m": [
-      0.1125,
-      0.046875,
-      0.002
+  "scale": 1.0,
+  "layout": {
+    "cart_support": "floor",
+    "support_height_m": -0.012500000000000067,
+    "robot_platform_size_m": [
+      0.39,
+      0.86,
+      0.06
     ],
-    "reference_scaled_base_mass_kg": 0.16218694166134637,
-    "total_mass_kg": 0.17228087885733037,
-    "wheel_mass_kg": 0.020273367707668296,
-    "frame_mass_kg": 0.13173414344199377,
+    "robot_platform_center_m": [
+      -0.125,
+      0.0,
+      0.7174999999999999
+    ],
+    "initial_axle_m": [
+      0.5,
+      0.0,
+      0.050999999999999934
+    ],
+    "goal_axle_m": [
+      0.35,
+      0.0,
+      0.050999999999999934
+    ],
+    "platform_shape": "U",
+    "platform_parts": {
+      "table": {
+        "size_m": [
+          0.22,
+          0.86,
+          0.06
+        ],
+        "center_m": [
+          -0.21,
+          0.0,
+          0.7174999999999999
+        ]
+      },
+      "table_left_pad": {
+        "size_m": [
+          0.17,
+          0.24,
+          0.06
+        ],
+        "center_m": [
+          -0.015,
+          0.31,
+          0.7174999999999999
+        ]
+      },
+      "table_right_pad": {
+        "size_m": [
+          0.17,
+          0.24,
+          0.06
+        ],
+        "center_m": [
+          -0.015,
+          -0.31,
+          0.7174999999999999
+        ]
+      }
+    },
+    "grasp_points_local_m": {
+      "left": [
+        0.0,
+        0.009,
+        1.0278999999999998
+      ],
+      "right": [
+        -0.0,
+        -0.015,
+        0.5621
+      ]
+    },
+    "grip_actions": {
+      "left": 0.2,
+      "right": 0.35
+    },
+    "tcp_advance_m": {
+      "left": 0.008,
+      "right": 0.012
+    },
+    "grasp_rotations_world": {
+      "left": [
+        [
+          0.3509597058784724,
+          -0.5051111288380352,
+          0.7884732286981352
+        ],
+        [
+          1.2661894947701036e-17,
+          -0.8420345746576103,
+          -0.5394235581444115
+        ],
+        [
+          0.9363905621319002,
+          0.1893159333102817,
+          -0.29552020666133955
+        ]
+      ],
+      "right": [
+        [
+          0.8365479338740099,
+          0.19230379506544984,
+          0.5130368453966544
+        ],
+        [
+          -5.204299474708178e-18,
+          -0.9363801856516905,
+          0.3509873899713574
+        ],
+        [
+          0.5478937436502859,
+          -0.2936177758963704,
+          -0.7833269096274834
+        ]
+      ]
+    },
+    "reset_settle_s": 2.0,
+    "robot_target_preload_z_m": -0.02,
+    "roll_direction": -1.0,
+    "user_authorized_reduced_table": true
+  },
+  "derived": {
+    "height_m": 1.0413999999999999,
+    "width_m": 0.3937,
+    "length_m": 0.4445,
+    "total_mass_kg": 4.082331330000001,
+    "wheel_diameter_m": 0.127,
+    "wheel_width_m": 0.03175,
+    "wheel_mass_kg": 0.41060511917161946,
+    "wheel_inertia_kg_m2": [
+      0.0008612833748175211,
+      0.00046513465598750566,
+      0.00046513465598750566
+    ],
+    "frame_mass_kg": 3.2611210916567615,
     "frame_com_m": [
       0.0,
-      0.0017227256609879881,
-      0.09513407458356109
+      -0.022066873469077587,
+      0.32994696548310576
     ],
     "frame_inertia_kg_m2": [
       [
-        0.0014709568254996828,
-        0.0,
+        0.35077458907139936,
+        1.0842021724855044e-19,
         0.0
       ],
       [
-        0.0,
-        0.0015652453294038584,
-        -5.6914716701561814e-06
+        1.0842021724855044e-19,
+        0.37281773480280744,
+        -0.02507221669158698
       ],
       [
         0.0,
-        -5.6914716701561814e-06,
-        0.00018582093857169856
+        -0.02507221669158698,
+        0.06356441222614946
       ]
     ],
     "frame_principal_inertia_kg_m2": [
-      0.0001857974560970078,
-      0.0014709568254996828,
-      0.001565268811878549
+      0.06154491036004459,
+      0.35077458907139936,
+      0.37483723666891233
     ],
-    "bracket_thickness_m": 0.008535979161897496
+    "effective_profile_wall_m": 0.0018812703569896115,
+    "axle_to_frame_offset_m": 0.0635
+  },
+  "part_groups": {
+    "toe": 0.6622722000000001,
+    "braces": 0.8664000000000001,
+    "grip": 0.224532,
+    "hardware": 0.5819477354814188,
+    "straps": 0.0396,
+    "frame_profiles": 0.886369156175342
   },
   "parts": [
     {
-      "name": "left_rail",
-      "mass_kg": 0.01686281272740857,
+      "name": "toe_side_m1",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.061722000000000006,
       "centre_m": [
-        -0.037,
-        0.0,
-        0.154
+        -0.1845,
+        -0.15875,
+        0.009
       ],
       "inertia": [
         [
-          0.0001134459778580351,
+          0.0005186821128750001,
           0.0,
           0.0
         ],
         [
           0.0,
-          0.0001134459778580351,
+          9.258300000000002e-07,
           0.0
         ],
         [
           0.0,
           0.0,
-          2.107851590926071e-07
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.284,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "Z",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "right_rail",
-      "mass_kg": 0.01686281272740857,
-      "centre_m": [
-        0.037,
-        0.0,
-        0.154
-      ],
-      "inertia": [
-        [
-          0.0001134459778580351,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          0.0001134459778580351,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          2.107851590926071e-07
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.284,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "Z",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "cross0",
-      "mass_kg": 0.004393831485310684,
-      "centre_m": [
-        0.0,
-        0.0,
-        0.05
-      ],
-      "inertia": [
-        [
-          5.4922893566383546e-08,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          2.032513214579967e-06,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          2.032513214579967e-06
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.074,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "X",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "cross1",
-      "mass_kg": 0.004393831485310684,
-      "centre_m": [
-        0.0,
-        0.0,
-        0.13
-      ],
-      "inertia": [
-        [
-          5.4922893566383546e-08,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          2.032513214579967e-06,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          2.032513214579967e-06
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.074,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "X",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "cross2",
-      "mass_kg": 0.004393831485310684,
-      "centre_m": [
-        0.0,
-        0.0,
-        0.21
-      ],
-      "inertia": [
-        [
-          5.4922893566383546e-08,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          2.032513214579967e-06,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          2.032513214579967e-06
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.074,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "X",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "cross3",
-      "mass_kg": 0.004393831485310684,
-      "centre_m": [
-        0.0,
-        0.0,
-        0.296
-      ],
-      "inertia": [
-        [
-          5.4922893566383546e-08,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          2.032513214579967e-06,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          2.032513214579967e-06
-        ]
-      ],
-      "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.074,
-        "outer_radius_m": 0.004,
-        "inner_radius_m": 0.003,
-        "axis": "X",
-        "density_kg_m3": 2700
-      }
-    },
-    {
-      "name": "nose",
-      "mass_kg": 0.0284765625,
-      "centre_m": [
-        0.0,
-        -0.0234375,
-        0.001
-      ],
-      "inertia": [
-        [
-          5.2237065124511725e-06,
-          0.0,
-          0.0
-        ],
-        [
-          0.0,
-          3.0043366699218754e-05,
-          0.0
-        ],
-        [
-          0.0,
-          0.0,
-          3.5248088836669925e-05
+          0.0005192376108750001
         ]
       ],
       "geometry": {
         "type": "box",
         "size_m": [
-          0.1125,
-          0.046875,
-          0.002
+          0.012,
+          0.3175,
+          0.006
         ],
-        "density_kg_m3": 2700
-      }
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_side_1",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.061722000000000006,
+      "centre_m": [
+        0.1845,
+        -0.15875,
+        0.009
+      ],
+      "inertia": [
+        [
+          0.0005186821128750001,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          9.258300000000002e-07,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0005192376108750001
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.012,
+          0.3175,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_web0",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.14458500000000002,
+      "centre_m": [
+        0,
+        -0.0125,
+        0.009
+      ],
+      "inertia": [
+        [
+          7.964223750000002e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0015360348937500001,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0015431316074999998
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.357,
+          0.025,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_web1",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.0694008,
+      "centre_m": [
+        0,
+        -0.3115,
+        0.009
+      ],
+      "inertia": [
+        [
+          1.0410120000000002e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.000737296749,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0007379213561999999
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.357,
+          0.012,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_web2",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.0694008,
+      "centre_m": [
+        0,
+        -0.07,
+        0.009
+      ],
+      "inertia": [
+        [
+          1.0410120000000002e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.000737296749,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0007379213561999999
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.357,
+          0.012,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_web3",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.0694008,
+      "centre_m": [
+        0,
+        -0.15875,
+        0.009
+      ],
+      "inertia": [
+        [
+          1.0410120000000002e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.000737296749,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0007379213561999999
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.357,
+          0.012,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_web4",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.0694008,
+      "centre_m": [
+        0,
+        -0.2475,
+        0.009
+      ],
+      "inertia": [
+        [
+          1.0410120000000002e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.000737296749,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0007379213561999999
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.357,
+          0.012,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_ribm1",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.05832,
+      "centre_m": [
+        -0.1,
+        -0.15875,
+        0.003
+      ],
+      "inertia": [
+        [
+          0.00043757495999999994,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          8.748e-07,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00043809984
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.012,
+          0.3,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_rib1",
+      "group": "toe",
+      "material": "aluminum",
+      "mass_kg": 0.05832,
+      "centre_m": [
+        0.1,
+        -0.15875,
+        0.003
+      ],
+      "inertia": [
+        [
+          0.00043757495999999994,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          8.748e-07,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.00043809984
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.012,
+          0.3,
+          0.006
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "lower_bar0",
+      "group": "braces",
+      "material": "polypropylene",
+      "mass_kg": 0.17099999999999999,
+      "centre_m": [
+        0,
+        0,
+        0.2275
+      ],
+      "inertia": [
+        [
+          2.600625e-05,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0012857062499999998,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0013053
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.3,
+          0.04,
+          0.015
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "lower_bar1",
+      "group": "braces",
+      "material": "polypropylene",
+      "mass_kg": 0.17099999999999999,
+      "centre_m": [
+        0,
+        0,
+        0.2725
+      ],
+      "inertia": [
+        [
+          2.600625e-05,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0012857062499999998,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0013053
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.3,
+          0.04,
+          0.015
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "lower_endm1",
+      "group": "braces",
+      "material": "polypropylene",
+      "mass_kg": 0.034199999999999994,
+      "centre_m": [
+        -0.135,
+        0,
+        0.25
+      ],
+      "inertia": [
+        [
+          7.1249999999999995e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          5.129999999999999e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          7.1249999999999995e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.03,
+          0.04,
+          0.03
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "lower_end1",
+      "group": "braces",
+      "material": "polypropylene",
+      "mass_kg": 0.034199999999999994,
+      "centre_m": [
+        0.135,
+        0,
+        0.25
+      ],
+      "inertia": [
+        [
+          7.1249999999999995e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          5.129999999999999e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          7.1249999999999995e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.03,
+          0.04,
+          0.03
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "upper_bar",
+      "group": "braces",
+      "material": "polypropylene",
+      "mass_kg": 0.456,
+      "centre_m": [
+        0,
+        0,
+        0.5621
+      ],
+      "inertia": [
+        [
+          0.0001216,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0034808,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0034808
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.3,
+          0.04,
+          0.04
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "top_grip",
+      "group": "grip",
+      "material": "rubber",
+      "mass_kg": 0.224532,
+      "centre_m": [
+        0,
+        0,
+        1.0278999999999998
+      ],
+      "inertia": [
+        [
+          2.7280638e-05,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0014805827190000002,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0014805827190000002
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.28,
+          0.027,
+          0.027
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "wheel_mountm1",
+      "group": "hardware",
+      "material": "aluminum",
+      "mass_kg": 0.17280000000000004,
+      "centre_m": [
+        -0.129,
+        0.03175,
+        0.08
+      ],
+      "inertia": [
+        [
+          0.00011520000000000002,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          9.792000000000002e-05,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.8800000000000005e-05
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.02,
+          0.04,
+          0.08
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_hingem1",
+      "group": "hardware",
+      "material": "aluminum",
+      "mass_kg": 0.040499999999999994,
+      "centre_m": [
+        -0.129,
+        0.005,
+        0.0245
+      ],
+      "inertia": [
+        [
+          3.459375e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          5.146875e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          4.387499999999999e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.03,
+          0.02,
+          0.025
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "wheel_mount1",
+      "group": "hardware",
+      "material": "aluminum",
+      "mass_kg": 0.17280000000000004,
+      "centre_m": [
+        0.129,
+        0.03175,
+        0.08
+      ],
+      "inertia": [
+        [
+          0.00011520000000000002,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          9.792000000000002e-05,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2.8800000000000005e-05
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.02,
+          0.04,
+          0.08
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
+    },
+    {
+      "name": "toe_hinge1",
+      "group": "hardware",
+      "material": "aluminum",
+      "mass_kg": 0.040499999999999994,
+      "centre_m": [
+        0.129,
+        0.005,
+        0.0245
+      ],
+      "inertia": [
+        [
+          3.459375e-06,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          5.146875e-06,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          4.387499999999999e-06
+        ]
+      ],
+      "geometry": {
+        "type": "box",
+        "size_m": [
+          0.03,
+          0.02,
+          0.025
+        ],
+        "inner_size_m": null
+      },
+      "collision": true
     },
     {
       "name": "axle",
-      "mass_kg": 0.010172869711405448,
+      "group": "hardware",
+      "material": "steel",
+      "mass_kg": 0.15534773548141867,
       "centre_m": [
-        0.0,
-        0.034375,
-        0.03125
+        0,
+        0.0635,
+        0.0635
       ],
       "inertia": [
         [
-          2.0345739422810894e-08,
+          1.2427818838513492e-06,
           0.0,
           0.0
         ],
         [
           0.0,
-          9.02567996258293e-06,
+          0.0020071922944270835,
           0.0
         ],
         [
           0.0,
           0.0,
-          9.02567996258293e-06
+          0.0020071922944270835
         ]
       ],
       "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.103125,
-        "outer_radius_m": 0.002,
-        "inner_radius_m": 0.0,
-        "axis": "X",
-        "density_kg_m3": 7850
-      }
+        "type": "cylinder",
+        "radius_m": 0.004,
+        "length_m": 0.3937
+      },
+      "collision": true
     },
     {
-      "name": "left_axle_bracket",
-      "mass_kg": 0.01584491131927223,
+      "name": "stored_strapm1",
+      "group": "straps",
+      "material": "rubber",
+      "mass_kg": 0.0198,
       "centre_m": [
-        -0.037,
-        0.0171875,
-        0.03125
+        -0.09,
+        0.035,
+        0.4
       ],
       "inertia": [
         [
-          2.088412953506942e-06,
+          0.00041255940000000003,
           0.0,
           0.0
         ],
         [
           0.0,
-          6.243726128723985e-07,
+          0.00041255940000000003,
           0.0
         ],
         [
           0.0,
           0.0,
-          1.6564581450945255e-06
+          1.1880000000000002e-07
         ]
       ],
       "geometry": {
         "type": "box",
         "size_m": [
-          0.008535979161897496,
-          0.034375,
-          0.02
+          0.006,
+          0.006,
+          0.5
         ],
-        "density_kg_m3": 2700
-      }
+        "inner_size_m": null
+      },
+      "collision": false
     },
     {
-      "name": "right_axle_bracket",
-      "mass_kg": 0.01584491131927223,
+      "name": "stored_strap1",
+      "group": "straps",
+      "material": "rubber",
+      "mass_kg": 0.0198,
       "centre_m": [
-        0.037,
-        0.0171875,
-        0.03125
+        0.09,
+        0.035,
+        0.4
       ],
       "inertia": [
         [
-          2.088412953506942e-06,
+          0.00041255940000000003,
           0.0,
           0.0
         ],
         [
           0.0,
-          6.243726128723985e-07,
+          0.00041255940000000003,
           0.0
         ],
         [
           0.0,
           0.0,
-          1.6564581450945255e-06
+          1.1880000000000002e-07
         ]
       ],
       "geometry": {
         "type": "box",
         "size_m": [
-          0.008535979161897496,
-          0.034375,
-          0.02
+          0.006,
+          0.006,
+          0.5
         ],
-        "density_kg_m3": 2700
-      }
+        "inner_size_m": null
+      },
+      "collision": false
     },
     {
-      "name": "grip_sleeve",
-      "mass_kg": 0.010093937195984004,
+      "name": "lower_railm1",
+      "group": "frame_profiles",
+      "material": "aluminum",
+      "mass_kg": 0.25834592976579573,
       "centre_m": [
-        0.0,
-        0.0,
-        0.296
+        -0.129,
+        0,
+        0.3
       ],
       "inertia": [
         [
-          9.336891906285204e-07,
+          0.006540100186578825,
           0.0,
           0.0
         ],
         [
           0.0,
-          3.4950257541094613e-06,
+          0.0065311717536701945,
           0.0
         ],
         [
           0.0,
           0.0,
-          3.4950257541094613e-06
+          4.633131455681313e-05
         ]
       ],
       "geometry": {
-        "type": "hollow_tube_collision_envelope",
-        "length_m": 0.06,
-        "outer_radius_m": 0.013,
-        "inner_radius_m": 0.004,
-        "axis": "X",
-        "density_kg_m3": 350
-      }
+        "type": "hollow_box_outer_collision_envelope",
+        "size_m": [
+          0.022,
+          0.028,
+          0.55
+        ],
+        "inner_size_m": [
+          0.018237459286020774,
+          0.02423745928602078,
+          0.55
+        ]
+      },
+      "collision": true
+    },
+    {
+      "name": "lower_rail1",
+      "group": "frame_profiles",
+      "material": "aluminum",
+      "mass_kg": 0.25834592976579573,
+      "centre_m": [
+        0.129,
+        0,
+        0.3
+      ],
+      "inertia": [
+        [
+          0.006540100186578825,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0065311717536701945,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          4.633131455681313e-05
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_box_outer_collision_envelope",
+        "size_m": [
+          0.022,
+          0.028,
+          0.55
+        ],
+        "inner_size_m": [
+          0.018237459286020774,
+          0.02423745928602078,
+          0.55
+        ]
+      },
+      "collision": true
+    },
+    {
+      "name": "extended_handlem1",
+      "group": "frame_profiles",
+      "material": "aluminum",
+      "mass_kg": 0.18483864832187524,
+      "centre_m": [
+        -0.129,
+        0,
+        0.7322
+      ],
+      "inertia": [
+        [
+          0.0049162570459351605,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0049132794431992945,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.6225914317489255e-05
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_box_outer_collision_envelope",
+        "size_m": [
+          0.016,
+          0.02,
+          0.5644
+        ],
+        "inner_size_m": [
+          0.012237459286020777,
+          0.01623745928602078,
+          0.5644
+        ]
+      },
+      "collision": true
+    },
+    {
+      "name": "extended_handle1",
+      "group": "frame_profiles",
+      "material": "aluminum",
+      "mass_kg": 0.18483864832187524,
+      "centre_m": [
+        0.129,
+        0,
+        0.7322
+      ],
+      "inertia": [
+        [
+          0.0049162570459351605,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0049132794431992945,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.6225914317489255e-05
+        ]
+      ],
+      "geometry": {
+        "type": "hollow_box_outer_collision_envelope",
+        "size_m": [
+          0.016,
+          0.02,
+          0.5644
+        ],
+        "inner_size_m": [
+          0.012237459286020777,
+          0.01623745928602078,
+          0.5644
+        ]
+      },
+      "collision": true
     }
   ],
+  "payload": null,
+  "contact_model": {
+    "wheel_collision_sides": 120,
+    "wheel_hull_vertex_limit": 255,
+    "metal_static_dynamic": [
+      0.5,
+      0.4
+    ],
+    "tire_static_dynamic": [
+      0.9,
+      0.7
+    ],
+    "assumed_rubber_handle_static_dynamic": [
+      0.9,
+      0.7
+    ],
+    "polymer_and_paper_static_dynamic": [
+      0.4,
+      0.3
+    ],
+    "restitution": 0.0
+  },
   "assumptions": [
-    "This is a built miniature replica, not a manufacturer-sold300mm industrial truck.",
-    "Manufacturer whole/wheel masses scaled with s^3 at unchanged density. Force/inertia equivalence to fullsize is not claimed.",
-    "Unpublished tube/bracket/nose thicknesses are deliberate build dimensions. Bracket thickness closes the derived frame mass budget using aluminum2700kg/m3.",
-    "Axle uses steel7850kg/m3. Tube collisions are outer envelopes but masses use hollow tube volumes.",
-    "Wheel uses actual scaled unit mass; cylinder inertia approximates cushion rubber, polyolefin hub and bearings. Collision uses64-sided convex hull. Passive zero-target viscous bearing drive damping2e-7 USD angular units, stiffness0, max torque.001Nm; no commanded wheel motion.",
-    "An added60mm-long26mm-OD grip sleeve (8mm bore, assumed foam density350kg/m3) adds mass beyond the scaled reference and increases overall height9mm.",
-    "Physical apparatus and friction/bearing parameters have not been measured."
+    "Actual listed41in operating height,15.5in width,17.5in depth,15x12.5in nose and5x1.25in wheels at scale1:1;24in is folded height, not used for this task.",
+    "Current unit weight9lb is selected; manufacturer-linked drawing and older catalog say7.25lb. Neither value is a measured test-unit mass.",
+    "Axle offset63.5mm is inferred from overall depth minus toe depth minus tire radius, assuming the wheels define the rear extremity; no measured axle offset is supplied.",
+    "Profiles, open-grid toe, brace/hinge locations, handle and mounts are original approximate proxies from product references, not manufacturer CAD.",
+    "Fold-out wheel/nose linkage and telescoping handle are fixed in the fully deployed, latched configuration. Folding and latch behavior are not simulated.",
+    "Only total unit mass and dimensions are sourced. Component masses and inertia are estimated from geometry, densities2700aluminum/7850steel/950polymer/1100rubber kg/m3. Effective profile wall closes the9lb budget; mass distribution is unmeasured.",
+    "Wheel hub radius45mm,axle bore8mm and material distribution are assumptions. Tire deformation and bearing resistance are unmeasured.",
+    "Elastic straps are stored as visual noncolliding rigid proxies; no strap restrains the load or contributes an elastic force.",
+    "The cart is empty. Estimated friction and all hardware behavior are physically unqualified. Cart transport takes place on the supplied floor in front of a user-authorized reduced robot platform; robot bases and cameras remain calibrated."
   ]
 }

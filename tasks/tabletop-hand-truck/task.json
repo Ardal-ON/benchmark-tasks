@@ -1,18 +1,19 @@
 {
-  "title": "Tip, roll and park a tabletop hand truck",
-  "category": "Other",
+  "title": "Tip, pull and park a full-size compact hand truck",
+  "category": "Impact on jobs",
   "keywords": [
+    "hand truck",
+    "floor transport",
     "passive wheels",
-    "tipping",
-    "tabletop replica"
+    "bimanual cart grasp"
   ],
-  "instruction": "Tip the compact loaded trolley onto its wheels, roll it to the near mark, stand and release it.",
-  "context": "A deliberately miniature manipulation apparatus for changing between standing and wheel-supported transport. It does not claim to reproduce full-size freight handling.",
-  "setup": "Unchanged YAM station table (1.10x1.30 m, top 0.7475 m), bases and calibrated cameras. Aluminum/steel replica: 300 mm reference body, 309 mm including foam sleeve, 115.625 mm wide, 112.5 mm long, 172.281 g; two passive cushion-wheel approximations, diameter 62.5x12.5 mm, 20.273 g each. Left jaws physically hold the 26 mm sleeve; right arm ready. Axle midpoint (0.460,0.100,0.77875) m; yaw +90 degrees, nose toward +X. Loose wood block 60x35x100 mm, 105 g, local centre (0,-0.0225,0.052) m. Green 40x200x1 mm visual mark centred (0.310,0.100,0.748). Product-derived mass, build dimensions and reset joint poses are in the physical design and source.",
-  "scoring": "Final score. 0.25: tilt >8 degrees with nose >8 mm above table. 0.5: additionally each wheel has >125 mm net and table-supported travel, signed turn >3.5 rad and |radius*turn-travel|<25 mm; axle X in (0.285,0.335), Y within 40 mm of 0.100 m. 1.0: additionally upright <2 degrees, released >0.5 s, both TCPs >120 mm from handle, frame/load speed <10 mm/s, held for 1 s. Load displacement >25 mm/axis or relative rotation >15 degrees, robot/load contact, excessive wheel height or both wheels unsupported >0.25 s terminates at zero. Full numeric rules and wheel-index video measurement are in README.",
-  "run_limit": "480 control steps (24 simulated seconds at 20 Hz); fixed seed 0.",
-  "reset_notes": "Replace the cart/load in the specified poses and restore initial joints and physical jaw hold. No glue, attachment or driven wheel. Nothing consumed.",
-  "fidelity": "Rigid native contacts at 480 Hz; stock station and cameras. Magliner-based 300 mm scale replica, not a sold product or full-size handling trial. Mass scales with volume; foam sleeve adds mass. Explicit compound inertias; hollow-tube collision envelopes and rigid 64-sided tires. Passive dissipative bearings. Friction and compliance are unmeasured; no tire/foam deformation or hardware qualification. Original parametric geometry.",
-  "scores": "Scripted demo: 1.0 (248 steps); Dream-1 beta: 0.0 (157 steps, invalid). Same final environment revision, seed 0, 480-step limit.",
+  "instruction": "Using the acquired handle and frame-brace grasps, tip the empty cart and pull it toward the arms to the floor mark centered 150 mm behind the nominal reset axle, then stand and release it.",
+  "context": "A short equipment-staging segment: reposition a real, empty compact hand truck on its passive wheels, then park and release it. It isolates handling of material-moving equipment; physical construction, rated capacity and workplace productivity are not evaluated.",
+  "setup": "Original calibrated YAM bases at(0,+/-0.305,0.750)m and original cameras, stand and floor. User-authorized U-shaped robot platform:390x860x60mm,center(-0.125,0,0.7175)m,top0.7475m. Rear bridge220x860mm and two170x240mm mount pads leave a380mm center opening; mounting soles and stand foot are supported. Actual-size Wesco220646:1041.4mm operating height,393.7mm width,444.5mm depth;9lb/4.08233133kg current listing versus7.25lb drawing/catalog. Toe381x317.5mm,wheels127x31.75mm. Empty cart on floorZ=-0.0125m;nominal pre-grasp axle(0.500,0,0.051)m,nose+X,markcenter(0.350,0,0.051)m. Left grasp local(0,+0.009,1.0279)m on handle,right(0,-0.015,0.5621)m on estimated upper brace. TCP advances8/12mm along approach; jaw closing axes are perpendicular to crossbars. Two-second native grasp settling; positions can settle away from nominal. Folding/telescope locked deployed,straps/chocks not engaged. Internal dimensions and component masses are estimates.",
+  "scoring": "Final score:0.25 for tilt>8degrees and front toe>8mm above floor;0.5 additionally requires each wheel net backward travel>125mm and paired supported backward travel>125mm. Both contacts must have separation<=0.5mm and normal-impulse magnitude>1e-7Ns within4 physics ticks; count signed rotation and translation over those same paired intervals. Supported turns>.8rad and |radius*supportedturn-supportedtravel|<25mm for each wheel;axleX in(.315,.385)m,|Y|<40mm.1.0 additionally requires upright<2degrees,frame speed<10mm/s and angularspeed<2degrees/s,no robot/cart contact>.5s,bothTCPs>120mm from either grasp point,and stable finish1s. Wheel height>20mm above or8mm below nominal,both unsupported>.25s unless upright<2degrees with a qualifying recent nose/toe-rib floor contact,or cart/table/camera/stand contact ends atzero. Net arc check does not exclude all cancelling transient slip.",
+  "run_limit": "600 control steps (30 simulated seconds at20Hz); fixed seed0.",
+  "reset_notes": "Restore the empty floor cart and specified handle/brace grasps. Close to the specified gaps and settle for2s with ordinary joint targets and URDF gravity compensation; motors are unchanged. Wheel joints remain passive. Nothing is consumed; no cart/wheel pose is scripted after reset.",
+  "fidelity": "1:1 Wesco 220646 envelope, toe and wheels; current 9 lb conflicts with 7.25 lb drawing/catalog. Axle offset is inferred; internal geometry, masses, inertia and friction are estimated. Folding/telescope fixed deployed; empty cart. User-authorized 390x860 mm U platform. Original robot geometry, motors, bases and calibrated cameras; passive wheels, 480 Hz contacts. Gravity offsets use ordinary robot joint targets. Hardware untested.",
+  "scores": "Scripted demo:1.0 (424 actions,21.20 simulated seconds);Dream-1 beta:0.0 (517 actions,25.85 simulated seconds). Same environment revision,seed0,600-step limit and default action approvals.",
   "media": ""
 }

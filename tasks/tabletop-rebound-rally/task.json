@@ -14,5 +14,5 @@
   "reset_notes": "Restore paddle/joint poses and a fresh ball to the specified feed. The prescribed feeder is an initial condition, not a scored robot skill. Nothing consumed.",
   "fidelity": "Rigid native contacts at 480 Hz on the stock station. Product-referenced 15 mm MDF board construction; custom 600x300 mm panel with 2 mm rubber uses one fixed 17 mm envelope. Original paddle geometry, published 170 g mass anchor and compound inertia. Ball is a 40 mm, 2.7 g thin shell. Estimated restitution/friction; no rubber or shell deformation, air drag, spin lift or hardware qualification. Only the feeder writes ball velocity; subsequent motion is native physics.",
   "scores": "Scripted demo: 1.0 (76 steps); Dream-1 beta: 0.0 (52 steps). Same final environment revision, seed 0, 480-step limit.",
-  "media": ""
+  "media": "M-4S4XDB"
 }

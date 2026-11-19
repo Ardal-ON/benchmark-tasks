@@ -34,7 +34,7 @@ The scripted oracle uses the supplied URDF masses and centers of mass for gravit
 
 ```bash
 python run_local.py run --embodiment yam_tabletop_cart --policy cart_scripted \
-  --instruction 'Tip the empty cart, pull it 150 mm toward the arms, stand it upright and release both grasps.' \
+  --instruction 'Using the acquired handle and frame grasps, tip the empty cart, pull it toward the floor mark, stand and release it.' \
   --scorer task_score --max-steps 600 --seed 0 --store-frames \
   --log-dir /path/to/results --no-prompt --grader none --no-rerun
 ```

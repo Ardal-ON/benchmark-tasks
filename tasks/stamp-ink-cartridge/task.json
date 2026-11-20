@@ -13,5 +13,6 @@
   "run_limit": "1,600 steps (80 seconds at 20 Hz)",
   "reset_notes": "Raise the cap, seat the used pad, return the fresh pad to the incoming support, and clear the catch tray.",
   "fidelity": "The replacement slides passively along the cartridge path. The spring-return cap and moving gates have physical contacts, and the used pad is a free rigid body. The fixture holds the stamp. The trial covers dry pad exchange.",
-  "scores": "Dream-1 beta 0.00 in 1,600 actions. Scripted demo 1.00 in 301 actions."
+  "scores": "Dream-1 beta 0.00 in 1,600 actions. Scripted demo 1.00 in 301 actions.",
+  "media": "M-6EKMSA"
 }

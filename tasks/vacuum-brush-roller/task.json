@@ -1,0 +1,17 @@
+{
+  "title": "Refit a vacuum brush roller and lock its slotted end cap",
+  "category": "Societal relatability",
+  "keywords": [
+    "vacuum maintenance",
+    "brush roller",
+    "coin slot"
+  ],
+  "instruction": "Slide the vacuum brush roller fully into the detached head, use the coin to turn the end cap to LOCK, then withdraw the coin.",
+  "context": "The brush roll is returned to its cleaner head after clearing hair. The end cap must retain the brush roller before the cleaner is put back into use.",
+  "setup": "A detached ABS cleaner head rests horizontally on a 176 x 110 x 120 mm rigid support with its 56 mm cap toward the robot. Its 46 x 188 mm brush tube is already in the guides but projects 100 mm from its seat. The cap slot is vertical at UNLOCK. A 24.26 mm diameter, 1.75 mm thick quarter stands on edge between two rails on a 40 x 28 mm holder.",
+  "scoring": "Score 0.25 for at least 50 mm of advance and 0.5 for seating within 3 mm of the closed stop. Score 1.0 if the seated cap also reaches the 90-degree lock index within 5 degrees using the coin, then the coin clears the nominal seated cap face by at least 17 mm. Hold for 1 second. Score zero otherwise.",
+  "run_limit": "1,600 steps (80 seconds at 20 Hz)",
+  "reset_notes": "Unlock the cap, extend the roller 100 mm from its seated position, and stand the coin in its holder.",
+  "fidelity": "Rigid shapes reproduce the guided roller, split coin slot and two contacting cap lugs. Bristle tufts are visual. A slide represents the guidance of the already-started roller. The head is detached and unpowered, so the trial does not model suction or the motor drive.",
+  "scores": "Dream-1 beta 0.00 in 1,600 actions. Scripted demo 1.00 in 430 actions."
+}

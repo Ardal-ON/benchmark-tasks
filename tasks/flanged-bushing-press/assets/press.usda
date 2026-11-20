@@ -1,0 +1,146 @@
+#usda 1.0
+(
+    defaultPrim = "Press"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Press"
+{
+    def Xform "Imported" (
+        prepend references = @./source_press.usdc@
+    )
+    {
+        over "Links"
+        {
+            over "frame" (
+                delete apiSchemas = ["PhysicsArticulationRootAPI"]
+            )
+            {
+            }
+
+            over "lever"
+            {
+                def Cylinder "Extension" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Y"
+                    double height = 0.112
+                    rel material:binding = </Press/ExtensionSteel>
+                    float physxCollision:contactOffset = 0.0004
+                    float physxCollision:restOffset = 0
+                    double radius = 0.006
+                    double3 xformOp:translate = (0.063, -0.102, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
+                }
+
+                def Cylinder "Grip" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Y"
+                    double height = 0.036
+                    rel material:binding = </Press/ExtensionGrip>
+                    float physxCollision:contactOffset = 0.0004
+                    float physxCollision:restOffset = 0
+                    double radius = 0.013
+                    double3 xformOp:translate = (0.063, -0.16, 0)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
+                }
+            }
+
+            over "ram"
+            {
+                def Cylinder "FlatPlaten" (
+                    prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+                )
+                {
+                    uniform token axis = "Z"
+                    double height = 0.006
+                    rel material:binding = </Press/ExtensionSteel>
+                    float physxCollision:contactOffset = 0.0004
+                    float physxCollision:restOffset = 0
+                    double radius = 0.0173
+                    double3 xformOp:translate = (0, 0, -0.003)
+                    uniform token[] xformOpOrder = ["xformOp:translate"]
+                }
+            }
+        }
+
+        over "Joints"
+        {
+            over "lever_pinion" (
+                prepend apiSchemas = ["PhysicsDriveAPI:angular"]
+            )
+            {
+                float drive:angular:physics:damping = 0.002
+                float drive:angular:physics:maxForce = 1
+                float drive:angular:physics:stiffness = 0.015
+                float drive:angular:physics:targetPosition = 0
+                float drive:angular:physics:targetVelocity = 0
+                uniform token drive:angular:physics:type = "force"
+                float physics:lowerLimit = 0
+                float physics:upperLimit = 100
+            }
+
+            over "ram_slide" (
+                prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+            )
+            {
+                float drive:linear:physics:damping = 3
+                float drive:linear:physics:maxForce = 1000
+                float drive:linear:physics:stiffness = 0
+                float drive:linear:physics:targetPosition = 0
+                float drive:linear:physics:targetVelocity = 0
+                uniform token drive:linear:physics:type = "force"
+            }
+        }
+    }
+
+    def PhysicsFixedJoint "WorldAnchor" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI", "PhysxArticulationAPI"]
+    )
+    {
+        rel physics:body1 = </Press/Imported/Links/frame>
+        int physxArticulation:solverPositionIterationCount = 24
+        int physxArticulation:solverVelocityIterationCount = 8
+    }
+
+    def Material "ExtensionSteel"
+    {
+        token outputs:surface.connect = </Press/ExtensionSteel/Surface.outputs:surface>
+
+        def Shader "Surface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.44, 0.47, 0.5)
+            float inputs:roughness = 0.48
+            token outputs:surface
+        }
+    }
+
+    def Material "ExtensionGrip"
+    {
+        token outputs:surface.connect = </Press/ExtensionGrip/Surface.outputs:surface>
+
+        def Shader "Surface"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.11, 0.12, 0.12)
+            float inputs:roughness = 0.48
+            token outputs:surface
+        }
+    }
+
+    def PhysxPhysicsRackAndPinionJoint "Transmission"
+    {
+        rel physics:body0 = </Press/Imported/Links/lever>
+        rel physics:body1 = </Press/Imported/Links/ram>
+        uniform bool physics:excludeFromArticulation = 1
+        rel physics:hinge = </Press/Imported/Joints/lever_pinion>
+        rel physics:prismatic = </Press/Imported/Joints/ram_slide>
+        float physics:ratio = 2864.789
+    }
+}
+

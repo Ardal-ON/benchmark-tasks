@@ -1,0 +1,66 @@
+{
+  "robot": "yam_arena",
+  "gpu": "NVIDIA L40S",
+  "isaac_kit": "110.3.0, 00c488ae",
+  "yam_arena_commit": "0059d02a1a91bc6834c1d0846022891df0c78730",
+  "isaac_lab_arena_commit": "c7edf3a9d5d8276565208f72422f8f8a0806d6cf",
+  "isaac_lab_commit": "91a0906f93802eb859192dcb0bca879f891e92d6",
+  "inspect_robots_commit": "095172fb8452ac1d47da49834df4d3faa562e4ee",
+  "settings": {
+    "physics_device": "cpu",
+    "physics_hz": 240,
+    "control_hz": 20,
+    "top_cam": "demo",
+    "camera_frames": [
+      640,
+      360
+    ],
+    "seed": 17,
+    "object_jitter": 0,
+    "max_actions": 1600
+  },
+  "runtime_sha256": {
+    "task.py": "960bb693e5545c2dee14f0f5d16b3b3b327418ddc837b3b9792e9fe0aef3002e",
+    "fresh-pad.usda": "ccb5612e89e3d8b3858d20f144723bd525831887e9f091ce6daba8a14ba9ae00",
+    "stamp.usda": "0a958a2b18361583d3f7514b1d630336db99640d2ab713e069228e9ba0647659"
+  },
+  "demo": {
+    "policy": "yam_scripted",
+    "score": 1.0,
+    "actions": 301,
+    "termination": "success",
+    "wall_time_s": 64.78259076108225,
+    "final_measurements": {
+      "cap": -0.000927492044866085,
+      "old": [
+        0.3620142936706543,
+        0.03999977558851242,
+        0.8974997401237488
+      ],
+      "pad_slide": 0.07478017359972
+    }
+  },
+  "dream": {
+    "model": "dreamlabs/dream-1-beta",
+    "score": 0.0,
+    "actions": 1600,
+    "termination": "max_steps",
+    "wall_time_s": 188.7679172429489,
+    "final_measurements": {
+      "cap": -0.0009274911135435104,
+      "old": [
+        0.3199999928474426,
+        0.04000001400709152,
+        0.8984998464584351
+      ],
+      "pad_slide": 1.1081794148992685e-08
+    }
+  },
+  "raised_cap_control": {
+    "policy": "yam_scripted, right arm only",
+    "score": 0.0,
+    "actions": 320,
+    "max_pad_travel_m": 0.026322677731513977,
+    "final_cap_displacement_m": -0.0009274610783904791
+  }
+}

@@ -1,0 +1,92 @@
+#usda 1.0
+(
+    defaultPrim = "Stamp"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Stamp"
+{
+    def Xform "GuideAnchor" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float physics:mass = 0.1
+    }
+
+    def Xform "Cartridge" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float physics:mass = 0.01
+
+        def Cube "Pad" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/FreshPad>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.042, 0.049, 0.008)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "ThumbTab" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/FreshPad>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.029, 0.018, 0.006)
+            double3 xformOp:translate = (-0.033, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "ThumbFlange" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/FreshPad>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.009, 0.033, 0.034)
+            double3 xformOp:translate = (-0.043, 0, 0.004)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def "Materials"
+    {
+        def Material "FreshPad"
+        {
+            token outputs:surface.connect = </Stamp/Materials/FreshPad/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.16, 0.4, 0.57)
+                float inputs:roughness = 0.62
+                token outputs:surface
+            }
+        }
+    }
+
+    def PhysicsFixedJoint "Anchor" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+    )
+    {
+        rel physics:body1 = </Stamp/GuideAnchor>
+    }
+
+    def PhysicsPrismaticJoint "pad_slide"
+    {
+        uniform token physics:axis = "X"
+        rel physics:body0 = </Stamp/GuideAnchor>
+        rel physics:body1 = </Stamp/Cartridge>
+        float physics:lowerLimit = 0
+        float physics:upperLimit = 0.075
+    }
+}
+

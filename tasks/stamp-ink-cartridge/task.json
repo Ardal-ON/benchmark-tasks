@@ -1,0 +1,17 @@
+{
+  "title": "Replace the ink pad in a spring-return self-inking stamp",
+  "category": "Societal relatability",
+  "keywords": [
+    "bimanual",
+    "self-inking stamp",
+    "cartridge exchange"
+  ],
+  "instruction": "Hold the stamp cap down, slide the fresh cartridge into place and clear the used pad into the tray, then release the cap.",
+  "context": "A worn ink pad leaves faint date marks on office forms and parcels. The cap must stay depressed during the exchange and return to capture the fresh pad.",
+  "setup": "The 92 x 56 x 91 mm ABS stamp stands on a 290 x 130 x 105 mm rigid bench fixture with the cap raised. A black 49 x 42 x 8 mm used pad is in the slot. The blue replacement has a rigid thumb flange and starts 75 mm from its seat on a guided 72 x 52 x 42 mm support. A 110 x 100 x 12 mm catch tray on a 29 mm riser sits beyond the stamp.",
+  "scoring": "Score 0.5 if the used pad is entirely in the tray and still. Score 1.0 if the fresh pad also rests within 2.5 mm of its seat and the cap returns to within 2 mm of raised. Hold the result for 1 second. Score zero otherwise.",
+  "run_limit": "1,600 steps (80 seconds at 20 Hz)",
+  "reset_notes": "Raise the cap, seat the used pad, return the fresh pad to the incoming support, and clear the catch tray.",
+  "fidelity": "The replacement slides passively along the cartridge path. The spring-return cap and moving gates have physical contacts, and the used pad is a free rigid body. The fixture holds the stamp. The trial covers dry pad exchange.",
+  "scores": "Dream-1 beta 0.00 in 1,600 actions. Scripted demo 1.00 in 301 actions."
+}

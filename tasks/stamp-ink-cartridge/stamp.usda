@@ -1,0 +1,301 @@
+#usda 1.0
+(
+    defaultPrim = "Stamp"
+    metersPerUnit = 1
+    upAxis = "Z"
+)
+
+def Xform "Stamp"
+{
+    def Xform "Frame" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float physics:mass = 0.12
+
+        def Cube "LeftFoot" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.01, 0.056, 0.008)
+            double3 xformOp:translate = (-0.035, 0, 0.004)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "LeftPillar" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.009, 0.052, 0.048)
+            double3 xformOp:translate = (-0.035, 0, 0.029)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "LeftGuide" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.012, 0.04, 0.004)
+            double3 xformOp:translate = (-0.024, 0, 0.04)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "LeftGuideCeiling" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            double size = 1
+            float3 xformOp:scale = (0.012, 0.04, 0.004)
+            double3 xformOp:translate = (-0.024, 0, 0.0565)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "LeftSideGuide" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            double size = 1
+            float3 xformOp:scale = (0.004, 0.026, 0.009)
+            double3 xformOp:translate = (-0.029, 0, 0.047)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightFoot" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.01, 0.056, 0.008)
+            double3 xformOp:translate = (0.035, 0, 0.004)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightPillar" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.009, 0.052, 0.048)
+            double3 xformOp:translate = (0.035, 0, 0.029)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightGuide" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.012, 0.04, 0.004)
+            double3 xformOp:translate = (0.024, 0, 0.04)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightGuideCeiling" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            double size = 1
+            float3 xformOp:scale = (0.012, 0.04, 0.004)
+            double3 xformOp:translate = (0.024, 0, 0.0565)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightSideGuide" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/Frame>
+            double size = 1
+            float3 xformOp:scale = (0.004, 0.026, 0.009)
+            double3 xformOp:translate = (0.029, 0, 0.047)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "FixedFrontRail" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.065, 0.004, 0.014)
+            double3 xformOp:translate = (0, -0.026, 0.014)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "FixedRearRail" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.065, 0.004, 0.014)
+            double3 xformOp:translate = (0, 0.026, 0.014)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def Xform "SpringCap" (
+        prepend apiSchemas = ["PhysicsRigidBodyAPI", "PhysicsMassAPI"]
+    )
+    {
+        float physics:mass = 0.052
+
+        def Cube "LeftCarrier" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.005, 0.041, 0.028)
+            double3 xformOp:translate = (-0.043, 0, 0.066)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "RightCarrier" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.005, 0.041, 0.028)
+            double3 xformOp:translate = (0.043, 0, 0.066)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Grip" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.092, 0.046, 0.014)
+            double3 xformOp:translate = (0, 0, 0.083)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "Label" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/WindowInsert>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.05, 0.018, 0.0006)
+            double3 xformOp:translate = (0, 0, 0.0903)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "InletLeftGate" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.008, 0.004, 0.008)
+            double3 xformOp:translate = (-0.02, -0.0257, 0.047)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+
+        def Cube "InletRightGate" (
+            prepend apiSchemas = ["MaterialBindingAPI", "PhysicsCollisionAPI", "PhysxCollisionAPI"]
+        )
+        {
+            rel material:binding = </Stamp/Materials/ABS>
+            custom float physxCollision:contactOffset = 0.0007
+            double size = 1
+            float3 xformOp:scale = (0.008, 0.004, 0.008)
+            double3 xformOp:translate = (0.02, -0.0257, 0.047)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:scale"]
+        }
+    }
+
+    def "Materials"
+    {
+        def Material "ABS"
+        {
+            token outputs:surface.connect = </Stamp/Materials/ABS/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.025, 0.11, 0.22)
+                float inputs:roughness = 0.62
+                token outputs:surface
+            }
+        }
+
+        def Material "Frame"
+        {
+            token outputs:surface.connect = </Stamp/Materials/Frame/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.09, 0.11, 0.12)
+                float inputs:roughness = 0.62
+                token outputs:surface
+            }
+        }
+
+        def Material "WindowInsert"
+        {
+            token outputs:surface.connect = </Stamp/Materials/WindowInsert/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.83, 0.86, 0.85)
+                float inputs:roughness = 0.62
+                token outputs:surface
+            }
+        }
+    }
+
+    def PhysicsFixedJoint "Anchor" (
+        prepend apiSchemas = ["PhysicsArticulationRootAPI"]
+    )
+    {
+        rel physics:body1 = </Stamp/Frame>
+    }
+
+    def PhysicsPrismaticJoint "cap_slide" (
+        prepend apiSchemas = ["PhysicsDriveAPI:linear"]
+    )
+    {
+        float drive:linear:physics:damping = 8
+        float drive:linear:physics:maxForce = 30
+        float drive:linear:physics:stiffness = 550
+        uniform token drive:linear:physics:type = "force"
+        uniform token physics:axis = "Z"
+        rel physics:body0 = </Stamp/Frame>
+        rel physics:body1 = </Stamp/SpringCap>
+        bool physics:collisionEnabled = 0
+        float physics:lowerLimit = -0.016
+        float physics:upperLimit = 0
+    }
+}
+

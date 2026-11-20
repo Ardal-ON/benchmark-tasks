@@ -1,7 +1,11 @@
 {
   "title": "Seat a flanged bushing with a manual arbor press",
   "category": "Impact on jobs",
-  "keywords": ["bench assembly", "arbor press", "interference fit"],
+  "keywords": [
+    "bench assembly",
+    "arbor press",
+    "interference fit"
+  ],
   "instruction": "Press the bushing until its flange sits flat against the housing, then raise the ram and let go of the handle.",
   "context": "A machine assembler or repair technician seats a replaceable plain bearing in a pivot housing. A visible flange checks that the bushing reached its stop.",
   "setup": "A compact cast-iron press is bolted to the bench at (420, -125) mm relative to the arms. Its steel hand lever has a 160 mm grip radius and its flat platen is 34.6 mm wide. The 52 by 52 by 39 mm steel housing on the anvil is centered at (402, -125) mm. The 35 mm flange OD polymer bushing starts square in the housing chamfer, with its flange 15 mm above the housing. The ram is raised and hands are clear.",
@@ -9,5 +13,6 @@
   "run_limit": "1,200 steps (60 seconds at 20 Hz)",
   "reset_notes": "Raise the ram. Start a fresh reference bushing square at the housing chamfer and verify the 15 mm flange gap.",
   "fidelity": "A native rack-and-pinion joint couples the contact-driven lever and ram. Rigid sleeve and steel housing colliders preserve the flange stop. A coaxial guide and 35 N force-limited yielding drive approximate the already-started interference fit. The value is provisional and does not establish real polymer deformation or insertion force.",
-  "scores": "Scripted demo 1.0 (264 actions, 39.04 s wall time). Dream-1 beta 0.0 (1,200 actions, 125.80 s wall time). Both trials used seed 17 and the same native camera and physics configuration."
+  "scores": "Scripted demo 1.0 (264 actions, 39.04 s wall time). Dream-1 beta 0.0 (1,200 actions, 125.80 s wall time). Both trials used seed 17 and the same native camera and physics configuration.",
+  "media": "M-652FUK"
 }
